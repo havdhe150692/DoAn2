@@ -14,9 +14,10 @@
     <script src="/webjars/jquery/3.5.0/jquery.min.js"></script>
 
 
-    <script th:src="@{/js/popupNew.js}" type ="module" ></script>
-    <script th:src="@{/js/getMetamask.js}" type ="module" defer></script>
-    <script th:src="@{/js/login.js}" type ="module" defer> </script>
+    <script th:src="@{/js/login/popupNew.js}" type ="module" ></script>
+    <script th:src="@{/js/login/getMetamask.js}" type ="module" defer></script>
+    <script th:src="@{/js/login/login.js}" type ="module" defer> </script>
+    <script src="https://unpkg.com/@metamask/detect-provider/dist/detect-provider.min.js"></script>
 <!--
     <script src="../../static/js/popupNew.js" type="module" defer></script>
     <script src="../../static/js/getMetamask.js" type="module" defer></script>
@@ -29,7 +30,7 @@
 <h2>Account: <span class="showAccount"></span></h2>
 
 <!-- Button trigger modal -->
-<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#getMetaMaskModal">
+<button id="playBtn" type="button" class="btn btn-primary"> <!-- data-bs-toggle="modal" data-bs-target="#getMetaMaskModal"> -->
     Play
 </button>
 

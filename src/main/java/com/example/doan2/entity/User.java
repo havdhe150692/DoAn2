@@ -15,14 +15,23 @@ public class User {
 
     private String email;
 
-    private String ethId;
+    private String publicAddress;
 
-    public String getEthId() {
-        return ethId;
+    private String nonce;
+    public String getNonce() {
+        return nonce;
     }
 
-    public void setEthId(String ethId) {
-        this.ethId = ethId;
+    public void setNonce(String nonce) {
+        this.nonce = nonce;
+    }
+
+    public String getPublicAddress() {
+        return publicAddress;
+    }
+
+    public void setPublicAddress(String publicAddress) {
+        this.publicAddress = publicAddress;
     }
 
     public Integer getId() {

@@ -2,20 +2,20 @@ import {openPopUpGetMetamask} from './popupNew.js'
 
 window.userWalletAddress = null
 
-export function sendAddressToBackend() {
+export function detectEthereum() {
+    //const provider = await detectEthereumProvider()
     if (typeof window.ethereum === 'undefined') {
         openPopUpGetMetamask();
-        //open PopUpError here
-
-       // return "openPopup";
-    }
-    else if (!activeMetaMask())
-    {
+        return "openPopup"
+    } else if (!activeMetaMask()) {
         console.log("metamask acc not found")
+        return "noAccount"
+    } else {
+        return "ok"
     }
-        //return "noAccount"
-    //return "ok"
 }
+
+
 
 async function activeMetaMask() {
     const accounts = await window.ethereum.request({ method: 'eth_requestAccounts' }).catch((e) => {
@@ -26,7 +26,7 @@ async function activeMetaMask() {
     window.userWalletAddress = accounts[0]
    // const addressField = document.querySelector("input[name='userAddress']")
     const addressField = document.querySelector(".showAccount");
-    addressField.value = window.userWalletAddress
+    addressField.innerHTML = window.userWalletAddress
     console.log(window.userWalletAddress)
     return true;
 }
