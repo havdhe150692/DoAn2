@@ -1,4 +1,6 @@
 import {openPopUpGetMetamask} from './popupNew.js'
+import {sendPublicAddressToBackEnd} from './ethAuthenLogin.js'
+
 
 window.userWalletAddress = null
 
@@ -27,6 +29,7 @@ async function activeMetaMask() {
    // const addressField = document.querySelector("input[name='userAddress']")
     const addressField = document.querySelector(".showAccount");
     addressField.innerHTML = window.userWalletAddress
+    sendPublicAddressToBackEnd(window.userWalletAddress)
     console.log(window.userWalletAddress)
     return true;
 }

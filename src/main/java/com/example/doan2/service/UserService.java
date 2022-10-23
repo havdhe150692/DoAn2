@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class UserService {
@@ -25,6 +26,23 @@ public class UserService {
     public User findUserByPublicAddress(String publicAddress)
     {
         return userRepository.findByPublicAddress(publicAddress);
+    }
+
+    public Optional<User> findUserById(Integer id)
+    {
+        return userRepository.findById(id);
+    }
+
+    public User findUserByName(String username)
+    {
+        return userRepository.findByName(username);
+    }
+
+
+    public User findUserById(int Id)
+    {
+        return
+                 userRepository.findById(Id);
     }
 
 }

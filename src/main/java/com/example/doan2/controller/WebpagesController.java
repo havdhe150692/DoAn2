@@ -16,6 +16,10 @@ public class WebpagesController {
         return "webpages/login";
     }
 
+    @GetMapping("/greeting")
+    public String greeting(){
+        return "webpages/TestCORS";
+    }
 
 
 
