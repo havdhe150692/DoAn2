@@ -5,6 +5,7 @@ import com.example.doan2.entity.User;
 import com.example.doan2.service.UserService;
 import com.example.doan2.utils.NonceGenerateUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 
@@ -18,8 +19,7 @@ public class LoginController {
 
     NonceGenerateUtils nonceGenerateUtils = new NonceGenerateUtils();
 
-
-    @CrossOrigin(origins ="http://localhost:8080")
+    @CrossOrigin(origins ="http://localhost")
     @RequestMapping(value ="/authentication/{publicAddress}", method= RequestMethod.GET)
     public String readUserAndReturnNonce(@PathVariable(value = "publicAddress") String publicAddress)  {
         User u = userService.findUserByPublicAddress(publicAddress);
@@ -61,6 +61,7 @@ public class LoginController {
         {
             return false;
         }
+
     }
 
     @CrossOrigin(origins ="http://localhost:8000")
