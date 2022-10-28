@@ -23,26 +23,22 @@ public class UserService {
         return userRepository.findAll();
     }
 
-    public User findUserByPublicAddress(String publicAddress)
-    {
+    public User findUserByPublicAddress(String publicAddress) {
         return userRepository.findByPublicAddress(publicAddress);
     }
 
-    public Optional<User> findUserById(Integer id)
-    {
+    public Optional<User> findUserById(Integer id) {
         return userRepository.findById(id);
     }
 
-    public User findUserByName(String username)
-    {
+        public User findUserByName(String username) {
         return userRepository.findByName(username);
     }
 
 
-    public User findUserById(int Id)
-    {
+    public User findUserById(int Id) {
         return
-                 userRepository.findById(Id);
+                userRepository.findById(Id);
     }
 
 }
