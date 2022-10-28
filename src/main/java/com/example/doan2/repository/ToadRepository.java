@@ -12,4 +12,6 @@ public interface  ToadRepository  extends JpaRepository<Toad, Integer> {
 
 
     List<Toad> findAllByOwner(User owner);
+
+    int countByOwner(User owner);
 }
