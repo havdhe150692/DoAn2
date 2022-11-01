@@ -26,12 +26,14 @@
     <!-- Icon -->
 
     <!-- Login Form -->
-    <form>
-      <input type="text" id="login" class="fadeIn second" name="login" placeholder="login">
-      <input type="text" id="password" class="fadeIn third" name="login" placeholder="password">
-      <button type="button" class="fadeIn fourth btn btn-primary height">Login</button>
+    <div th:if="${param.error}">
+      <p class="text-danger">Wrong User name or Password</p>
+    </div>
+    <form th:action="@{/login_check}" method="post">
+      <input type="text" id="email" class="fadeIn second" name="email" placeholder="login">
+      <input type="text" id="password" class="fadeIn third" name="password" placeholder="password">
+      <button type="submit" class="fadeIn fourth btn btn-primary height">Login</button>
       <a th:href="@{/registerCheck}"><button type="button" class="fadeIn fourth btn btn-primary height">Register</button> </a>
-
     </form>
     <!-- Remind Passowrd -->
     <div id="formFooter">
