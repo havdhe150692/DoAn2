@@ -1,5 +1,10 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en"
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+>
 
 <head>
     <meta charset="utf-8">
@@ -20,10 +25,10 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
 
     <!-- Libraries Stylesheet -->
-    <link href="assets/lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">
+    <link th:href="@{../styles/owl.carousel.min.css}" rel="stylesheet">
 
     <!-- Customized Bootstrap Stylesheet -->
-    <link href="assets/css/style.css" rel="stylesheet">
+    <link th:href="@{../styles/style.css}" rel="stylesheet">
 </head>
 
 <body>
@@ -111,7 +116,7 @@
                 <div id="header-carousel" class="carousel slide" data-ride="carousel">
                     <div class="carousel-inner">
                         <div class="carousel-item active" style="height: 410px;">
-                            <img class="img-fluid" src="assets/img/Toad1.jpg" alt="Image">
+                            <img class="img-fluid" th:src="@{../img/Toad1.jpg}" alt="Image"/>
                             <div class="carousel-caption d-flex flex-column align-items-center justify-content-center">
                                 <div class="p-3" style="max-width: 700px;">
                                     <h4 class="text-light text-uppercase font-weight-medium mb-3">10% Off Your First
@@ -122,7 +127,7 @@
                             </div>
                         </div>
                         <div class="carousel-item" style="height: 410px;">
-                            <img class="img-fluid" src="assets/img/toad.jpg" alt="Image">
+                            <img class="img-fluid" th:src="@{../img/toad.jpg}" alt="Image"/>
                             <div class="carousel-caption d-flex flex-column align-items-center justify-content-center">
                                 <div class="p-3" style="max-width: 700px;">
                                     <h4 class="text-light text-uppercase font-weight-medium mb-3">10% Off Your First
@@ -195,7 +200,7 @@
                 <div class="cat-item d-flex flex-column border mb-4" style="padding: 30px;">
                     <p class="text-right">15 Products</p>
                     <a href="" class="cat-img position-relative overflow-hidden mb-3">
-                        <img class="img-fluid" src="assets/img/menu/Icon-Coc-01.png" alt="">
+                        <img class="img-fluid" th:src="@{../img/menu/Icon-Coc-01.png}" alt="Image"/>
                     </a>
                     <h5 class="font-weight-semi-bold m-0">Economic Toad</h5>
                 </div>
@@ -204,7 +209,7 @@
                 <div class="cat-item d-flex flex-column border mb-4" style="padding: 30px;">
                     <p class="text-right">15 Products</p>
                     <a href="" class="cat-img position-relative overflow-hidden mb-3">
-                        <img class="img-fluid" src="assets/img/menu/Icon-Coc-02.png" alt="">
+                        <img class="img-fluid" th:src="@{../img/menu/Icon-Coc-02.png}" alt="Image"/>
                     </a>
                     <h5 class="font-weight-semi-bold m-0">Special Toad</h5>
                 </div>
@@ -213,7 +218,7 @@
                 <div class="cat-item d-flex flex-column border mb-4" style="padding: 30px;">
                     <p class="text-right">15 Products</p>
                     <a href="" class="cat-img position-relative overflow-hidden mb-3">
-                        <img class="img-fluid" src="assets/img/menu/Icon-Coc-03.png" alt="">
+                        <img class="img-fluid" th:src="@{../img/menu/Icon-Coc-03.png}" alt="Image"/>
                     </a>
                     <h5 class="font-weight-semi-bold m-0">Bussiness Toad</h5>
                 </div>
@@ -222,7 +227,7 @@
                 <div class="cat-item d-flex flex-column border mb-4" style="padding: 30px;">
                     <p class="text-right">15 Products</p>
                     <a href="" class="cat-img position-relative overflow-hidden mb-3">
-                        <img class="img-fluid" src="assets/img/menu/Icon-Coc-04.png" alt="">
+                        <img class="img-fluid" th:src="@{../img/menu/Icon-Coc-04.png}" alt="Image"/>
                     </a>
                     <h5 class="font-weight-semi-bold m-0">Vovinam Toad</h5>
                 </div>
@@ -231,7 +236,7 @@
                 <div class="cat-item d-flex flex-column border mb-4" style="padding: 30px;">
                     <p class="text-right">15 Products</p>
                     <a href="" class="cat-img position-relative overflow-hidden mb-3">
-                        <img class="img-fluid" src="assets/img/menu/Icon-Coc-05.png" alt="">
+                        <img class="img-fluid" th:src="@{../img/menu/Icon-Coc-05.png}" alt="Image"/>
                     </a>
                     <h5 class="font-weight-semi-bold m-0">AI Toad</h5>
                 </div>
@@ -240,7 +245,7 @@
                 <div class="cat-item d-flex flex-column border mb-4" style="padding: 30px;">
                     <p class="text-right">15 Products</p>
                     <a href="" class="cat-img position-relative overflow-hidden mb-3">
-                        <img class="img-fluid" src="assets/img/menu/Icon-Coc-06.png" alt="">
+                        <img class="img-fluid" th:src="@{../img/menu/Icon-Coc-06.png}" alt="Image"/>
                     </a>
                     <h5 class="font-weight-semi-bold m-0">Software Toad</h5>
                 </div>
@@ -255,7 +260,7 @@
         <div class="row px-xl-5">
             <div class="col-md-6 pb-4">
                 <div class="position-relative bg-secondary text-center text-md-right text-white mb-2 py-5 px-5">
-                    <img src="assets/img/menu/Icon-Coc-08.png" alt="">
+                    <img th:src="@{../img/menu/Icon-Coc-08.png}" alt="">
                     <div class="position-relative" style="z-index: 1;">
                         <h5 class="text-uppercase text-primary mb-3">20% off the all purchase</h5>
                         <h1 class="mb-4 font-weight-semi-bold">Toad Event</h1>
@@ -265,7 +270,7 @@
             </div>
             <div class="col-md-6 pb-4">
                 <div class="position-relative bg-secondary text-center text-md-left text-white mb-2 py-5 px-5">
-                    <img src="assets/img/menu/Icon-Coc-09.png" alt="">
+                    <img th:src="@{../img/menu/Icon-Coc-09.png}" alt="">
                     <div class="position-relative" style="z-index: 1;">
                         <h5 class="text-uppercase text-primary mb-3">20% off the all purchase</h5>
                         <h1 class="mb-4 font-weight-semi-bold">Toad Festival</h1>
@@ -476,16 +481,16 @@
             <div class="col">
                 <div class="owl-carousel vendor-carousel">
                     <div class="vendor-item border p-4 col">
-                        <img src="assets/img/fpt.png" alt="">
+                        <img th:src="@{../img/fpt.png}" alt=""/>
                     </div>
                     <div class="vendor-item border p-4">
-                        <img src="assets/img/fptuni.png" alt="">
+                        <img th:src="@{../img/fptuni.png}" alt="">
                     </div>
                     <div class="vendor-item border p-4">
-                        <img src="assets/img/tiki.jpg" alt="">
+                        <img th:src="@{../img/tiki.jpg}" alt="">
                     </div>
                     <div class="vendor-item border p-4">
-                        <img src="assets/img/shoppe.jpg" alt="">
+                        <img th:src="@{../img/shoppe.jpg}" alt="">
                     </div>
                 </div>
             </div>
@@ -506,15 +511,15 @@
         <!-- JavaScript Libraries -->
         <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
         <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.bundle.min.js"></script>
-        <script src="assets/lib/easing/easing.min.js"></script>
-        <script src="assets/lib/owlcarousel/owl.carousel.min.js"></script>
+        <script th:src="@{../js/easing.min.js}"></script>
+        <script th:src="@{../js/owl.carousel.min.js}"></script>
 
         <!-- Contact Javascript File -->
 <!--        <script src="mail/jqBootstrapValidation.min.js"></script>-->
 <!--        <script src="mail/contact.js"></script>-->
 
         <!-- Template Javascript -->
-        <script src="assets/js/main1.js"></script>
+        <script th:src="@{../js/main1.js}"></script>
 
 </body>
 
