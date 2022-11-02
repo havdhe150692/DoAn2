@@ -53,12 +53,5 @@ public class LoginUserController {
     }
 
 
-    @GetMapping("/shop")
-    public String viewShop() {
-        return "shop";
-    }
-    @GetMapping("/productDetail")
-    public String viewProductDetail() {
-        return "productDetail";
-    }
+
 }
