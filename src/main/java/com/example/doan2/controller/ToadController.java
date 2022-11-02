@@ -5,7 +5,7 @@ import com.example.doan2.entity.Toad;
 import com.example.doan2.entity.User;
 import com.example.doan2.service.ToadService;
 import com.example.doan2.service.UserService;
-import com.example.doan2.utils.jsonObject.ToadJson;
+import com.example.doan2.utils.jsonObject.ToadListJson;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -16,7 +16,7 @@ import java.util.List;
 @RequestMapping("/toadApi/")
 public class ToadController {
 
-    private int numberOfToadPerPage = 8;
+    private int numberOfToadPerPage = 6;
 
     @Autowired
     ToadService toadService;
@@ -26,19 +26,19 @@ public class ToadController {
 
     @CrossOrigin(origins ="http://localhost:8000")
     @RequestMapping(value ="/{userId}", method= RequestMethod.GET)
-    public List<ToadJson> readAllToadOfUser(@PathVariable(value = "userId") int userId)  {
+    public List<ToadListJson> readAllToadOfUser(@PathVariable(value = "userId") int userId)  {
         User u = userService.findUserById(userId);
         System.out.println(u.toString());
         if (u != null)
         {
             List<Toad> toadList = toadService.findAllToadByOwner(u);
-            List<ToadJson> listJson = new ArrayList<>();
+            List<ToadListJson> listJson = new ArrayList<>();
             for (int i = 0; i < toadList.size(); i++) {
-                ToadJson toadJson = new ToadJson();
-                toadJson.CopyFromDataFromToad(toadList.get(i));
-                toadJson.setListId(i);
+                ToadListJson toadListJson = new ToadListJson();
+                toadListJson.CopyFromDataFromToad(toadList.get(i));
+                toadListJson.setListId(i);
 
-                listJson.add(toadJson);
+                listJson.add(toadListJson);
             }
 
             return listJson;
@@ -49,13 +49,20 @@ public class ToadController {
         }
     }
 
+    @CrossOrigin(origins ="http://localhost:8000")
+    @RequestMapping(value ="/detail/{toadId}", method= RequestMethod.GET)
+    public Toad getDetailOfThisToad(@PathVariable(value = "toadId") int toadId)
+    {
+        Toad t = toadService.findToadDetail(toadId);
+        return null;
+    }
 
     @CrossOrigin(origins ="http://localhost:8000")
     @RequestMapping(value ="/{userId}/page/{page}", method= RequestMethod.GET)
-    public List<ToadJson> getToadPaginationOfThisPage(@PathVariable(value = "userId") int userId, @PathVariable(value= "page") int pageId)  {
+    public List<ToadListJson> getToadPaginationOfThisPage(@PathVariable(value = "userId") int userId, @PathVariable(value= "page") int pageId)  {
         User u = userService.findUserById(userId);
         var toadList = toadService.findAllToadByOwner(u);
-        List<ToadJson> listJson = new ArrayList<>();
+        List<ToadListJson> listJson = new ArrayList<>();
 
         if (u != null)
         {
@@ -72,11 +79,11 @@ public class ToadController {
             }
 
             for (int i = idMin; i < idMax; i++) {
-                ToadJson toadJson = new ToadJson();
-                toadJson.CopyFromDataFromToad(toadList.get(i));
-                toadJson.setListId(i);
+                ToadListJson toadListJson = new ToadListJson();
+                toadListJson.CopyFromDataFromToad(toadList.get(i));
+                toadListJson.setListId(i);
 
-                listJson.add(toadJson);
+                listJson.add(toadListJson);
             }
 
             return listJson;

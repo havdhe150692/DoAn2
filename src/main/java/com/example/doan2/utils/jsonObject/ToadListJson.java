@@ -3,7 +3,7 @@ package com.example.doan2.utils.jsonObject;
 import com.example.doan2.entity.Toad;
 import com.example.doan2.utils.Enum;
 
-public class ToadJson {
+public class ToadListJson {
 
     private int ListId;
     private int globalId;
