@@ -3,7 +3,6 @@ package com.example.doan2.controller;
 import com.example.doan2.entity.User;
 import com.example.doan2.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.actuate.endpoint.SecurityContext;
 import org.springframework.security.authentication.AnonymousAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -14,14 +13,14 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 
 @Controller
-public class UserController {
+public class LoginUserController {
     @Autowired
     private UserRepository repo;
 
-//    @GetMapping("")
-//    public String viewTest() {
-//        return "login";
-//    }
+    @GetMapping("")
+    public String viewTest() {
+        return "loginMarket";
+    }
 
     @GetMapping("/loginMarket")
     public String loginPage() {
