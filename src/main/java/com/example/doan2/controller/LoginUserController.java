@@ -51,4 +51,14 @@ public class LoginUserController {
         }
         return "market";
     }
+
+
+    @GetMapping("/shop")
+    public String viewShop() {
+        return "shop";
+    }
+    @GetMapping("/productDetail")
+    public String viewProductDetail() {
+        return "productDetail";
+    }
 }
