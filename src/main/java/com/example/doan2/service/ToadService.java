@@ -20,6 +20,12 @@ public class ToadService {
         return toadRepository.findAllByOwner(user);
     }
 
+    public Toad findToadDetail(int id)
+    {
+        return
+                 toadRepository.findById(id);
+    }
+
 
 
 }

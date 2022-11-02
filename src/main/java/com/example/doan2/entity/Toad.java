@@ -3,6 +3,7 @@ package com.example.doan2.entity;
 import com.example.doan2.utils.Enum;
 
 import javax.persistence.*;
+import java.sql.Date;
 
 @Entity
 public class Toad {
@@ -18,6 +19,44 @@ public class Toad {
     @ManyToOne
     @JoinColumn(name = "owner_id")
     private User owner;
+
+
+    @Column(name="info",columnDefinition="LONGTEXT")
+    private String info;
+
+    private Date dateOfBirth;
+
+
+    @ManyToOne
+    @JoinColumn(name = "toad_class_id")
+    private ToadClass toadClass;
+
+
+    
+    public String getInfo() {
+        return info;
+    }
+
+    public void setInfo(String info) {
+        this.info = info;
+    }
+
+    public Date getDateOfBirth() {
+        return dateOfBirth;
+    }
+
+    public void setDateOfBirth(Date dateOfBirth) {
+        this.dateOfBirth = dateOfBirth;
+    }
+
+    public ToadClass getToadClass() {
+        return toadClass;
+    }
+
+    public void setToadClass(ToadClass toadClass) {
+        this.toadClass = toadClass;
+    }
+
 
     public Integer getId() {
         return id;
