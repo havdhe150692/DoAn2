@@ -36,7 +36,7 @@
 <div class="container-fluid">
     <div class="row align-items-center py-3 px-xl-5">
         <div class="col-lg-3 d-none d-lg-block">
-            <a href="" class="text-decoration-none">
+            <a th:href="@{market}" class="text-decoration-none">
                 <h1 class="m-0 display-5 font-weight-semi-bold"><span
                         class="text-primary font-weight-bold border px-3 mr-1">Toad</span>Market</h1>
             </a>
@@ -105,13 +105,19 @@
                 </button>
                 <div class="collapse navbar-collapse justify-content-between" id="navbarCollapse">
                     <div class="navbar-nav mr-auto py-0">
-                        <a href="market.html" class="nav-item nav-link">Home</a>
-                        <a href="shop.html" class="nav-item nav-link active">Shop</a>
-                        <a href="productDetail.html" class="nav-item nav-link">Shop Detail</a>
+<!--                        <a href="market.html" class="nav-item nav-link">Home</a>-->
+<!--                        <a href="shop.html" class="nav-item nav-link active">Shop</a>-->
+<!--                        <a href="productDetail.html" class="nav-item nav-link">Shop Detail</a>-->
+                        <a th:href="@{market}" class="nav-item nav-link active">Home</a>
+                        <a th:href="@{shop}" class="nav-item nav-link">Shop</a>
+                        <a th:href="@{productDetail}" class="nav-item nav-link">Shop Detail</a>
                     </div>
                     <div class="navbar-nav ml-auto py-0">
-                        <a href="#" class="nav-item nav-link">Login</a>
-                        <a href="#" class="nav-item nav-link">Register</a>
+                        <form th:action="@{/logout}" method="post">
+                            <button type="submit" class="nav-item nav-link customBtn"> Logout</button>
+                        </form>
+<!--                        <a href="#" class="nav-item nav-link">Login</a>-->
+<!--                        <a href="#" class="nav-item nav-link">Register</a>-->
                     </div>
                 </div>
             </nav>
@@ -257,7 +263,8 @@
                     <div class="card product-item border-0 mb-4">
                         <div
                                 class="card-header product-img position-relative overflow-hidden bg-transparent border p-0">
-                            <img class="img-fluid w-100" src="assets/img/menu/Icon-Coc-01.png" alt="">
+<!--                            <img class="img-fluid w-100" src="assets/img/menu/Icon-Coc-01.png" alt="">-->
+                            <img class="img-fluid w-100" th:src="@{../img/menu/Icon-Coc-01.png}" alt="Image"/>
                         </div>
                         <div class="card-body border-left border-right text-center p-0 pt-4 pb-3">
                             <h6 class="text-truncate mb-3"> Toad Types</h6>
@@ -280,7 +287,8 @@
                     <div class="card product-item border-0 mb-4">
                         <div
                                 class="card-header product-img position-relative overflow-hidden bg-transparent border p-0">
-                            <img class="img-fluid w-100" src="assets/img/menu/Icon-Coc-02.png" alt="">
+<!--                            <img class="img-fluid w-100" src="assets/img/menu/Icon-Coc-02.png" alt="">-->
+                            <img class="img-fluid w-100" th:src="@{../img/menu/Icon-Coc-02.png}" alt="Image"/>
                         </div>
                         <div class="card-body border-left border-right text-center p-0 pt-4 pb-3">
                             <h6 class="text-truncate mb-3"> Toad Types</h6>
@@ -303,7 +311,8 @@
                     <div class="card product-item border-0 mb-4">
                         <div
                                 class="card-header product-img position-relative overflow-hidden bg-transparent border p-0">
-                            <img class="img-fluid w-100" src="assets/img/menu/Icon-Coc-03.png" alt="">
+<!--                            <img class="img-fluid w-100" src="assets/img/menu/Icon-Coc-03.png" alt="">-->
+                            <img class="img-fluid w-100" th:src="@{../img/menu/Icon-Coc-03.png}" alt="Image"/>
                         </div>
                         <div class="card-body border-left border-right text-center p-0 pt-4 pb-3">
                             <h6 class="text-truncate mb-3"> Toad Types</h6>
@@ -326,7 +335,7 @@
                     <div class="card product-item border-0 mb-4">
                         <div
                                 class="card-header product-img position-relative overflow-hidden bg-transparent border p-0">
-                            <img class="img-fluid w-100" src="assets/img/menu/Icon-Coc-04.png" alt="">
+                            <img class="img-fluid w-100" th:src="@{../img/menu/Icon-Coc-04.png}" alt="Image"/>
                         </div>
                         <div class="card-body border-left border-right text-center p-0 pt-4 pb-3">
                             <h6 class="text-truncate mb-3"> Toad Types</h6>
@@ -349,7 +358,7 @@
                     <div class="card product-item border-0 mb-4">
                         <div
                                 class="card-header product-img position-relative overflow-hidden bg-transparent border p-0">
-                            <img class="img-fluid w-100" src="assets/img/menu/Icon-Coc-05.png" alt="">
+                            <img class="img-fluid w-100" th:src="@{../img/menu/Icon-Coc-05.png}" alt="Image"/>
                         </div>
                         <div class="card-body border-left border-right text-center p-0 pt-4 pb-3">
                             <h6 class="text-truncate mb-3"> Toad Types</h6>
@@ -372,7 +381,7 @@
                     <div class="card product-item border-0 mb-4">
                         <div
                                 class="card-header product-img position-relative overflow-hidden bg-transparent border p-0">
-                            <img class="img-fluid w-100" src="assets/img/menu/Icon-Coc-06.png" alt="">
+                            <img class="img-fluid w-100" th:src="@{../img/menu/Icon-Coc-06.png}" alt="Image"/>
                         </div>
                         <div class="card-body border-left border-right text-center p-0 pt-4 pb-3">
                             <h6 class="text-truncate mb-3">Colorful Stylish Shirt</h6>
