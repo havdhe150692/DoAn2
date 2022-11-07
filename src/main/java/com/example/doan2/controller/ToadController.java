@@ -2,9 +2,11 @@ package com.example.doan2.controller;
 
 
 import com.example.doan2.entity.Toad;
+import com.example.doan2.entity.ToadStatus;
 import com.example.doan2.entity.User;
 import com.example.doan2.service.ToadService;
 import com.example.doan2.service.UserService;
+import com.example.doan2.utils.jsonObject.ToadDetailJson;
 import com.example.doan2.utils.jsonObject.ToadListJson;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -23,6 +25,8 @@ public class ToadController {
 
     @Autowired
     UserService userService;
+
+
 
     @CrossOrigin(origins ="http://localhost:8000")
     @RequestMapping(value ="/{userId}", method= RequestMethod.GET)
@@ -51,11 +55,37 @@ public class ToadController {
 
     @CrossOrigin(origins ="http://localhost:8000")
     @RequestMapping(value ="/detail/{toadId}", method= RequestMethod.GET)
-    public Toad getDetailOfThisToad(@PathVariable(value = "toadId") int toadId)
+    public ToadDetailJson getDetailOfThisToad(@PathVariable(value = "toadId") int toadId)
     {
         Toad t = toadService.findToadDetail(toadId);
-        return null;
+        ToadDetailJson tJson = new ToadDetailJson();
+        tJson.CopyFromDataFromToad(t);
+        return tJson;
     }
+
+
+    @CrossOrigin(origins ="http://localhost:8000")
+    @RequestMapping(value ="/user/{userId}/status", method= RequestMethod.GET)
+    public List<ToadStatus> getAllStatusOfToadOfThisUser(@PathVariable(value = "userId") int userId)
+    {
+        List<ToadStatus> toadStatuses = new ArrayList<>();
+        User u = userService.findUserById(userId);
+        List<Toad> toadList = toadService.findAllToadByOwner(u);
+        for (Toad t: toadList) {
+            toadStatuses.add(toadService.findByToadHolder(t));
+        }
+
+        return toadStatuses;
+    }
+
+    @CrossOrigin(origins ="http://localhost:8000")
+    @RequestMapping(value ="/status/{toadId}", method= RequestMethod.GET)
+    public ToadStatus getStatusOfThisToad(@PathVariable(value = "toadId") int toadId)
+    {
+        Toad t = toadService.findToadDetail(toadId);
+        return toadService.findByToadHolder(t);
+    }
+
 
     @CrossOrigin(origins ="http://localhost:8000")
     @RequestMapping(value ="/{userId}/page/{page}", method= RequestMethod.GET)

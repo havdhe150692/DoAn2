@@ -31,8 +31,19 @@ public class Toad {
     @JoinColumn(name = "toad_class_id")
     private ToadClass toadClass;
 
+    @OneToOne(cascade = CascadeType.ALL)
+    @PrimaryKeyJoinColumn
+    private ToadStatus toadStatus;
 
-    
+
+    public ToadStatus getToadStatus() {
+        return toadStatus;
+    }
+
+    public void setToadStatus(ToadStatus toadStatus) {
+        this.toadStatus = toadStatus;
+    }
+
     public String getInfo() {
         return info;
     }

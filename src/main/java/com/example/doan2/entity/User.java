@@ -1,9 +1,6 @@
 package com.example.doan2.entity;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 @Entity // This tells Hibernate to make a table out of this class
 public class User {
@@ -27,6 +24,17 @@ public class User {
 //        this.password = password;
 //    }
 
+    @OneToOne
+    @PrimaryKeyJoinColumn
+    private Inventory inventory;
+
+    public Inventory getInventory() {
+        return inventory;
+    }
+
+    public void setInventory(Inventory inventory) {
+        this.inventory = inventory;
+    }
 
     public String getPassword() {
         return password;
