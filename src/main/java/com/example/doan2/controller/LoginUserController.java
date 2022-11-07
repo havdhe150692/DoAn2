@@ -19,7 +19,11 @@ public class LoginUserController {
 
     @GetMapping("")
     public String viewTest() {
-        return "loginMarket";
+        return "Homepage";
+    }
+    @GetMapping("Homepage")
+    public String viewHome() {
+        return "Homepage";
     }
 
     @GetMapping("/loginMarket")

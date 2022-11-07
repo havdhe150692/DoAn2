@@ -65,7 +65,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .defaultSuccessUrl("/market")
                 .permitAll()
                 .and()
-                .rememberMe().key("secretKey").tokenValiditySeconds(86400)
+                .rememberMe().key("secretKey3574687616").tokenValiditySeconds(86400)
                 .and()
                 .logout().logoutUrl("/logout").logoutSuccessUrl("/loginMarket").permitAll();
         ;

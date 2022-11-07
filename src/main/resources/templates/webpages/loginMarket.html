@@ -82,22 +82,7 @@
         </div>
     </div>
 </div>
-<script>
-       function ValidateEmail(event,inputText) {
-        var mailformat = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
-        var email = document.getElementById("email").textContent;
 
-        if (inputText.value.match(mailformat)) {
-          alert("Valid email address!");
-          return true;
-        }
-        else {
-          alert("You have entered an invalid email address!");
-          event.preventDefault();
-          return false;
-        }
-      }
-</script>
 <script th:src="@{../js/formValidation.js}"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
 <script src="https://code.jquery.com/jquery-3.5.0.js"></script>
