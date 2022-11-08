@@ -9587,3 +9587,7 @@ a.text-dark:hover, a.text-dark:focus {
 .vendor-item {
   height: 200px;
 }
+.customBtn {
+border: none;
+background-color: white;
+}
