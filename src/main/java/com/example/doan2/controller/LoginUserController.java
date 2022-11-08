@@ -18,8 +18,13 @@ public class LoginUserController {
     private UserRepository repo;
 
     @GetMapping("")
-    public String viewTest() {
-        return "loginMarket";
+    public String viewStart() {
+        return "Homepage";
+    }
+
+    @GetMapping("/Homepage")
+    public String viewHome() {
+        return "Homepage";
     }
 
     @GetMapping("/loginMarket")
