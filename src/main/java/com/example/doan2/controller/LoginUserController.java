@@ -11,6 +11,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
 public class LoginUserController {
@@ -42,7 +43,11 @@ public class LoginUserController {
 
     @PostMapping("/process_register")
     public String processRegistration(User user) {
+
+
         BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+
+//        User user = new User();
         String encoderPassword = encoder.encode(user.getPassword());
         user.setPassword(encoderPassword);
         repo.save(user);

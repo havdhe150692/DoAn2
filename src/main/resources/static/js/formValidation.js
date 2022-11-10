@@ -1,12 +1,13 @@
+    // Email Validation
     function ValidateEmail(event,inputText) {
-      var mailformat = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
-      if (inputText.value.match(mailformat)) {
+      var mailFormat = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
+      if (inputText.value.match(mailFormat)) {
         return true;
       } else {
-//        document.getElementById("emailInvalid").innerHTML = "Email is not valid , please check again";
         event.preventDefault();
         return false;
       }
+
     }
 
     const validateEmail = (email) => {
@@ -14,6 +15,7 @@
       return email.match(mailformat);
     };
 
+    // Email Validation
     const validate = () => {
       const $result = $('#result');
       const email = $('#email').val();
@@ -30,3 +32,25 @@
     }
 
     $('#email').on('input', validate);
+
+//    Password Validation
+    $('#password, #confirm_password').on('keyup', function () {
+      if ($('#password').val() == $('#confirm_password').val()) {
+        $('#message').html('Match ✓ ').css('color', 'green');
+        if($('#password').val() == "") {
+         $('#message').html('Password Not Null').css('color', 'red');
+        }
+      } else
+        $('#message').html('Your Password is Not Matching').css('color', 'red');
+    });
+
+    //Check Enable
+    function enable() {
+                var check = document.getElementById("check");
+                var btn = document.getElementById("btnRegister");
+                if (check.checked) {
+                    btn.removeAttribute("disabled");
+                } else {
+                    btn.disabled = true;
+                }
+            }
