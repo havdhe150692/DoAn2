@@ -10,11 +10,14 @@ import org.springframework.stereotype.Repository;
 public interface UserRepository extends JpaRepository<User, Integer> {
     User findByPublicAddress(String publicAddress);
 
+
+    @Query("")
     User findByName(String username);
 
     User findById(int Id);
 
    // @Query("SELECT u FROM USER u WHERE u.email = ?1")
     User findByEmail(String email);
+
 
 }

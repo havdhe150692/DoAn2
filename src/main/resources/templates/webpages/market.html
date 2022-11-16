@@ -109,11 +109,10 @@
                             <a th:href="@{Homepage}" class="nav-item nav-link">Landing Page</a>
                         </div>
                         <div class="navbar-nav ml-auto py-0">
+                            <a class="nav-item nav-link nonClickable"> Welcome <b>[[${#request.userPrincipal.principal.name}]]</b> </a>
                            <form th:action="@{/logout}" method="post">
                                <button type="submit" class="nav-item nav-link customBtn"> Logout</button>
                            </form>
-<!--                            <a th:href="@{/logout}" class="nav-item nav-link">Logout</a>-->
-<!--                            <a href="#" class="nav-item nav-link">Register</a>-->
                         </div>
                     </div>
                 </nav>
