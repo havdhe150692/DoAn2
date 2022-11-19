@@ -10,7 +10,6 @@ import java.sql.Timestamp;
 public class ToadStatus {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
 
 

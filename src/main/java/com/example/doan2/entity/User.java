@@ -1,6 +1,11 @@
 package com.example.doan2.entity;
 
+import org.web3j.crypto.CipherException;
+
 import javax.persistence.*;
+import java.security.InvalidAlgorithmParameterException;
+import java.security.NoSuchAlgorithmException;
+import java.security.NoSuchProviderException;
 
 @Entity // This tells Hibernate to make a table out of this class
 public class User {
@@ -14,23 +19,13 @@ public class User {
 
     private String password;
 
-    private String publicAddress;
-
-    private String nonce;
-
-//    public User(String name, String email, String password) {
-//        this.name = name;
-//        this.email = email;
-//        this.password = password;
-//    }
-
-    @OneToOne
-    @PrimaryKeyJoinColumn
-    private Inventory inventory;
-
-    @OneToOne
+    @OneToOne(cascade = CascadeType.ALL, mappedBy = "user")
     @PrimaryKeyJoinColumn
     private UserWallet userWallet;
+
+    @OneToOne(cascade = CascadeType.ALL, mappedBy = "user")
+    @PrimaryKeyJoinColumn
+    private Inventory inventory;
 
     public Inventory getInventory() {
         return inventory;
@@ -48,21 +43,6 @@ public class User {
         this.password = password;
     }
 
-    public String getNonce() {
-        return nonce;
-    }
-
-    public void setNonce(String nonce) {
-        this.nonce = nonce;
-    }
-
-    public String getPublicAddress() {
-        return publicAddress;
-    }
-
-    public void setPublicAddress(String publicAddress) {
-        this.publicAddress = publicAddress;
-    }
 
     public Integer getId() {
         return id;
@@ -86,5 +66,13 @@ public class User {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public UserWallet getUserWallet() {
+        return userWallet;
+    }
+
+    public void setUserWallet(UserWallet userWallet) {
+        this.userWallet = userWallet;
     }
 }

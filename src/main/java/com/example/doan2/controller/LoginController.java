@@ -19,19 +19,19 @@ public class LoginController {
 
     NonceGenerateUtils nonceGenerateUtils = new NonceGenerateUtils();
 
-    @CrossOrigin(origins ="http://localhost")
-    @RequestMapping(value ="/authentication/{publicAddress}", method= RequestMethod.GET)
-    public String readUserAndReturnNonce(@PathVariable(value = "publicAddress") String publicAddress)  {
-        User u = userService.findUserByPublicAddress(publicAddress);
-        if(u != null)
-        {
-            return u.getNonce();
-        }
-        else
-        {
-            return "Bruh";
-        }
-    }
+//    @CrossOrigin(origins ="http://localhost")
+//    @RequestMapping(value ="/authentication/{publicAddress}", method= RequestMethod.GET)
+//    public String readUserAndReturnNonce(@PathVariable(value = "publicAddress") String publicAddress)  {
+//        User u = userService.findUserByPublicAddress(publicAddress);
+//        if(u != null)
+//        {
+//            return u.getNonce();
+//        }
+//        else
+//        {
+//            return "Bruh";
+//        }
+//    }
 
 
     @CrossOrigin(origins ="http://localhost:8000")

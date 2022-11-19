@@ -1,8 +1,11 @@
 package com.example.doan2.controller;
 
 import com.example.doan2.entity.User;
+import com.example.doan2.entity.UserWallet;
 import com.example.doan2.repository.UserRepository;
+import com.example.doan2.repository.UserWalletRepository;
 import com.example.doan2.service.CheckExistedLoginService;
+import com.example.doan2.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AnonymousAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -13,11 +16,22 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.web3j.crypto.CipherException;
+
+import java.security.InvalidAlgorithmParameterException;
+import java.security.NoSuchAlgorithmException;
+import java.security.NoSuchProviderException;
 
 @Controller
 public class LoginUserController {
     @Autowired
     private UserRepository repo;
+
+    @Autowired
+    private UserWalletRepository userWalletRepository;
+
+    @Autowired
+    private UserService userService;
 
     @Autowired
     CheckExistedLoginService lcs;
@@ -51,7 +65,7 @@ public class LoginUserController {
                                       @RequestParam(value = "confirm_password", required = false) String confirm_password,
                                       @RequestParam(value = "email", required = false) String email,
                                       User user,
-                                      Model model) {
+                                      Model model) throws InvalidAlgorithmParameterException, CipherException, NoSuchAlgorithmException, NoSuchProviderException {
         if (!lcs.checkUserName(username)) {
             model.addAttribute("errorMessageU", "Username already existed, please specify another");
             return "registerMarket";
@@ -71,7 +85,15 @@ public class LoginUserController {
             user.setName(username);
             user.setEmail(email);
             user.setPassword(encoderPassword);
+
+            UserWallet userWallet = new UserWallet();
+
+            user.setUserWallet(userWallet);
+            userWallet.setUser(user);
+
             repo.save(user);
+
+
         }
         return "loginMarket";
     }
@@ -80,6 +102,7 @@ public class LoginUserController {
     public String viewMarket() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         if (authentication == null || authentication instanceof AnonymousAuthenticationToken) {
+
             return "loginMarket";
         }
         return "market";

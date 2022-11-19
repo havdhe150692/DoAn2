@@ -31,7 +31,7 @@ public class Toad {
     @JoinColumn(name = "toad_class_id")
     private ToadClass toadClass;
 
-    @OneToOne(cascade = CascadeType.ALL)
+    @OneToOne(cascade = CascadeType.ALL, mappedBy = "toad")
     @PrimaryKeyJoinColumn
     private ToadStatus toadStatus;
 

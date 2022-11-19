@@ -12,6 +12,6 @@ public class DoAn2Application {
 
         SpringApplication.run(DoAn2Application.class, args);
         //ContractConnectorPublic connectorPublic = new ContractConnectorPublic();
-        ContractAccountRegister contractAccountRegister = new ContractAccountRegister();
+        //ContractAccountRegister contractAccountRegister = new ContractAccountRegister();
     }
 }

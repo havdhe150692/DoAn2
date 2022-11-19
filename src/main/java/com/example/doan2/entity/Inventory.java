@@ -11,19 +11,19 @@ import java.util.List;
 public class Inventory {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "user_id")
     private int id;
 
     @JsonIgnore
-    @OneToOne
     @MapsId
+    @OneToOne
     @JoinColumn(name = "user_id")
     private User user;
-
     private int tokenQuantity;
 
 
     public Inventory() {
+        tokenQuantity = 0;
     }
 
     public int getId() {

@@ -2,6 +2,7 @@ package com.example.doan2.service;
 
 
 import com.example.doan2.entity.User;
+import com.example.doan2.entity.UserWallet;
 import com.example.doan2.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
@@ -9,7 +10,11 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
+import org.web3j.crypto.*;
 
+import java.security.InvalidAlgorithmParameterException;
+import java.security.NoSuchAlgorithmException;
+import java.security.NoSuchProviderException;
 import java.util.Collection;
 import java.util.List;
 import java.util.Optional;
@@ -29,10 +34,6 @@ public class UserService implements UserDetailsService {
         return userRepository.findAll();
     }
 
-    public User findUserByPublicAddress(String publicAddress) {
-        return userRepository.findByPublicAddress(publicAddress);
-    }
-
     public Optional<User> findUserById(Integer id) {
         return userRepository.findById(id);
     }
@@ -46,6 +47,8 @@ public class UserService implements UserDetailsService {
         return
                 userRepository.findById(Id);
     }
+
+
 
     // function for load User by Email
 

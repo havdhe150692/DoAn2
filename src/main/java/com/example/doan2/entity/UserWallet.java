@@ -1,24 +1,34 @@
 package com.example.doan2.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import org.web3j.crypto.*;
 
 import javax.persistence.*;
 import java.math.BigInteger;
+import java.security.InvalidAlgorithmParameterException;
+import java.security.NoSuchAlgorithmException;
+import java.security.NoSuchProviderException;
 
 @Entity
 public class UserWallet {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "user_id")
     private int id;
 
-    @JsonIgnore
-    @OneToOne
     @MapsId
+    @OneToOne
     @JoinColumn(name = "user_id")
     private User user;
 
-    private BigInteger privateKey;
+    public UserWallet() throws InvalidAlgorithmParameterException, NoSuchAlgorithmException, NoSuchProviderException, CipherException {
+        ECKeyPair keyPair = Keys.createEcKeyPair();
+        WalletFile wallet = Wallet.createStandard("", keyPair);
+        privateKey = keyPair.getPrivateKey().toString(16);
+        address = wallet.getAddress();
+    }
+
+    private String privateKey;
 
     private String address;
 
@@ -38,11 +48,11 @@ public class UserWallet {
         this.user = user;
     }
 
-    public BigInteger getPrivateKey() {
+    public String getPrivateKey() {
         return privateKey;
     }
 
-    public void setPrivateKey(BigInteger privateKey) {
+    public void setPrivateKey(String privateKey) {
         this.privateKey = privateKey;
     }
 
