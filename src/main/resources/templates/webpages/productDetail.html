@@ -1,5 +1,10 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en"
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+>
 
 <head>
     <meta charset="utf-8">
@@ -9,7 +14,7 @@
     <meta content="Free HTML Templates" name="description">
 
     <!-- Favicon -->
-    <link href="img/favicon.ico" rel="icon">
+<!--    <link href="img/favicon.ico" rel="icon">-->
 
     <!-- Google Web Fonts -->
     <link rel="preconnect" href="https://fonts.gstatic.com">
@@ -19,11 +24,11 @@
     <!-- Font Awesome -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
 
-    <!-- Libraries Stylesheet -->
-    <link href="assets/lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">
 
+    <!-- Libraries Stylesheet -->
+    <link th:href="@{../styles/owl.carousel.min.css}" rel="stylesheet">
     <!-- Customized Bootstrap Stylesheet -->
-    <link href="assets/css/style.css" rel="stylesheet">
+    <link th:href="@{../styles/style.css}" rel="stylesheet">
 </head>
 
 <body>
@@ -31,7 +36,7 @@
     <div class="container-fluid">
         <div class="row align-items-center py-3 px-xl-5">
             <div class="col-lg-3 d-none d-lg-block">
-                <a href="" class="text-decoration-none">
+                <a th:href="@{market}" class="text-decoration-none">
                     <h1 class="m-0 display-5 font-weight-semi-bold"><span
                             class="text-primary font-weight-bold border px-3 mr-1">Toad</span>Market</h1>
                 </a>
@@ -98,13 +103,16 @@
                     </button>
                     <div class="collapse navbar-collapse justify-content-between" id="navbarCollapse">
                         <div class="navbar-nav mr-auto py-0">
-                            <a href="market.html" class="nav-item nav-link">Home</a>
-                            <a href="shop.html" class="nav-item nav-link">Shop</a>
-                            <a href="productDetail.html" class="nav-item nav-link active">Shop Detail</a>
+                            <a th:href="@{market}" class="nav-item nav-link active">Home</a>
+                            <a th:href="@{shop}" class="nav-item nav-link">Shop</a>
+                            <a th:href="@{productDetail}" class="nav-item nav-link">Shop Detail</a>
+                            <a th:href="@{Homepage}" class="nav-item nav-link">Landing Page</a>
                         </div>
                         <div class="navbar-nav ml-auto py-0">
-                            <a href="#" class="nav-item nav-link">Login</a>
-                            <a href="#" class="nav-item nav-link">Register</a>
+                            <a class="nav-item nav-link nonClickable"> Welcome <b>[[${#request.userPrincipal.principal.name}]]</b> </a>
+                            <form th:action="@{/logout}" method="post">
+                                <button type="submit" class="nav-item nav-link customBtn"> Logout</button>
+                            </form>
                         </div>
                     </div>
                 </nav>
@@ -127,7 +135,7 @@
     <div class="container-fluid py-5">
         <div class="row px-xl-5">
             <div class="col-lg-5 pb-5">
-                <img class="w-100 h-100" src="assets/img/menu/Icon-Coc-08.png" alt="Image">
+                <img class="w-100 h-100" th:src="@{../img/menu/Icon-Coc-09.png}" alt="Image">
             </div>
 
             <div class="col-lg-7 pb-5">
@@ -456,15 +464,15 @@
     <!-- JavaScript Libraries -->
     <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.bundle.min.js"></script>
-    <script src="assets/lib/easing/easing.min.js"></script>
-    <script src="assets/lib/owlcarousel/owl.carousel.min.js"></script>
-
+    <script th:src="@{../js/easing.min.js}"></script>
+    <script th:src="@{../js/owl.carousel.min.js}"></script>
     <!-- Contact Javascript File -->
 <!--    <script src="mail/jqBootstrapValidation.min.js"></script>-->
 <!--    <script src="mail/contact.js"></script>-->
 
     <!-- Template Javascript -->
-    <script src="assets/js/main.js"></script>
+    <script th:src="@{../js/main1.js}"></script>
+
 </body>
 
 </html>

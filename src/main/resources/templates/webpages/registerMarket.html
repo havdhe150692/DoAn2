@@ -9,6 +9,7 @@
     <meta charset="UTF-8">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
           integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <title>Register</title>
 </head>
 <body>
@@ -21,57 +22,64 @@
                     <div class="card-body p-md-5">
                         <div class="row justify-content-center">
                             <div class="col-md-10 col-lg-6 col-xl-5 order-2 order-lg-1">
-
                                 <p class="text-center h1 fw-bold mb-5 mx-1 mx-md-4 mt-4">Sign up</p>
-                                <form th:action="@{/process_register}" method="post"
+                                <p id="textEmpty" class="text-center mb-5 mx-1 mx-md-4 mt-4"></p>
+                                <form onsubmit="return ValidateEmail(event,document.EmailValidation.email);"
+                                      th:action="@{/process_register}" method="post"
                                       th:object="${user}"
-                                      class="mx-1 mx-md-4">
+                                      class="mx-1 mx-md-4" name="EmailValidation"
+                                      id="regisForm"
+                                >
 
                                     <div class="d-flex flex-row align-items-center mb-4">
                                         <i class="fas fa-user fa-lg me-3 fa-fw"></i>
                                         <div class="form-outline flex-fill mb-0">
-                                            <input type="text" id="form3Example1c" class="form-control"
-                                                   th:field="*{name}" required/>
-                                            <label class="form-label" for="form3Example1c">Your Name</label>
+                                            <input th:name="username" id="username" name="username" type="text" class="form-control"
+                                                    placeholder="Enter your username" required minlength="5" maxlength="20"/>
+                                            <label th:text="${errorMessageU}" class="form-label">Your Name</label>
                                         </div>
                                     </div>
-
                                     <div class="d-flex flex-row align-items-center mb-4">
                                         <i class="fas fa-envelope fa-lg me-3 fa-fw"></i>
                                         <div class="form-outline flex-fill mb-0">
-                                            <input type="email" id="form3Example3c" class="form-control"
-                                                   th:field="*{email}" required/>
-                                            <label class="form-label" for="form3Example3c">Your Email</label>
+                                            <input th:name="email" type="email" id="email" class="form-control"
+                                                    placeholder="Enter your email" name="email" required/>
+                                            <label th:text="${errorMessage}" id="result" class="form-label">Your Email</label>
                                         </div>
                                     </div>
 
                                     <div class="d-flex flex-row align-items-center mb-4">
                                         <i class="fas fa-lock fa-lg me-3 fa-fw"></i>
                                         <div class="form-outline flex-fill mb-0">
-                                            <input type="password" id="form3Example4c" class="form-control"
-                                                   th:field="*{password}" required/>
-                                            <label class="form-label" for="form3Example4c">Password</label>
+                                            <input th:name="password" name="password" id="password" type="password"
+                                                   placeholder="Enter your password" class="form-control"
+                                                    required/>
+                                            <label class="form-label">Password</label>
                                         </div>
                                     </div>
 
-                                    <!--                                    <div class="d-flex flex-row align-items-center mb-4">-->
-                                    <!--                                        <i class="fas fa-key fa-lg me-3 fa-fw"></i>-->
-                                    <!--                                        <div class="form-outline flex-fill mb-0">-->
-                                    <!--                                            <input type="password" id="form3Example4cd" class="form-control"/>-->
-                                    <!--                                            <label class="form-label" for="form3Example4cd">Repeat your password</label>-->
-                                    <!--                                        </div>-->
-                                    <!--                                    </div>-->
+                                    <div class="d-flex flex-row align-items-center mb-4">
+                                        <i class="fas fa-key fa-lg me-3 fa-fw"></i>
+                                        <div class="form-outline flex-fill mb-0">
+                                            <input th:name="confirm_password" name="confirm_password" id="confirm_password" type="password"
+                                                   class="form-control" placeholder="Confirm your password" required/>
+                                            <label id='message' class="form-label">Repeat your password</label>
+                                        </div>
+                                    </div>
 
                                     <div class="form-check d-flex justify-content-center mb-5">
-                                        <input class="form-check-input me-2" type="checkbox" value=""
-                                               id="form2Example3c"/>
+                                        <input onclick="enable()" id="check" name="cBox" class="form-check-input me-2"
+                                               type="checkbox"
+                                               value=""
+                                        />
                                         <label class="form-check-label">
                                             I agree all statements in <a href="#!">Terms of service</a>
                                         </label>
                                     </div>
 
                                     <div class="d-flex justify-content-center mx-4 mb-3 mb-lg-4">
-                                        <button type="submit" class="btn btn-primary btn-lg">Register</button>
+                                        <button  disabled="true" id="btnRegister" type="submit" class="btn btn-primary btn-lg">Register
+                                        </button>
                                     </div>
                                 </form>
 
@@ -88,6 +96,8 @@
         </div>
     </div>
 </section>
-
+<script th:src="@{../js/formValidation.js}"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.5.0.js"></script>
 </body>
 </html>

@@ -55,17 +55,6 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     // login and logout
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-//        http.authorizeRequests()
-//                .antMatchers("/market").authenticated()
-//                .anyRequest().permitAll()
-//                .and()
-//                .formLogin()
-//                .usernameParameter("email").passwordParameter("password")
-//                .defaultSuccessUrl("/market")
-//                .permitAll()
-//                .and()
-//                .logout().logoutSuccessUrl("/").permitAll();
-
         http.authorizeRequests()
                 .antMatchers("/market").authenticated()
                 .anyRequest()
@@ -76,8 +65,9 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .defaultSuccessUrl("/market")
                 .permitAll()
                 .and()
-                .logout().logoutSuccessUrl("/").permitAll();
-        ;
+                .rememberMe().key("secretKey").tokenValiditySeconds(86400)
+                .and()
+                .logout().logoutUrl("/logout").logoutSuccessUrl("/loginMarket").permitAll();
     }
 
 
