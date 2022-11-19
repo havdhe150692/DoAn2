@@ -1,21 +1,25 @@
 package com.example.doan2.entity;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 
 @Entity
-public class ItemQuantity {
+public class ItemInventory {
 
+    @JsonIgnore
     @Id
     @GeneratedValue(strategy= GenerationType.AUTO)
     private Integer id;
 
     @ManyToOne
     @JoinColumn(name = "item_id")
-    private Item item;
+    private ItemShop itemShop;
 
     private int quantity;
 
+    @JsonIgnore
     @ManyToOne
     @JoinColumn(name = "owner_inventory_user_id")
     private Inventory ownerInventory;
@@ -47,12 +51,12 @@ public class ItemQuantity {
         this.quantity = quantity;
     }
 
-    public Item getItem() {
-        return item;
+    public ItemShop getItemShop() {
+        return itemShop;
     }
 
-    public void setItem(Item item) {
-        this.item = item;
+    public void setItemShop(ItemShop itemShop) {
+        this.itemShop = itemShop;
     }
 
 

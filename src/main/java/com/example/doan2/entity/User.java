@@ -28,6 +28,10 @@ public class User {
     @PrimaryKeyJoinColumn
     private Inventory inventory;
 
+    @OneToOne
+    @PrimaryKeyJoinColumn
+    private UserWallet userWallet;
+
     public Inventory getInventory() {
         return inventory;
     }

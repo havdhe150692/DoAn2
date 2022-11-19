@@ -1,17 +1,17 @@
 package com.example.doan2;
 
-import com.example.doan2.entity.User;
+import com.example.doan2.chain.ContractAccountRegister;
+import com.example.doan2.chain.ContractConnectorPublic;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.context.annotation.Bean;
-import org.springframework.web.servlet.config.annotation.CorsRegistry;
-import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
-import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 
 @SpringBootApplication
 public class DoAn2Application {
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws Exception {
+
         SpringApplication.run(DoAn2Application.class, args);
+        //ContractConnectorPublic connectorPublic = new ContractConnectorPublic();
+        ContractAccountRegister contractAccountRegister = new ContractAccountRegister();
     }
 }
