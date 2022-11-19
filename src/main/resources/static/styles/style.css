@@ -9591,3 +9591,7 @@ a.text-dark:hover, a.text-dark:focus {
 border: none;
 background-color: white;
 }
+.nonClickable {
+pointer-events: none;
+cursor: default;
+}
