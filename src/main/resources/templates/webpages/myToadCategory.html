@@ -8,8 +8,9 @@
 
 <head>
     <meta charset="utf-8">
-    <title>Toad King Market</title>
+    <title>My Toad</title>
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
+
 
     <!-- Favicon -->
     <!--    <link href="img/favicon.ico" rel="icon">-->
@@ -103,22 +104,23 @@
                 </button>
                 <div class="collapse navbar-collapse justify-content-between" id="navbarCollapse">
                     <div class="navbar-nav mr-auto py-0">
-<!--                        <a href="market.html" class="nav-item nav-link">Home</a>-->
-<!--                        <a href="shop.html" class="nav-item nav-link active">Shop</a>-->
-<!--                        <a href="productDetail.html" class="nav-item nav-link">Shop Detail</a>-->
+                        <!--                        <a href="market.html" class="nav-item nav-link">Home</a>-->
+                        <!--                        <a href="shop.html" class="nav-item nav-link active">Shop</a>-->
+                        <!--                        <a href="productDetail.html" class="nav-item nav-link">Shop Detail</a>-->
                         <a th:href="@{market}" class="nav-item nav-link active">Home</a>
                         <a th:href="@{shop}" class="nav-item nav-link">Market</a>
                         <a th:href="@{productDetail}" class="nav-item nav-link">Shop Detail</a>
                         <a th:href="@{myToad}" class="nav-item nav-link">My Toad</a>
-                        <a th:href="@{Homepage}" class="nav-item nav-link"><Land></Land>ing Page</a>
+                        <a th:href="@{Homepage}" class="nav-item nav-link">Landing Page</a>
                     </div>
                     <div class="navbar-nav ml-auto py-0">
-                        <a class="nav-item nav-link nonClickable"> Welcome <b>[[${#request.userPrincipal.principal.name}]]</b> </a>
+                        <a class="nav-item nav-link nonClickable"> Welcome <b>[[${#request.userPrincipal.principal.name}]]</b>
+                        </a>
                         <form th:action="@{/logout}" method="post">
                             <button type="submit" class="nav-item nav-link customBtn"> Logout</button>
                         </form>
-<!--                        <a href="#" class="nav-item nav-link">Login</a>-->
-<!--                        <a href="#" class="nav-item nav-link">Register</a>-->
+                        <!--                        <a href="#" class="nav-item nav-link">Login</a>-->
+                        <!--                        <a href="#" class="nav-item nav-link">Register</a>-->
                     </div>
                 </div>
             </nav>
@@ -131,7 +133,7 @@
 <!-- Page Header Start -->
 <div class="container-fluid bg-secondary mb-5">
     <div class="d-flex flex-column align-items-center justify-content-center" style="min-height: 200px">
-        <h1 class="font-weight-semi-bold text-uppercase mb-3">Market</h1>
+        <h1 class="font-weight-semi-bold text-uppercase mb-3">My Toad's</h1>
     </div>
 </div>
 <!-- Page Header End -->
@@ -142,49 +144,6 @@
     <div class="row px-xl-5">
         <!-- Shop Sidebar Start -->
         <div class="col-lg-3 col-md-12">
-            <!-- Price Start -->
-            <div class="border-bottom mb-4 pb-4">
-                <h5 class="font-weight-semi-bold mb-4">Filter by price</h5>
-                <form>
-                    <div
-                            class="custom-control custom-checkbox d-flex align-items-center justify-content-between mb-3">
-                        <input type="checkbox" class="custom-control-input" checked id="price-all">
-                        <label class="custom-control-label" for="price-all">All Price</label>
-                        <span class="badge border font-weight-normal">1000</span>
-                    </div>
-                    <div
-                            class="custom-control custom-checkbox d-flex align-items-center justify-content-between mb-3">
-                        <input type="checkbox" class="custom-control-input" id="price-1">
-                        <label class="custom-control-label" for="price-1">$0 - $100</label>
-                        <span class="badge border font-weight-normal">150</span>
-                    </div>
-                    <div
-                            class="custom-control custom-checkbox d-flex align-items-center justify-content-between mb-3">
-                        <input type="checkbox" class="custom-control-input" id="price-2">
-                        <label class="custom-control-label" for="price-2">$100 - $200</label>
-                        <span class="badge border font-weight-normal">295</span>
-                    </div>
-                    <div
-                            class="custom-control custom-checkbox d-flex align-items-center justify-content-between mb-3">
-                        <input type="checkbox" class="custom-control-input" id="price-3">
-                        <label class="custom-control-label" for="price-3">$200 - $300</label>
-                        <span class="badge border font-weight-normal">246</span>
-                    </div>
-                    <div
-                            class="custom-control custom-checkbox d-flex align-items-center justify-content-between mb-3">
-                        <input type="checkbox" class="custom-control-input" id="price-4">
-                        <label class="custom-control-label" for="price-4">$300 - $400</label>
-                        <span class="badge border font-weight-normal">145</span>
-                    </div>
-                    <div class="custom-control custom-checkbox d-flex align-items-center justify-content-between">
-                        <input type="checkbox" class="custom-control-input" id="price-5">
-                        <label class="custom-control-label" for="price-5">$400 - $500</label>
-                        <span class="badge border font-weight-normal">168</span>
-                    </div>
-                </form>
-            </div>
-            <!-- Price End -->
-
             <!-- Rarity Start -->
             <div class="border-bottom mb-4 pb-4">
                 <h5 class="font-weight-semi-bold mb-4">Filter by rarity</h5>
@@ -192,7 +151,7 @@
                     <div
                             class="custom-control custom-checkbox d-flex align-items-center justify-content-between mb-3">
                         <input type="checkbox" class="custom-control-input" checked id="color-all">
-                        <label class="custom-control-label" for="price-all">All Rarity</label>
+                        <label class="custom-control-label" >All Rarity</label>
                         <span class="badge border font-weight-normal">1000</span>
                     </div>
                     <div
@@ -260,35 +219,34 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-lg-4 col-md-6 col-sm-12 pb-1">
-                    <div class="card product-item border-0 mb-4">
-                        <div
-                                class="card-header product-img position-relative overflow-hidden bg-transparent border p-0">
-<!--                            <img class="img-fluid w-100" src="assets/img/menu/Icon-Coc-01.png" alt="">-->
-                            <img class="img-fluid w-100" th:src="@{../img/menu/Icon-Coc-01.png}" alt="Image"/>
-                        </div>
-                        <div class="card-body border-left border-right text-center p-0 pt-4 pb-3">
-                            <h6 class="text-truncate mb-3"> Toad Types</h6>
-                            <div class="d-flex justify-content-center">
-                                <h6>$123.00</h6>
-                                <h6 class="text-muted ml-2">
-                                    <del>$123.00</del>
-                                </h6>
+
+
+                <tr th:each="toad : ${myToadList}">
+                    <div class="col-lg-4 col-md-6 col-sm-12 pb-1">
+                        <div class="card product-item border-0 mb-4">
+                            <div
+                                    class="card-header product-img position-relative overflow-hidden bg-transparent border p-0">
+                                <img class="img-fluid w-100" th:src="@{../img/menu/Icon-Coc-01.png}" alt="Image"/>
+                            </div>
+                            <div class="card-body border-left border-right text-center p-0 pt-4 pb-3">
+                                <h6 th:text="${toad.name}" class="text-truncate mb-3"> Toad Types</h6>
+                                <div class="d-flex justify-content-center">
+                                    <h6>$123.00</h6>
+                                </div>
+                            </div>
+                            <div class="card-footer d-flex centerBtn  bg-light border">
+                                <a th:href="@{sellToad}" href="" class="btn btn-sm text-dark p-0"><i
+                                        class="fas fa-eye text-primary mr-1"></i>View Detail</a>
                             </div>
                         </div>
-                        <div class="card-footer d-flex justify-content-between bg-light border">
-                            <a href="" class="btn btn-sm text-dark p-0"><i
-                                    class="fas fa-eye text-primary mr-1"></i>View Detail</a>
-                            <a href="" class="btn btn-sm text-dark p-0"><i
-                                    class="fas fa-shopping-cart text-primary mr-1"></i>Buy</a>
-                        </div>
                     </div>
-                </div>
+                </tr>
+
+
                 <div class="col-lg-4 col-md-6 col-sm-12 pb-1">
                     <div class="card product-item border-0 mb-4">
                         <div
                                 class="card-header product-img position-relative overflow-hidden bg-transparent border p-0">
-<!--                            <img class="img-fluid w-100" src="assets/img/menu/Icon-Coc-02.png" alt="">-->
                             <img class="img-fluid w-100" th:src="@{../img/menu/Icon-Coc-02.png}" alt="Image"/>
                         </div>
                         <div class="card-body border-left border-right text-center p-0 pt-4 pb-3">
@@ -300,11 +258,11 @@
                                 </h6>
                             </div>
                         </div>
-                        <div class="card-footer d-flex justify-content-between bg-light border">
-                            <a href="" class="btn btn-sm text-dark p-0"><i
+                        <div class="card-footer centerBtn d-flex  bg-light border">
+                            <a th:href="@{sellToad}" class="btn btn-sm text-dark p-0"><i
                                     class="fas fa-eye text-primary mr-1"></i>View Detail</a>
-                            <a href="" class="btn btn-sm text-dark p-0"><i
-                                    class="fas fa-shopping-cart text-primary mr-1"></i>Buy</a>
+<!--                            <a href="" class="btn btn-sm text-dark p-0"><i-->
+<!--                                    class="fas fa-shopping-cart text-primary mr-1"></i>Sell</a>-->
                         </div>
                     </div>
                 </div>
@@ -312,7 +270,7 @@
                     <div class="card product-item border-0 mb-4">
                         <div
                                 class="card-header product-img position-relative overflow-hidden bg-transparent border p-0">
-<!--                            <img class="img-fluid w-100" src="assets/img/menu/Icon-Coc-03.png" alt="">-->
+                            <!--                            <img class="img-fluid w-100" src="assets/img/menu/Icon-Coc-03.png" alt="">-->
                             <img class="img-fluid w-100" th:src="@{../img/menu/Icon-Coc-03.png}" alt="Image"/>
                         </div>
                         <div class="card-body border-left border-right text-center p-0 pt-4 pb-3">
@@ -324,11 +282,11 @@
                                 </h6>
                             </div>
                         </div>
-                        <div class="card-footer d-flex justify-content-between bg-light border">
-                            <a href="" class="btn btn-sm text-dark p-0"><i
+                        <div class="card-footer centerBtn d-flex  bg-light border">
+                            <a th:href="@{sellToad}" class="btn btn-sm text-dark p-0"><i
                                     class="fas fa-eye text-primary mr-1"></i>View Detail</a>
-                            <a href="" class="btn btn-sm text-dark p-0"><i
-                                    class="fas fa-shopping-cart text-primary mr-1"></i>Buy</a>
+<!--                            <a href="" class="btn btn-sm text-dark p-0"><i-->
+<!--                                    class="fas fa-shopping-cart text-primary mr-1"></i>Sell</a>-->
                         </div>
                     </div>
                 </div>
@@ -347,11 +305,11 @@
                                 </h6>
                             </div>
                         </div>
-                        <div class="card-footer d-flex justify-content-between bg-light border">
-                            <a href="" class="btn btn-sm text-dark p-0"><i
+                        <div class="card-footer centerBtn d-flex  bg-light border">
+                            <a th:href="@{sellToad}" class="btn btn-sm text-dark p-0"><i
                                     class="fas fa-eye text-primary mr-1"></i>View Detail</a>
-                            <a href="" class="btn btn-sm text-dark p-0"><i
-                                    class="fas fa-shopping-cart text-primary mr-1"></i>Buy</a>
+<!--                            <a href="" class="btn btn-sm text-dark p-0"><i-->
+<!--                                    class="fas fa-shopping-cart text-primary mr-1"></i>Sell</a>-->
                         </div>
                     </div>
                 </div>
@@ -370,11 +328,11 @@
                                 </h6>
                             </div>
                         </div>
-                        <div class="card-footer d-flex justify-content-between bg-light border">
-                            <a href="" class="btn btn-sm text-dark p-0"><i
+                        <div class="card-footer centerBtn d-flex  bg-light border">
+                            <a th:href="@{sellToad}" class="btn btn-sm text-dark p-0"><i
                                     class="fas fa-eye text-primary mr-1"></i>View Detail</a>
-                            <a href="" class="btn btn-sm text-dark p-0"><i
-                                    class="fas fa-shopping-cart text-primary mr-1"></i>Buy</a>
+<!--                            <a href="" class="btn btn-sm text-dark p-0"><i-->
+<!--                                    class="fas fa-shopping-cart text-primary mr-1"></i>Sell</a>-->
                         </div>
                     </div>
                 </div>
@@ -393,11 +351,11 @@
                                 </h6>
                             </div>
                         </div>
-                        <div class="card-footer d-flex justify-content-between bg-light border">
-                            <a href="" class="btn btn-sm text-dark p-0"><i
+                        <div class="card-footer centerBtn d-flex  bg-light border">
+                            <a th:href="@{sellToad}" class="btn btn-sm text-dark p-0"><i
                                     class="fas fa-eye text-primary mr-1"></i>View Detail</a>
-                            <a href="" class="btn btn-sm text-dark p-0"><i
-                                    class="fas fa-shopping-cart text-primary mr-1"></i>Buy</a>
+<!--                            <a href="" class="btn btn-sm text-dark p-0"><i-->
+<!--                                    class="fas fa-shopping-cart text-primary mr-1"></i>Sell</a>-->
                         </div>
                     </div>
                 </div>

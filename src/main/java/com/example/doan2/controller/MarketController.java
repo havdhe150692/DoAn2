@@ -15,5 +15,14 @@ public class MarketController {
     public String viewProductDetail() {
         return "productDetail";
     }
+//    @GetMapping("/myToad")
+//    public String viewMyToadCategory() {
+//        return "myToadCategory";
+//    }
+
+//    @GetMapping("/sellToad")
+//    public String sellToad() {
+//        return "sellToad";
+//    }
 
 }
