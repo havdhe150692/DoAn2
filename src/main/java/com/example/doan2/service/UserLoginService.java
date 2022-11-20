@@ -54,6 +54,9 @@ public class UserLoginService implements UserDetails {
     public String getName() {
         return user.getName();
     }
+    public User getUser() {
+        return this.user;
+    }
     /*
      *  End Methods for Login User
      * */
