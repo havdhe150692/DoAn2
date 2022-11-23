@@ -8,10 +8,9 @@
 
 <head>
     <meta charset="utf-8">
-    <title>EShopper - Bootstrap Shop Template</title>
+    <title>Toad King</title>
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
-    <meta content="Free HTML Templates" name="keywords">
-    <meta content="Free HTML Templates" name="description">
+
 
     <!-- Favicon -->
 <!--    <link href="img/favicon.ico" rel="icon">-->
@@ -104,8 +103,9 @@
                     <div class="collapse navbar-collapse justify-content-between" id="navbarCollapse">
                         <div class="navbar-nav mr-auto py-0">
                             <a th:href="@{market}" class="nav-item nav-link active">Home</a>
-                            <a th:href="@{shop}" class="nav-item nav-link">Shop</a>
+                            <a th:href="@{shop}" class="nav-item nav-link">Market</a>
                             <a th:href="@{productDetail}" class="nav-item nav-link">Shop Detail</a>
+                            <a th:href="@{myToad}" class="nav-item nav-link">My Toad</a>
                             <a th:href="@{Homepage}" class="nav-item nav-link">Landing Page</a>
                         </div>
                         <div class="navbar-nav ml-auto py-0">
@@ -180,21 +180,28 @@
                         </div>
                     </form>
                 </div> -->
+<!--                <div class="d-flex align-items-center mb-4 pt-2">-->
+<!--                    <div class="input-group quantity mr-3" style="width: 130px;">-->
+<!--                        <div class="input-group-btn">-->
+<!--                            <button class="btn btn-primary btn-minus">-->
+<!--                                <i class="fa fa-minus"></i>-->
+<!--                            </button>-->
+<!--                        </div>-->
+<!--                        <input type="text" class="form-control bg-secondary text-center col-sm-3" value="1">-->
+<!--                        <div class="input-group-btn">-->
+<!--                            <button class="btn btn-primary btn-plus">-->
+<!--                                <i class="fa fa-plus"></i>-->
+<!--                            </button>-->
+<!--                        </div>-->
+<!--                    </div>-->
+<!--                    <button class="btn btn-primary px-3"><i class="fa fa-shopping-cart mr-1"></i> Buy </button>-->
+<!--                </div>-->
                 <div class="d-flex align-items-center mb-4 pt-2">
-                    <div class="input-group quantity mr-3" style="width: 130px;">
-                        <div class="input-group-btn">
-                            <button class="btn btn-primary btn-minus">
-                                <i class="fa fa-minus"></i>
-                            </button>
-                        </div>
-                        <input type="text" class="form-control bg-secondary text-center" value="1">
-                        <div class="input-group-btn">
-                            <button class="btn btn-primary btn-plus">
-                                <i class="fa fa-plus"></i>
-                            </button>
-                        </div>
-                    </div>
-                    <button class="btn btn-primary px-3"><i class="fa fa-shopping-cart mr-1"></i> Add To Cart</button>
+<!--                    <div class="input-group quantity mr-3" style="width: 220px;">-->
+<!--                        <p style="margin: auto; font-size: 20px" class="text-dark font-weight-medium">Price : </p>-->
+<!--                        <input style="margin-left: 3px;" disabled type="text" class="form-control bg-secondary text-center" value="1">-->
+<!--                    </div>-->
+                    <button class="btn btn-primary px-3"><i class="fa fa-shopping-cart mr-1"></i> Buy</button>
                 </div>
                 <!-- <div class="d-flex pt-2">
                     <p class="text-dark font-weight-medium mb-0 mr-2">Share on:</p>

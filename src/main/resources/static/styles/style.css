@@ -9595,3 +9595,9 @@ background-color: white;
 pointer-events: none;
 cursor: default;
 }
+.btn-plus {
+ width
+}
+.centerBtn {
+    justify-content: center;
+}
