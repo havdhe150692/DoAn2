@@ -14,21 +14,13 @@ public class Market {
     @JoinColumn(name = "seller_id")
     private User seller;
 
-    @OneToOne
-    @JoinColumn(name = "toad_id")
-    private Toad toad;
+    @ManyToOne
+    private ToadIngame toadIngame;
 
     private int price;
 
     private Timestamp time;
 
-    public Toad getToad() {
-        return toad;
-    }
-
-    public void setToad(Toad toad) {
-        this.toad = toad;
-    }
 
     public User getSeller() {
         return seller;

@@ -16,8 +16,7 @@ public class ToadStatus {
     @JsonIgnore
     @OneToOne
     @MapsId
-    @JoinColumn(name = "toad_id")
-    private Toad toad;
+    private ToadIngame toadIngame;
 
 
     private Timestamp expectedMature;
@@ -69,13 +68,6 @@ public class ToadStatus {
         this.id = id;
     }
 
-    public Toad getToad() {
-        return toad;
-    }
-
-    public void setToad(Toad toad) {
-        this.toad = toad;
-    }
 
 
 

@@ -31,18 +31,28 @@ public class Toad {
     @JoinColumn(name = "toad_class_id")
     private ToadClass toadClass;
 
-    @OneToOne(cascade = CascadeType.ALL, mappedBy = "toad")
-    @PrimaryKeyJoinColumn
-    private ToadStatus toadStatus;
+//    @OneToOne(cascade = CascadeType.ALL, mappedBy = "toad")
+//    @PrimaryKeyJoinColumn
+//    private ToadStatus toadStatus;
 
 
-    public ToadStatus getToadStatus() {
-        return toadStatus;
+    private int pictureId;
+
+    public int getPictureId() {
+        return pictureId;
     }
 
-    public void setToadStatus(ToadStatus toadStatus) {
-        this.toadStatus = toadStatus;
+    public void setPictureId(int pictureId) {
+        this.pictureId = pictureId;
     }
+
+//    public ToadStatus getToadStatus() {
+//        return toadStatus;
+//    }
+//
+//    public void setToadStatus(ToadStatus toadStatus) {
+//        this.toadStatus = toadStatus;
+//    }
 
     public String getInfo() {
         return info;
@@ -67,7 +77,6 @@ public class Toad {
     public void setToadClass(ToadClass toadClass) {
         this.toadClass = toadClass;
     }
-
 
     public Integer getId() {
         return id;

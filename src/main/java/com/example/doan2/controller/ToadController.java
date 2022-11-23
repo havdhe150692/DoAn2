@@ -64,27 +64,27 @@ public class ToadController {
     }
 
 
-    @CrossOrigin(origins ="http://localhost:8000")
-    @RequestMapping(value ="/user/{userId}/status", method= RequestMethod.GET)
-    public List<ToadStatus> getAllStatusOfToadOfThisUser(@PathVariable(value = "userId") int userId)
-    {
-        List<ToadStatus> toadStatuses = new ArrayList<>();
-        User u = userService.findUserById(userId);
-        List<Toad> toadList = toadService.findAllToadByOwner(u);
-        for (Toad t: toadList) {
-            toadStatuses.add(toadService.findByToadHolder(t));
-        }
+//    @CrossOrigin(origins ="http://localhost:8000")
+//    @RequestMapping(value ="/user/{userId}/status", method= RequestMethod.GET)
+//    public List<ToadStatus> getAllStatusOfToadOfThisUser(@PathVariable(value = "userId") int userId)
+//    {
+//        List<ToadStatus> toadStatuses = new ArrayList<>();
+//        User u = userService.findUserById(userId);
+//        List<Toad> toadList = toadService.findAllToadByOwner(u);
+//        for (Toad t: toadList) {
+//            toadStatuses.add(toadService.findByToadHolder(t));
+//        }
+//
+//        return toadStatuses;
+//    }
 
-        return toadStatuses;
-    }
-
-    @CrossOrigin(origins ="http://localhost:8000")
-    @RequestMapping(value ="/status/{toadId}", method= RequestMethod.GET)
-    public ToadStatus getStatusOfThisToad(@PathVariable(value = "toadId") int toadId)
-    {
-        Toad t = toadService.findToadDetail(toadId);
-        return toadService.findByToadHolder(t);
-    }
+//    @CrossOrigin(origins ="http://localhost:8000")
+//    @RequestMapping(value ="/status/{toadId}", method= RequestMethod.GET)
+//    public ToadStatus getStatusOfThisToad(@PathVariable(value = "toadId") int toadId)
+//    {
+//        Toad t = toadService.findToadDetail(toadId);
+//        return toadService.findByToadHolder(t);
+//    }
 
 
     @CrossOrigin(origins ="http://localhost:8000")
