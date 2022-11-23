@@ -1,5 +1,6 @@
 package com.example.doan2.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.web3j.crypto.CipherException;
 
 import javax.persistence.*;
@@ -17,12 +18,15 @@ public class User {
 
     private String email;
 
+    @JsonIgnore
     private String password;
 
+    @JsonIgnore
     @OneToOne(cascade = CascadeType.ALL, mappedBy = "user")
     @PrimaryKeyJoinColumn
     private UserWallet userWallet;
 
+    @JsonIgnore
     @OneToOne(cascade = CascadeType.ALL, mappedBy = "user")
     @PrimaryKeyJoinColumn
     private Inventory inventory;

@@ -1,6 +1,7 @@
 package com.example.doan2.service;
 
 import com.example.doan2.entity.Toad;
+import com.example.doan2.entity.ToadIngame;
 import com.example.doan2.entity.ToadStatus;
 import com.example.doan2.entity.User;
 import com.example.doan2.repository.ToadRepository;
@@ -30,10 +31,10 @@ public class ToadService {
                  toadRepository.findById(id);
     }
 
-    public ToadStatus findByToadHolder(Toad toad)
+    public ToadStatus findByToadHolder(ToadIngame toadIngame)
     {
         return
-                toadStatusRepository.findByToad(toad);
+                toadStatusRepository.findByToadIngame(toadIngame);
     }
 
 }
