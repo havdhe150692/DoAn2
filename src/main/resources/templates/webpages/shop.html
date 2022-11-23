@@ -34,7 +34,7 @@
 <div class="container-fluid">
     <div class="row align-items-center py-3 px-xl-5">
         <div class="col-lg-3 d-none d-lg-block">
-            <a th:href="@{market}" class="text-decoration-none">
+            <a th:href="@{/market}" class="text-decoration-none">
                 <h1 class="m-0 display-5 font-weight-semi-bold"><span
                         class="text-primary font-weight-bold border px-3 mr-1">Toad</span>Market</h1>
             </a>
@@ -106,11 +106,11 @@
 <!--                        <a href="market.html" class="nav-item nav-link">Home</a>-->
 <!--                        <a href="shop.html" class="nav-item nav-link active">Shop</a>-->
 <!--                        <a href="productDetail.html" class="nav-item nav-link">Shop Detail</a>-->
-                        <a th:href="@{market}" class="nav-item nav-link active">Home</a>
-                        <a th:href="@{shop}" class="nav-item nav-link">Market</a>
-                        <a th:href="@{productDetail}" class="nav-item nav-link">Shop Detail</a>
-                        <a th:href="@{myToad}" class="nav-item nav-link">My Toad</a>
-                        <a th:href="@{Homepage}" class="nav-item nav-link"><Land></Land>ing Page</a>
+                        <a th:href="@{/market}" class="nav-item nav-link active">Home</a>
+                        <a th:href="@{/shop}" class="nav-item nav-link">Market</a>
+                        <a th:href="@{/productDetail}" class="nav-item nav-link">Shop Detail</a>
+                        <a th:href="@{/myToad}" class="nav-item nav-link">My Toad</a>
+                        <a th:href="@{/Homepage}" class="nav-item nav-link"><Land></Land>Landing Page</a>
                     </div>
                     <div class="navbar-nav ml-auto py-0">
                         <a class="nav-item nav-link nonClickable"> Welcome <b>[[${#request.userPrincipal.principal.name}]]</b> </a>

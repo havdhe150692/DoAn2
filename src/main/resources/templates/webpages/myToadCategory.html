@@ -35,7 +35,7 @@
 <div class="container-fluid">
     <div class="row align-items-center py-3 px-xl-5">
         <div class="col-lg-3 d-none d-lg-block">
-            <a th:href="@{market}" class="text-decoration-none">
+            <a th:href="@{/market}" class="text-decoration-none">
                 <h1 class="m-0 display-5 font-weight-semi-bold"><span
                         class="text-primary font-weight-bold border px-3 mr-1">Toad</span>Market</h1>
             </a>
@@ -107,11 +107,11 @@
                         <!--                        <a href="market.html" class="nav-item nav-link">Home</a>-->
                         <!--                        <a href="shop.html" class="nav-item nav-link active">Shop</a>-->
                         <!--                        <a href="productDetail.html" class="nav-item nav-link">Shop Detail</a>-->
-                        <a th:href="@{market}" class="nav-item nav-link active">Home</a>
-                        <a th:href="@{shop}" class="nav-item nav-link">Market</a>
-                        <a th:href="@{productDetail}" class="nav-item nav-link">Shop Detail</a>
-                        <a th:href="@{myToad}" class="nav-item nav-link">My Toad</a>
-                        <a th:href="@{Homepage}" class="nav-item nav-link">Landing Page</a>
+                        <a th:href="@{/market}" class="nav-item nav-link active">Home</a>
+                        <a th:href="@{/shop}" class="nav-item nav-link">Market</a>
+                        <a th:href="@{/productDetail}" class="nav-item nav-link">Shop Detail</a>
+                        <a th:href="@{/myToad}" class="nav-item nav-link">My Toad</a>
+                        <a th:href="@{/Homepage}" class="nav-item nav-link">Landing Page</a>
                     </div>
                     <div class="navbar-nav ml-auto py-0">
                         <a class="nav-item nav-link nonClickable"> Welcome <b>[[${#request.userPrincipal.principal.name}]]</b>
@@ -235,130 +235,13 @@
                                 </div>
                             </div>
                             <div class="card-footer d-flex centerBtn  bg-light border">
-                                <a th:href="@{sellToad}" href="" class="btn btn-sm text-dark p-0"><i
+                                <a th:href="@{sellToad/{id}(id=${toad.id})}"  class="btn btn-sm text-dark p-0"><i
                                         class="fas fa-eye text-primary mr-1"></i>View Detail</a>
                             </div>
                         </div>
                     </div>
                 </tr>
 
-
-                <div class="col-lg-4 col-md-6 col-sm-12 pb-1">
-                    <div class="card product-item border-0 mb-4">
-                        <div
-                                class="card-header product-img position-relative overflow-hidden bg-transparent border p-0">
-                            <img class="img-fluid w-100" th:src="@{../img/menu/Icon-Coc-02.png}" alt="Image"/>
-                        </div>
-                        <div class="card-body border-left border-right text-center p-0 pt-4 pb-3">
-                            <h6 class="text-truncate mb-3"> Toad Types</h6>
-                            <div class="d-flex justify-content-center">
-                                <h6>$123.00</h6>
-                                <h6 class="text-muted ml-2">
-                                    <del>$123.00</del>
-                                </h6>
-                            </div>
-                        </div>
-                        <div class="card-footer centerBtn d-flex  bg-light border">
-                            <a th:href="@{sellToad}" class="btn btn-sm text-dark p-0"><i
-                                    class="fas fa-eye text-primary mr-1"></i>View Detail</a>
-<!--                            <a href="" class="btn btn-sm text-dark p-0"><i-->
-<!--                                    class="fas fa-shopping-cart text-primary mr-1"></i>Sell</a>-->
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-4 col-md-6 col-sm-12 pb-1">
-                    <div class="card product-item border-0 mb-4">
-                        <div
-                                class="card-header product-img position-relative overflow-hidden bg-transparent border p-0">
-                            <!--                            <img class="img-fluid w-100" src="assets/img/menu/Icon-Coc-03.png" alt="">-->
-                            <img class="img-fluid w-100" th:src="@{../img/menu/Icon-Coc-03.png}" alt="Image"/>
-                        </div>
-                        <div class="card-body border-left border-right text-center p-0 pt-4 pb-3">
-                            <h6 class="text-truncate mb-3"> Toad Types</h6>
-                            <div class="d-flex justify-content-center">
-                                <h6>$123.00</h6>
-                                <h6 class="text-muted ml-2">
-                                    <del>$123.00</del>
-                                </h6>
-                            </div>
-                        </div>
-                        <div class="card-footer centerBtn d-flex  bg-light border">
-                            <a th:href="@{sellToad}" class="btn btn-sm text-dark p-0"><i
-                                    class="fas fa-eye text-primary mr-1"></i>View Detail</a>
-<!--                            <a href="" class="btn btn-sm text-dark p-0"><i-->
-<!--                                    class="fas fa-shopping-cart text-primary mr-1"></i>Sell</a>-->
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-4 col-md-6 col-sm-12 pb-1">
-                    <div class="card product-item border-0 mb-4">
-                        <div
-                                class="card-header product-img position-relative overflow-hidden bg-transparent border p-0">
-                            <img class="img-fluid w-100" th:src="@{../img/menu/Icon-Coc-04.png}" alt="Image"/>
-                        </div>
-                        <div class="card-body border-left border-right text-center p-0 pt-4 pb-3">
-                            <h6 class="text-truncate mb-3"> Toad Types</h6>
-                            <div class="d-flex justify-content-center">
-                                <h6>$123.00</h6>
-                                <h6 class="text-muted ml-2">
-                                    <del>$123.00</del>
-                                </h6>
-                            </div>
-                        </div>
-                        <div class="card-footer centerBtn d-flex  bg-light border">
-                            <a th:href="@{sellToad}" class="btn btn-sm text-dark p-0"><i
-                                    class="fas fa-eye text-primary mr-1"></i>View Detail</a>
-<!--                            <a href="" class="btn btn-sm text-dark p-0"><i-->
-<!--                                    class="fas fa-shopping-cart text-primary mr-1"></i>Sell</a>-->
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-4 col-md-6 col-sm-12 pb-1">
-                    <div class="card product-item border-0 mb-4">
-                        <div
-                                class="card-header product-img position-relative overflow-hidden bg-transparent border p-0">
-                            <img class="img-fluid w-100" th:src="@{../img/menu/Icon-Coc-05.png}" alt="Image"/>
-                        </div>
-                        <div class="card-body border-left border-right text-center p-0 pt-4 pb-3">
-                            <h6 class="text-truncate mb-3"> Toad Types</h6>
-                            <div class="d-flex justify-content-center">
-                                <h6>$123.00</h6>
-                                <h6 class="text-muted ml-2">
-                                    <del>$123.00</del>
-                                </h6>
-                            </div>
-                        </div>
-                        <div class="card-footer centerBtn d-flex  bg-light border">
-                            <a th:href="@{sellToad}" class="btn btn-sm text-dark p-0"><i
-                                    class="fas fa-eye text-primary mr-1"></i>View Detail</a>
-<!--                            <a href="" class="btn btn-sm text-dark p-0"><i-->
-<!--                                    class="fas fa-shopping-cart text-primary mr-1"></i>Sell</a>-->
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-4 col-md-6 col-sm-12 pb-1">
-                    <div class="card product-item border-0 mb-4">
-                        <div
-                                class="card-header product-img position-relative overflow-hidden bg-transparent border p-0">
-                            <img class="img-fluid w-100" th:src="@{../img/menu/Icon-Coc-06.png}" alt="Image"/>
-                        </div>
-                        <div class="card-body border-left border-right text-center p-0 pt-4 pb-3">
-                            <h6 class="text-truncate mb-3">Colorful Stylish Shirt</h6>
-                            <div class="d-flex justify-content-center">
-                                <h6>$123.00</h6>
-                                <h6 class="text-muted ml-2">
-                                    <del>$123.00</del>
-                                </h6>
-                            </div>
-                        </div>
-                        <div class="card-footer centerBtn d-flex  bg-light border">
-                            <a th:href="@{sellToad}" class="btn btn-sm text-dark p-0"><i
-                                    class="fas fa-eye text-primary mr-1"></i>View Detail</a>
-<!--                            <a href="" class="btn btn-sm text-dark p-0"><i-->
-<!--                                    class="fas fa-shopping-cart text-primary mr-1"></i>Sell</a>-->
-                        </div>
-                    </div>
-                </div>
                 <div class="col-12 pb-1">
                     <nav aria-label="Page navigation">
                         <ul class="pagination justify-content-center mb-3">
