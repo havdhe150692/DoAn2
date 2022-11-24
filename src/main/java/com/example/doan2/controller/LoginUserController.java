@@ -82,6 +82,7 @@ public class LoginUserController {
         } else {
             BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
             String encoderPassword = encoder.encode(user.getPassword());
+
             user.setName(username);
             user.setEmail(email);
             user.setPassword(encoderPassword);

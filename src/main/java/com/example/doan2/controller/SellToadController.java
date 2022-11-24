@@ -54,7 +54,7 @@ public class SellToadController {
         System.out.println("this is time: " + market.getTime());
         market.setSeller(user);
         Toad myToad = toadRepo.findById(id);
-        market.setToad(myToad);
+//        market.setToad(myToad);
         marketRepo.save(market);
         return "myToadCategory";
     }
