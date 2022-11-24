@@ -14,8 +14,8 @@ public class ToadPool {
 
     private int currentIndex;
 
-    @ManyToOne
-    @JoinColumn(name = "toad_meta_data_id")
+    @OneToOne
+    @JoinColumn(name = "toad_data_id")
     private ToadData toadData;
 
     public ToadData getToadData() {

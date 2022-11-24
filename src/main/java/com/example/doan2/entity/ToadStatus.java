@@ -18,7 +18,6 @@ public class ToadStatus {
     @MapsId
     private ToadIngame toadIngame;
 
-
     private Timestamp expectedMature;
 
     private Timestamp expectedBreed;
@@ -69,6 +68,11 @@ public class ToadStatus {
     }
 
 
+    public ToadIngame getToadIngame() {
+        return toadIngame;
+    }
 
-
+    public void setToadIngame(ToadIngame toadIngame) {
+        this.toadIngame = toadIngame;
+    }
 }

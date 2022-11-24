@@ -20,11 +20,20 @@ public class ToadIngame {
     @JoinColumn(name = "owner_id")
     private User owner;
 
+    private int typeCounter;
     private Date dateOfBirth;
 
     @OneToOne(cascade = CascadeType.ALL, mappedBy = "toadIngame")
     @PrimaryKeyJoinColumn
     private ToadStatus toadStatus;
+
+    public int getTypeCounter() {
+        return typeCounter;
+    }
+
+    public void setTypeCounter(int typeCounter) {
+        this.typeCounter = typeCounter;
+    }
 
     public Integer getId() {
         return id;

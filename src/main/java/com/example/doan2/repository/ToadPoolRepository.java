@@ -12,5 +12,5 @@ import javax.persistence.Entity;
 public interface ToadPoolRepository extends JpaRepository<ToadPool, Integer> {
 
     ToadPool findById(int id);
-    ToadPool findAllByToadData(ToadData toadData);
+    ToadPool findByToadData(ToadData toadData);
 }

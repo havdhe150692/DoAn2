@@ -7,8 +7,8 @@ import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
-@Repository
-public interface  ToadRepository  extends JpaRepository<Toad, Integer> {
+
+public interface  ToadRepository {
 
 
     List<Toad> findAllByOwner(User owner);

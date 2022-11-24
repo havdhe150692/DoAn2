@@ -15,6 +15,7 @@ public class Market {
     private User seller;
 
     @ManyToOne
+    @JoinColumn(name = "toad_ingame_id")
     private ToadIngame toadIngame;
 
     private int price;

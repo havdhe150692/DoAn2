@@ -18,7 +18,7 @@ import java.util.Optional;
 @Controller
 public class MyToadCategoryController {
 
-    @Autowired
+
     ToadRepository toadRepo;
 
     @Autowired

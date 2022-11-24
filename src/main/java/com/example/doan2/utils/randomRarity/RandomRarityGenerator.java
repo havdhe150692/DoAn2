@@ -159,15 +159,15 @@ public class RandomRarityGenerator {
                     percentageCounter += lookup.entries.get(j).value;
                     if (randomNumber <= percentageCounter)
                     {
-                        System.out.print("---------Entry list: ");
-                        //test
-                        for (int q = 0; q < lookup.entries.size(); q++)
-                        {
-                            System.out.print(lookup.entries.get(q).rarityType.toString() + " " +lookup.entries.get(q).value + "/ ");
-                        }
-                        System.out.println();
-                            //end test
-                        System.out.println("------Input rA = " + rarityA + ", Input rB = " + rarityB + ", randomNumber = " + randomNumber + ", percentageCounter = "+percentageCounter +", outputRarity = " + lookup.entries.get(j).rarityType.toString());
+//                        System.out.print("---------Entry list: ");
+//                        //test
+//                        for (int q = 0; q < lookup.entries.size(); q++)
+//                        {
+//                            System.out.print(lookup.entries.get(q).rarityType.toString() + " " +lookup.entries.get(q).value + "/ ");
+//                        }
+//                        System.out.println();
+//                            //end test
+//                        System.out.println("------Input rA = " + rarityA + ", Input rB = " + rarityB + ", randomNumber = " + randomNumber + ", percentageCounter = "+percentageCounter +", outputRarity = " + lookup.entries.get(j).rarityType.toString());
                         return lookup.entries.get(j).rarityType;
                     }
 

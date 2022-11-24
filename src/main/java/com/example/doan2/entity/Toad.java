@@ -5,7 +5,7 @@ import com.example.doan2.utils.Enum;
 import javax.persistence.*;
 import java.sql.Date;
 
-@Entity
+
 public class Toad {
 
     @Id
