@@ -52,9 +52,7 @@ public class LoginUserController {
     }
 
     @GetMapping("/registerCheck")
-    public String showRegisterForm(Model model) {
-        User user = new User();
-        model.addAttribute("user", user);
+    public String showRegisterForm() {
         return "registerMarket";
     }
 
@@ -69,8 +67,10 @@ public class LoginUserController {
         if (!lcs.checkUserName(username)) {
             model.addAttribute("errorMessageU", "Username already existed, please specify another");
             return "registerMarket";
-        }
-        if (!password.equals(confirm_password)) {
+        } else if(username.trim().equals("") || username.length() < 5 || username.length() > 20) {
+            model.addAttribute("errorMessageU", "User name not null! Only Allow (5-20) Characters");
+            return "registerMarket";
+        } else if (!password.equals(confirm_password)) {
             model.addAttribute("errorMessage", "Password doesn't match");
             return "registerMarket";
         } else if (password.trim().equals("")) {

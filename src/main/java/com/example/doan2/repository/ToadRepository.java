@@ -12,7 +12,11 @@ public interface  ToadRepository {
 
 
     List<Toad> findAllByOwner(User owner);
+
+
     int countByOwner(User owner);
+
+    Toad findByOwner(User owner);
 
     Toad findById(int id);
 }
