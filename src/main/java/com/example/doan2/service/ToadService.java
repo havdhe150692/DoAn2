@@ -9,7 +9,6 @@ import com.example.doan2.repository.ToadStatusRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -24,6 +23,7 @@ public class ToadService {
     {
         return toadRepository.findAllByOwner(user);
     }
+
 
     public Toad findToadDetail(int id)
     {

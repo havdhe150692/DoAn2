@@ -9601,3 +9601,10 @@ cursor: default;
 .centerBtn {
     justify-content: center;
 }
+.customInput {
+  margin-left: 19px;
+}
+
+.customInput1 {
+  margin-left: 3px;
+}
