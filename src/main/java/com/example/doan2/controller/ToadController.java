@@ -32,7 +32,6 @@ public class ToadController {
     @RequestMapping(value ="/{userId}", method= RequestMethod.GET)
     public List<ToadListJson> readAllToadOfUser(@PathVariable(value = "userId") int userId)  {
         User u = userService.findUserById(userId);
-        System.out.println(u.toString());
         if (u != null)
         {
             List<Toad> toadList = toadService.findAllToadByOwner(u);

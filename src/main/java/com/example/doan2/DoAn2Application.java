@@ -13,7 +13,8 @@ public class DoAn2Application {
     public static void main(String[] args) throws Exception {
 
         SpringApplication.run(DoAn2Application.class, args);
-        ServerContractInitiator serverContractInitiator = new ServerContractInitiator();
-
+      //  ServerContractInitiator serverContractInitiator = new ServerContractInitiator();
+        //RandomRarityGenerator r = new RandomRarityGenerator();
+        //r.Test(50);
     }
 }

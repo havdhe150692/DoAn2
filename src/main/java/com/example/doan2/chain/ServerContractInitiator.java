@@ -1,6 +1,8 @@
 package com.example.doan2.chain;
 
+import com.example.doan2.chain.smartcontract.ToadKingNFT;
 import com.example.doan2.chain.smartcontract.ToadKingToken;
+import com.example.doan2.entity.ToadIngame;
 import com.example.doan2.entity.User;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Service;
@@ -17,22 +19,25 @@ public class ServerContractInitiator {
     private Web3j web3j = Web3j.build(new HttpService("http://192.168.171.128:8545"));
 
     public static String ToadKingToken_contractAddress = "0xb30e48fce296d7787e4a6c338c943ceb0b15974b";
+    public static String ToadKingNFT_contractAddress = "0xb30e48fce293d7787e4a6c338c943ceb0b15974b";
     public static ToadKingToken adminToadKingToken;
+    public static ToadKingNFT adminToadKingNFT;
 
     public ServerContractInitiator() throws Exception {
-        try {
-            DeployContract();
-        }
-        catch (Exception e)
-        {
-            System.out.println("OK I understand there is an exception");
-        }
+//      try {
+           DeployContract();
+//      }
+//       catch (Exception e)
+//       {
+//           System.out.println("OK I understand there is an exception");
+//       }
 
 
     }
 
     public void DeployContract() throws Exception {
         DeployToadKingToken();
+        DeployToadKingNFT();
 
     }
 
@@ -43,8 +48,16 @@ public class ServerContractInitiator {
 
     }
 
+    public static void MintNFTFromCentral(User toUser, ToadIngame toadIngame)
+    {
+        String address = toUser.getUserWallet().getAddress();
+        System.out.println(adminToadKingNFT.safeMint(address, BigInteger.valueOf(amount))
+                .send().getTransactionHash());
+
+    }
+
     public void DeployToadKingToken() throws Exception {
-        ToadKingToken toadKingToken = ToadKingToken.load(ToadKingToken_contractAddress,
+        ToadKingToken toadKingToken = ToadKingToken.load(ToadKingNFT_contractAddress,
                 web3j,
                 Credentials.create(hostAccountCredential),
                 BigInteger.ZERO, BigInteger.valueOf(182865));
@@ -57,9 +70,29 @@ public class ServerContractInitiator {
 
         }
         ToadKingToken_contractAddress = toadKingToken.getContractAddress();
-        System.out.println(toadKingToken.getContractAddress());
+        System.out.println("Token Contract at: " + toadKingToken.getContractAddress());
         adminToadKingToken = toadKingToken;
+        System.out.println("Test TokenContract GetName " + adminToadKingToken.name().send());
     }
 
 
+
+    public void DeployToadKingNFT() throws Exception {
+        ToadKingNFT toadKingNFT = ToadKingNFT.load(ToadKingToken_contractAddress,
+                web3j,
+                Credentials.create(hostAccountCredential),
+                BigInteger.ZERO, BigInteger.valueOf(182865));
+
+        if(!toadKingNFT.isValid()) {
+            System.out.println("Contact is not existed. Starting deployment....");
+            toadKingNFT = ToadKingNFT.deploy(web3j,
+                    Credentials.create(hostAccountCredential),
+                    BigInteger.ZERO, BigInteger.valueOf(16234336)).send();
+
+        }
+        ToadKingNFT_contractAddress = toadKingNFT.getContractAddress();
+        System.out.println("NFT Contract at: " + toadKingNFT.getContractAddress());
+        adminToadKingNFT = toadKingNFT;
+        System.out.println("Test NFTContract GetName " + adminToadKingNFT.name().send());
+    }
 }

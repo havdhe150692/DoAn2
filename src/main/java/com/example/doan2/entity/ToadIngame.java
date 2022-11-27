@@ -3,6 +3,7 @@ package com.example.doan2.entity;
 
 import javax.persistence.*;
 import java.sql.Date;
+import java.sql.Timestamp;
 
 @Entity
 public class ToadIngame {
@@ -21,7 +22,7 @@ public class ToadIngame {
     private User owner;
 
     private int typeCounter;
-    private Date dateOfBirth;
+    private Timestamp dateOfBirth;
 
     @OneToOne(cascade = CascadeType.ALL, mappedBy = "toadIngame")
     @PrimaryKeyJoinColumn
@@ -51,11 +52,11 @@ public class ToadIngame {
         this.owner = owner;
     }
 
-    public Date getDateOfBirth() {
+    public Timestamp getDateOfBirth() {
         return dateOfBirth;
     }
 
-    public void setDateOfBirth(Date dateOfBirth) {
+    public void setDateOfBirth(Timestamp dateOfBirth) {
         this.dateOfBirth = dateOfBirth;
     }
 

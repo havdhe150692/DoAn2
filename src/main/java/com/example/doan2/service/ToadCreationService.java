@@ -1,8 +1,8 @@
 package com.example.doan2.service;
 
 
-import com.example.doan2.entity.ToadData;
-import com.example.doan2.entity.ToadPool;
+import com.example.doan2.entity.*;
+import com.example.doan2.repository.ContractExecutionService;
 import com.example.doan2.repository.ToadDataRepository;
 import com.example.doan2.repository.ToadIngameRepository;
 import com.example.doan2.repository.ToadPoolRepository;
@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.amqp.RabbitAutoConfiguration;
 import org.springframework.stereotype.Service;
 
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
@@ -30,6 +31,9 @@ public class ToadCreationService {
 
     @Autowired
     ToadIngameRepository toadIngameRepository;
+
+    @Autowired
+    ContractExecutionService contractExecutionService;
 
 
     public ToadData GenerateACommonToad()
@@ -92,7 +96,29 @@ public class ToadCreationService {
         return GenerateACommonToad();
     }
 
+    public ToadIngame GenerateIngameToadFromToadData(User u, ToadData toadData) throws Exception {
+        ToadIngame toadIngame = new ToadIngame();
+        toadIngame.setToadData(toadData);
+        toadIngame.setOwner(u);
+        toadIngame.setDateOfBirth(new Timestamp(System.currentTimeMillis()));
+        toadIngame.setTypeCounter(0);
+        ToadStatus toadStatus = new ToadStatus();
+        toadIngame.setToadStatus(toadStatus);
+        toadStatus.setToadIngame(toadIngame);
 
+        if(!(toadData.getRarity() == Enum.Rarity.Common))
+        {
+            var pool = toadPoolRepository.findByToadData(toadData);
+            pool.setCurrentIndex(pool.getCurrentIndex() +1);
+            toadIngame.setTypeCounter(pool.getCurrentIndex());
+            toadIngameRepository.save(toadIngame);
+
+            contractExecutionService.MintNFTFromCentral(u, toadIngame);
+        }
+
+        toadIngameRepository.save(toadIngame);
+        return toadIngame;
+    }
 
     public void ToadBirth(Enum.Rarity pA, Enum.Rarity pB)
     {
