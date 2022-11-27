@@ -1,9 +1,8 @@
 package com.example.doan2.controller;
 
 import com.example.doan2.entity.User;
-import com.example.doan2.repository.UserRepository;
-import com.example.doan2.service.CheckExistedLoginService;
-import com.example.doan2.service.UserLoginService;
+import com.example.doan2.service.Impl.UserServiceImp;
+import com.example.doan2.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -18,10 +17,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 public class UserProfileController {
 
     @Autowired
-    CheckExistedLoginService lcs;
-
-    @Autowired
-    private UserRepository userRepo;
+    UserService userService;
 
     @GetMapping("/checkUserProfile")
     public String checkUserProfile() {
@@ -33,16 +29,16 @@ public class UserProfileController {
                                   Model model,
                                   User user) {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        user = ((UserLoginService) auth.getPrincipal()).getUser();
+        user = ((UserServiceImp) auth.getPrincipal()).getUser();
         if(username.trim().length() == 0) {
             model.addAttribute("errorM1","Your name Not Allow nulls");
             return "userProfile";
-        } else if (!lcs.checkUserName(username)) {
+        } else if (!userService.checkUserName(username)) {
             model.addAttribute("errorMessageU", "Username already existed, please specify another");
             return "userProfile";
         } else {
             user.setName(username);
-            userRepo.save(user);
+            userService.updateUser(user);
             model.addAttribute("user",user);
         }
         return "userProfile";
@@ -59,7 +55,7 @@ public class UserProfileController {
             return "checkUserProfile";
         }
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        User user = ((UserLoginService) auth.getPrincipal()).getUser();
+        User user = ((UserServiceImp) auth.getPrincipal()).getUser();
         model.addAttribute("user",user);
         return "userProfile";
     }
@@ -70,7 +66,7 @@ public class UserProfileController {
                                      Model model,
                                      User user) {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        user = ((UserLoginService) auth.getPrincipal()).getUser();
+        user = ((UserServiceImp) auth.getPrincipal()).getUser();
         Object rawPassword = SecurityContextHolder.getContext().getAuthentication().getCredentials();
         String comparePass = (String) rawPassword;
         if(password.equals(comparePass)) {
@@ -87,7 +83,7 @@ public class UserProfileController {
             BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
             String encoderPassword = encoder.encode(password);
             user.setPassword(encoderPassword);
-            userRepo.save(user);
+            userService.updateUser(user);
             model.addAttribute("user",user);
             model.addAttribute("successful","You have Changed your Password Successfully!");
         }

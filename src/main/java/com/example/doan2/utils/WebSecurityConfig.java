@@ -1,6 +1,6 @@
 package com.example.doan2.utils;
 
-import com.example.doan2.service.UserService;
+import com.example.doan2.service.Impl.UserServiceImp;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -24,7 +24,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Bean
     public UserDetailsService userDetailsService() {
-        return new UserService();
+        return new UserServiceImp();
     }
 
     @Bean

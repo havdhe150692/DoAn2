@@ -2,8 +2,8 @@ package com.example.doan2.controller;
 
 import com.example.doan2.entity.Market;
 import com.example.doan2.entity.ToadIngame;
-import com.example.doan2.repository.MarketRepositoty;
-import com.example.doan2.repository.ToadIngameRepository;
+import com.example.doan2.service.ToadIngameService;
+import com.example.doan2.service.MarketService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -16,13 +16,14 @@ import java.util.List;
 public class MarketController {
 
     @Autowired
-    MarketRepositoty marketRepo;
+    ToadIngameService toadIngameService;
 
     @Autowired
-    ToadIngameRepository toadIngameRepository;
+    MarketService marketService;
+
     @GetMapping("/shop")
     public String viewShop(Model model) {
-        List<Market> listToad = marketRepo.findAll();
+        List<Market> listToad = marketService.findAll();
         if (listToad.isEmpty()) {
             model.addAttribute("condition", Boolean.FALSE);
             return "myToadCategory";
@@ -36,8 +37,8 @@ public class MarketController {
 
     @GetMapping("/productDetail/{id}")
     public String viewProductDetail(Model model, @PathVariable("id") int id) {
-        Market toadPrice = marketRepo.findById(id);
-        ToadIngame myToad = toadIngameRepository.findById(id);
+        Market toadPrice = marketService.findById(id);
+        ToadIngame myToad = toadIngameService.findById(id);
         model.addAttribute("myToad", myToad);
         model.addAttribute("myToadPrice", toadPrice);
         return "productDetail";

@@ -2,10 +2,9 @@ package com.example.doan2.controller;
 
 
 import com.example.doan2.entity.Toad;
-import com.example.doan2.entity.ToadStatus;
 import com.example.doan2.entity.User;
 import com.example.doan2.service.ToadService;
-import com.example.doan2.service.UserService;
+import com.example.doan2.service.Impl.UserServiceImp;
 import com.example.doan2.utils.jsonObject.ToadDetailJson;
 import com.example.doan2.utils.jsonObject.ToadListJson;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,14 +23,14 @@ public class ToadController {
     ToadService toadService;
 
     @Autowired
-    UserService userService;
+    UserServiceImp userServiceImp;
 
 
 
     @CrossOrigin(origins ="http://localhost:8000")
     @RequestMapping(value ="/{userId}", method= RequestMethod.GET)
     public List<ToadListJson> readAllToadOfUser(@PathVariable(value = "userId") int userId)  {
-        User u = userService.findUserById(userId);
+        User u = userServiceImp.findUserById(userId);
         System.out.println(u.toString());
         if (u != null)
         {
@@ -90,7 +89,7 @@ public class ToadController {
     @CrossOrigin(origins ="http://localhost:8000")
     @RequestMapping(value ="/{userId}/page/{page}", method= RequestMethod.GET)
     public List<ToadListJson> getToadPaginationOfThisPage(@PathVariable(value = "userId") int userId, @PathVariable(value= "page") int pageId)  {
-        User u = userService.findUserById(userId);
+        User u = userServiceImp.findUserById(userId);
         var toadList = toadService.findAllToadByOwner(u);
         List<ToadListJson> listJson = new ArrayList<>();
 
