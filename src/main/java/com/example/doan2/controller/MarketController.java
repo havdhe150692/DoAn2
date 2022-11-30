@@ -42,6 +42,7 @@ public class MarketController {
         model.addAttribute("myToadPrice", toadPrice);
         return "productDetail";
     }
+    // test commemt
 
 
 }
