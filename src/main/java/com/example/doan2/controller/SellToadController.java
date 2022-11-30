@@ -1,6 +1,7 @@
 package com.example.doan2.controller;
 
 import com.example.doan2.entity.Market;
+import com.example.doan2.entity.ToadClass;
 import com.example.doan2.entity.ToadIngame;
 import com.example.doan2.entity.User;
 import com.example.doan2.service.Impl.UserServiceImp;
@@ -18,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import java.sql.Timestamp;
 import java.util.Date;
+import java.util.List;
 
 @Controller
 public class SellToadController {
@@ -32,6 +34,8 @@ public class SellToadController {
     public String sellToad(Model model, @PathVariable("id") int id) {
         ToadIngame myToad = toadIngameService.findById(id);
         model.addAttribute("myToad", myToad);
+        List<ToadClass> listToadClass = toadIngameService.findAllToadClass();
+        model.addAttribute("listToadClass", listToadClass);
         return "sellToad";
     }
 
@@ -54,6 +58,8 @@ public class SellToadController {
         ToadIngame myToad = toadIngameService.findById(id);
         market.setToadIngame(myToad);
         marketService.saveMarket(market);
+        List<ToadClass> listToadClass = toadIngameService.findAllToadClass();
+        model.addAttribute("listToadClass", listToadClass);
         return "redirect:/myToad";
     }
 

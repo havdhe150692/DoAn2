@@ -11,7 +11,5 @@ public class DoAn2Application {
 
         SpringApplication.run(DoAn2Application.class, args);
         ServerContractInitiator serverContractInitiator = new ServerContractInitiator();
-
-
     }
 }

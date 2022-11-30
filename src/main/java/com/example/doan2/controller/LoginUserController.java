@@ -1,8 +1,11 @@
 package com.example.doan2.controller;
 
 import com.example.doan2.entity.User;
+import com.example.doan2.entity.ToadClass;
 import com.example.doan2.entity.UserWallet;
 import com.example.doan2.repository.UserWalletRepository;
+import com.example.doan2.service.MarketService;
+import com.example.doan2.service.ToadIngameService;
 import com.example.doan2.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AnonymousAuthenticationToken;
@@ -19,6 +22,7 @@ import org.web3j.crypto.CipherException;
 import java.security.InvalidAlgorithmParameterException;
 import java.security.NoSuchAlgorithmException;
 import java.security.NoSuchProviderException;
+import java.util.List;
 
 @Controller
 public class LoginUserController {
@@ -29,7 +33,11 @@ public class LoginUserController {
     @Autowired
     private UserService userService;
 
+    @Autowired
+    private MarketService marketService;
 
+    @Autowired
+    private ToadIngameService toadIngameService;
 
     @GetMapping("")
     public String viewStart() {
@@ -92,13 +100,15 @@ public class LoginUserController {
     }
 
     @GetMapping("/market")
-    public String viewMarket() {
+    public String viewMarket(Model model) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         if (authentication == null || authentication instanceof AnonymousAuthenticationToken) {
-
             return "loginMarket";
+        } else {
+            List<ToadClass> listToadClass = toadIngameService.findAllToadClass();
+            model.addAttribute("listToadClass", listToadClass);
+            return "market";
         }
-        return "market";
     }
 
 

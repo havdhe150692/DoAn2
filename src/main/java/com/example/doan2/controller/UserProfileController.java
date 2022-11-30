@@ -1,7 +1,9 @@
 package com.example.doan2.controller;
 
+import com.example.doan2.entity.ToadClass;
 import com.example.doan2.entity.User;
 import com.example.doan2.service.Impl.UserServiceImp;
+import com.example.doan2.service.ToadIngameService;
 import com.example.doan2.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
@@ -13,14 +15,21 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import java.util.List;
+
 @Controller
 public class UserProfileController {
 
     @Autowired
     UserService userService;
 
+    @Autowired
+    ToadIngameService toadIngameService;
+
     @GetMapping("/checkUserProfile")
-    public String checkUserProfile() {
+    public String checkUserProfile(Model model) {
+        List<ToadClass> listToadClass = toadIngameService.findAllToadClass();
+        model.addAttribute("listToadClass", listToadClass);
         return "checkUserProfile";
     }
 
@@ -41,6 +50,8 @@ public class UserProfileController {
             userService.updateUser(user);
             model.addAttribute("user",user);
         }
+        List<ToadClass> listToadClass = toadIngameService.findAllToadClass();
+        model.addAttribute("listToadClass", listToadClass);
         return "userProfile";
     }
 
@@ -57,6 +68,8 @@ public class UserProfileController {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         User user = ((UserServiceImp) auth.getPrincipal()).getUser();
         model.addAttribute("user",user);
+        List<ToadClass> listToadClass = toadIngameService.findAllToadClass();
+        model.addAttribute("listToadClass", listToadClass);
         return "userProfile";
     }
 
@@ -87,6 +100,8 @@ public class UserProfileController {
             model.addAttribute("user",user);
             model.addAttribute("successful","You have Changed your Password Successfully!");
         }
+        List<ToadClass> listToadClass = toadIngameService.findAllToadClass();
+        model.addAttribute("listToadClass", listToadClass);
         return "userProfile";
     }
 
