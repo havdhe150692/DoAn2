@@ -2,12 +2,10 @@ package com.example.doan2.controller;
 
 
 import com.example.doan2.entity.User;
-import com.example.doan2.service.UserService;
+import com.example.doan2.service.Impl.UserServiceImp;
 import com.example.doan2.utils.NonceGenerateUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 
 
 @RestController
@@ -15,7 +13,7 @@ import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 public class LoginController {
 
     @Autowired
-    UserService userService;
+    UserServiceImp userServiceImp;
 
     NonceGenerateUtils nonceGenerateUtils = new NonceGenerateUtils();
 
@@ -37,7 +35,7 @@ public class LoginController {
     @CrossOrigin(origins ="http://localhost:8000")
     @RequestMapping(value ="/testLogin/{username}", method= RequestMethod.GET)
     public boolean testLogin(@PathVariable(value = "username") String username)  {
-        User u = userService.findUserByName(username);
+        User u = userServiceImp.findUserByName(username);
         if(u != null)
         {
             return true;
@@ -52,7 +50,7 @@ public class LoginController {
     @CrossOrigin(origins ="http://localhost:8000")
     @RequestMapping(value ="/testLogin1/username={username}_password={password}", method= RequestMethod.GET)
     public boolean testLoginForm(@PathVariable(value = "username") String username)  {
-        User u = userService.findUserByName(username);
+        User u = userServiceImp.findUserByName(username);
         if(u != null)
         {
             return true;
@@ -67,7 +65,7 @@ public class LoginController {
     @CrossOrigin(origins ="http://localhost:8000")
     @RequestMapping(value ="/Id/{id}", method= RequestMethod.GET)
     public String getId(@PathVariable(value = "id") int id)  {
-        User u = userService.findUserById(id);
+        User u = userServiceImp.findUserById(id);
         if(u != null)
         {
             return u.getName();

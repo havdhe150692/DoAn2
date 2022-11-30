@@ -1,12 +1,12 @@
 package com.example.doan2.controller;
 
 import com.example.doan2.entity.Market;
+import com.example.doan2.entity.ToadClass;
 import com.example.doan2.entity.ToadIngame;
 import com.example.doan2.entity.User;
-import com.example.doan2.repository.MarketRepositoty;
-import com.example.doan2.repository.ToadIngameRepository;
-import com.example.doan2.repository.ToadRepository;
-import com.example.doan2.service.UserLoginService;
+import com.example.doan2.service.Impl.UserServiceImp;
+import com.example.doan2.service.MarketService;
+import com.example.doan2.service.ToadIngameService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -19,23 +19,23 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import java.sql.Timestamp;
 import java.util.Date;
+import java.util.List;
 
 @Controller
 public class SellToadController {
-    @Autowired
-    ToadRepository toadRepo;
 
     @Autowired
-    ToadIngameRepository toadIngameRepo;
+    ToadIngameService toadIngameService;
 
     @Autowired
-    private MarketRepositoty marketRepo;
+    MarketService marketService;
 
     @GetMapping("/sellToad/{id}")
     public String sellToad(Model model, @PathVariable("id") int id) {
-//        Toad myToad1 = toadRepo.findById(id);
-        ToadIngame myToad = toadIngameRepo.findById(id);
+        ToadIngame myToad = toadIngameService.findById(id);
         model.addAttribute("myToad", myToad);
+        List<ToadClass> listToadClass = toadIngameService.findAllToadClass();
+        model.addAttribute("listToadClass", listToadClass);
         return "sellToad";
     }
 
@@ -50,14 +50,16 @@ public class SellToadController {
         }
 
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        User user = ((UserLoginService) auth.getPrincipal()).getUser();
+        User user = ((UserServiceImp) auth.getPrincipal()).getUser();
         market.setPrice(price);
         Date date = new Date(System.currentTimeMillis() - (3600 * 1000)*7);
         market.setTime(new Timestamp(date.getTime()));
         market.setSeller(user);
-        ToadIngame myToad = toadIngameRepo.findById(id);
+        ToadIngame myToad = toadIngameService.findById(id);
         market.setToadIngame(myToad);
-        marketRepo.save(market);
+        marketService.saveMarket(market);
+        List<ToadClass> listToadClass = toadIngameService.findAllToadClass();
+        model.addAttribute("listToadClass", listToadClass);
         return "redirect:/myToad";
     }
 
