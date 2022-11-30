@@ -1,6 +1,7 @@
 package com.example.doan2.service.Impl;
 
 import com.example.doan2.entity.Market;
+import com.example.doan2.entity.ToadClass;
 import com.example.doan2.repository.MarketRepositoty;
 import com.example.doan2.repository.ToadClassRepository;
 import com.example.doan2.service.MarketService;
@@ -37,6 +38,11 @@ public class MarketServiceImp implements MarketService {
     public List<Market> findBetweenPrice(int from, int to) {
         List<Market> findToadBetweenPrice = marketRepo.findBetweenPrice(from,to);
         return findToadBetweenPrice;
+    }
+
+    @Override
+    public List<Market> findByClass(Integer id) {
+        return marketRepo.findByToadClass(id);
     }
 
 

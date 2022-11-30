@@ -75,7 +75,7 @@
                     id="navbar-vertical">
                     <div class="navbar-nav w-100 overflow-hidden toadClassL">
                         <tr th:each="toadClass : ${listToadClass}">
-                            <a href="" class="nav-item nav-link" th:text="${toadClass.name}"></a>
+                            <a th:href="@{/market/}" class="nav-item nav-link" th:text="${toadClass.name}"></a>
                         </tr>
                     </div>
                 </nav>

@@ -2,10 +2,12 @@ package com.example.doan2.controller;
 
 import com.example.doan2.entity.Market;
 import com.example.doan2.entity.ToadClass;
+import com.example.doan2.entity.ToadData;
 import com.example.doan2.entity.ToadIngame;
 import com.example.doan2.service.ToadIngameService;
 import com.example.doan2.service.MarketService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.Banner;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -22,6 +24,7 @@ public class MarketController {
 
     @Autowired
     MarketService marketService;
+
 
     @GetMapping("/shop")
     public String viewShop(Model model) {
@@ -101,4 +104,19 @@ public class MarketController {
     }
 
 
+
+    @GetMapping("/shop/categories/{id}")
+    public String viewByCategories(@PathVariable Integer id, Model model){
+        List<Market> listToad = marketService.findByClass(id);
+
+        if(listToad.isEmpty()){
+            model.addAttribute("condition", Boolean.FALSE);
+            return "myToadCategory";
+        }
+        else {
+            model.addAttribute("toadList", listToad);
+            model.addAttribute("condition", Boolean.TRUE);
+        }
+        return "shop";
+    }
 }

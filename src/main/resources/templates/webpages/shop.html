@@ -76,7 +76,7 @@
                  id="navbar-vertical" style="width: calc(100% - 30px); z-index: 1;">
                 <div class="navbar-nav w-100 overflow-hidden toadClassL">
                     <tr th:each="toadClass : ${listToadClass}">
-                        <a href="" class="nav-item nav-link" th:text="${toadClass.name}"></a>
+                        <a th:href="@{/shop/categories/{id}(id=${toadClass.id})}" class="nav-item nav-link" th:text="${toadClass.name}"></a>
                     </tr>
                 </div>
             </nav>
@@ -262,7 +262,7 @@
                 <div class="listEmpty" th:unless="${condition}">
                     There's something wrong! Please try again later
                 </div>
-                <tr th:if="${condition}" th:each="toad : ${toadList}">
+                <tr th:if="${condition}" th:each="toad : ${toadList}">Ω
                     <div class="col-lg-4 col-md-6 col-sm-12 pb-1">
                         <div class="card product-item border-0 mb-4">
                             <div
