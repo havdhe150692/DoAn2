@@ -18,19 +18,19 @@ public class ServerContractInitiator {
     private String hostAccountCredential = "0xecb53dc998e8f1b5e3633a4ac9914595ba55ce0bb05acd632ce8d115de1e0aec";
     private Web3j web3j = Web3j.build(new HttpService("http://192.168.171.128:8545"));
 
-    public static String ToadKingToken_contractAddress = "0xb30e48fce296d7787e4a6c338c943ceb0b15974b";
-    public static String ToadKingNFT_contractAddress = "0xb30e48fce293d7787e4a6c338c943ceb0b15974b";
+    public static String ToadKingToken_contractAddress = "0x3dfff798a84a8c81c0ee2eef91e11f322bc22b1d";
+    public static String ToadKingNFT_contractAddress = "0xdc44eee85fc6309a634ef3625e33fbe8d974cc8a";
     public static ToadKingToken adminToadKingToken;
     public static ToadKingNFT adminToadKingNFT;
 
     public ServerContractInitiator() throws Exception {
-//      try {
+      try {
            DeployContract();
-//      }
-//       catch (Exception e)
-//       {
-//           System.out.println("OK I understand there is an exception");
-//       }
+      }
+       catch (Exception e)
+       {
+           System.out.println("Blockchain not connected. Catched exception!");
+       }
 
 
     }
@@ -48,16 +48,10 @@ public class ServerContractInitiator {
 
     }
 
-    public static void MintNFTFromCentral(User toUser, ToadIngame toadIngame)
-    {
-        String address = toUser.getUserWallet().getAddress();
-        System.out.println(adminToadKingNFT.safeMint(address, BigInteger.valueOf(amount))
-                .send().getTransactionHash());
 
-    }
 
     public void DeployToadKingToken() throws Exception {
-        ToadKingToken toadKingToken = ToadKingToken.load(ToadKingNFT_contractAddress,
+        ToadKingToken toadKingToken = ToadKingToken.load(ToadKingToken_contractAddress,
                 web3j,
                 Credentials.create(hostAccountCredential),
                 BigInteger.ZERO, BigInteger.valueOf(182865));
@@ -78,7 +72,7 @@ public class ServerContractInitiator {
 
 
     public void DeployToadKingNFT() throws Exception {
-        ToadKingNFT toadKingNFT = ToadKingNFT.load(ToadKingToken_contractAddress,
+        ToadKingNFT toadKingNFT = ToadKingNFT.load(ToadKingNFT_contractAddress,
                 web3j,
                 Credentials.create(hostAccountCredential),
                 BigInteger.ZERO, BigInteger.valueOf(182865));

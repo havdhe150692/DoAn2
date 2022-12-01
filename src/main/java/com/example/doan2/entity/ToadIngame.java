@@ -1,6 +1,8 @@
 package com.example.doan2.entity;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.sql.Date;
 import java.sql.Timestamp;
@@ -17,6 +19,8 @@ public class ToadIngame {
     private ToadData toadData;
 
 
+
+    @JsonIgnore
     @ManyToOne
     @JoinColumn(name = "owner_id")
     private User owner;

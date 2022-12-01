@@ -2,10 +2,11 @@ package com.example.doan2.chain;
 
 import com.example.doan2.chain.smartcontract.ToadKingToken;
 import com.example.doan2.entity.User;
+import com.example.doan2.service.ContractExecutionService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.web3j.crypto.Credentials;
 import org.web3j.protocol.Web3j;
 import org.web3j.protocol.http.HttpService;
-
 import java.math.BigInteger;
 
 public class InGameContractConnector {
@@ -14,9 +15,12 @@ public class InGameContractConnector {
     private ToadKingToken playerToadKingToken;
     private User user;
 
+    ContractExecutionService contractExecutionService;
+
     public InGameContractConnector(User user) throws Exception
     {
         this.user = user;
+        this.contractExecutionService = new ContractExecutionService();
         playerToadKingToken = ToadKingToken.load(ServerContractInitiator.ToadKingToken_contractAddress,
                 web3j,
                 Credentials.create(user.getUserWallet().getPrivateKey()),
@@ -29,8 +33,13 @@ public class InGameContractConnector {
         return playerToadKingToken.balanceOf(user.getUserWallet().getAddress()).send();
     }
 
+    //give 500 coin
     public void RequestMoney() throws Exception {
-        ServerContractInitiator.TransferTokenFromCentral(user, 50000);
+        contractExecutionService.TransferTokenFromCentral(user, 500);
+    }
+
+    public void RequestMoney(int amount) throws Exception {
+        contractExecutionService.TransferTokenFromCentral(user, amount);
     }
 
 }

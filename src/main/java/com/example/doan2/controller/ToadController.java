@@ -2,13 +2,16 @@ package com.example.doan2.controller;
 
 
 import com.example.doan2.entity.Toad;
+import com.example.doan2.entity.ToadIngame;
 import com.example.doan2.entity.ToadStatus;
 import com.example.doan2.entity.User;
+import com.example.doan2.repository.ToadIngameRepository;
 import com.example.doan2.service.ToadService;
 import com.example.doan2.service.UserService;
 import com.example.doan2.utils.jsonObject.ToadDetailJson;
 import com.example.doan2.utils.jsonObject.ToadListJson;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.configurationprocessor.json.JSONObject;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
@@ -23,13 +26,17 @@ public class ToadController {
 
     ToadService toadService;
 
+
+    @Autowired
+    ToadIngameRepository toadIngameRepository;
+
     @Autowired
     UserService userService;
 
 
 
     @CrossOrigin(origins ="http://localhost:8000")
-    @RequestMapping(value ="/{userId}", method= RequestMethod.GET)
+    @RequestMapping(value ="/old/{userId}", method= RequestMethod.GET)
     public List<ToadListJson> readAllToadOfUser(@PathVariable(value = "userId") int userId)  {
         User u = userService.findUserById(userId);
         if (u != null)
@@ -51,6 +58,25 @@ public class ToadController {
             return null;
         }
     }
+
+
+    @CrossOrigin(origins ="http://localhost:8000")
+    @RequestMapping(value ="/{userId}", method= RequestMethod.GET)
+    public List<ToadIngame> readAllToadIngameOfUser(@PathVariable(value = "userId") int userId)  {
+        User u = userService.findUserById(userId);
+        if (u != null)
+        {
+            List<ToadIngame> toadList = toadIngameRepository.findAllByOwner(u);
+
+
+            return toadList;
+        }
+        else
+        {
+            return null;
+        }
+    }
+
 
     @CrossOrigin(origins ="http://localhost:8000")
     @RequestMapping(value ="/detail/{toadId}", method= RequestMethod.GET)

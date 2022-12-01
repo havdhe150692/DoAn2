@@ -53,7 +53,7 @@ public class IngameTokenController {
 
     @CrossOrigin(origins ="http://localhost:8000")
     @RequestMapping(value ="/requestMoney",  method= RequestMethod.POST, consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
-    public void requestMoneyPost(int userId) throws Exception {
+    public BigInteger requestNewPlayerMoney(int userId) throws Exception {
         User u = userRepository.findById(userId);
         if(u != null)
         {
@@ -61,8 +61,9 @@ public class IngameTokenController {
             i.RequestMoney();
             BigInteger balance =  i.GetBalance();
             System.out.println("Balance of user " + u.getName() + " is " + balance);
-
+            return balance;
         }
+        return BigInteger.valueOf(0);
 
     }
 }

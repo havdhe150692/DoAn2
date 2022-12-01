@@ -1,4 +1,4 @@
-package com.example.doan2.repository;
+package com.example.doan2.service;
 
 import com.example.doan2.chain.ServerContractInitiator;
 import com.example.doan2.chain.smartcontract.ToadKingNFT;
@@ -34,8 +34,6 @@ public class ContractExecutionService {
         String uriAddress = "localhost:8080/uriApi/" + toadIngame.getId();
         var transaction = toadKingNFT.safeMint(address, BigInteger.valueOf(toadIngame.getId()), uriAddress).send();
         System.out.print(transaction.getTransactionHash());
-
-
 
     }
 
