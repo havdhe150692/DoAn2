@@ -14,7 +14,7 @@ public interface ToadIngameRepository   extends JpaRepository<ToadIngame, Intege
 
 
 
-    ToadIngame findAllByOwner(User owner);
+    List<ToadIngame> findAllByOwner(User owner);
 
     List<ToadIngame> findAllToadByOwner(User owner);
 
