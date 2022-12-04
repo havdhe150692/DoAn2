@@ -118,10 +118,8 @@ public class ToadController {
         User u = userService.findUserById(userId);
         var toadList = toadService.findAllToadByOwner(u);
         List<ToadListJson> listJson = new ArrayList<>();
-
         if (u != null)
         {
-
             int idMin = pageId * numberOfToadPerPage - numberOfToadPerPage;
             if (idMin < 0)
             {

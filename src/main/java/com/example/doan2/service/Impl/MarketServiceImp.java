@@ -41,8 +41,43 @@ public class MarketServiceImp implements MarketService {
     }
 
     @Override
-    public List<Market> findByClass(Integer id) {
+    public List<Market> findByName(String name) {
+        return marketRepo.findByName(name);
+    }
+
+    @Override
+    public List<Market> findByNameContain(String name) {
+        return marketRepo.findByNameContain(name);
+    }
+
+    @Override
+    public List<Market> findByToadClass(int id) {
         return marketRepo.findByToadClass(id);
+    }
+
+    @Override
+    public List<Market> findByRarity(int rarityNum) {
+        return marketRepo.findByRarity(rarityNum);
+    }
+
+    @Override
+    public int countToad(int countNum) {
+        return marketRepo.countToad(countNum);
+    }
+
+    @Override
+    public int countAllMarket() {
+        return marketRepo.countAllMarket();
+    }
+
+    @Override
+    public List<Market> sortFromHighestPrice() {
+        return marketRepo.sortFromHighestPrice();
+    }
+
+    @Override
+    public List<Market> sortFromLowestPrice() {
+        return marketRepo.sortFromLowestPrice();
     }
 
 

@@ -6,6 +6,7 @@ import com.example.doan2.service.Impl.UserServiceImp;
 import com.example.doan2.service.ToadIngameService;
 import com.example.doan2.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.AnonymousAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -28,8 +29,13 @@ public class UserProfileController {
 
     @GetMapping("/checkUserProfile")
     public String checkUserProfile(Model model) {
-        List<ToadClass> listToadClass = toadIngameService.findAllToadClass();
-        model.addAttribute("listToadClass", listToadClass);
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        if(authentication == null || authentication instanceof AnonymousAuthenticationToken) {
+            return "loginMarket";
+        } else {
+            List<ToadClass> listToadClass = toadIngameService.findAllToadClass();
+            model.addAttribute("listToadClass", listToadClass);
+        }
         return "checkUserProfile";
     }
 
@@ -59,13 +65,16 @@ public class UserProfileController {
     @PostMapping("/accessUserProfile")
     public String verifyPassword(@RequestParam(value = "password", required = false) String password,
                                  Model model) {
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        if(auth == null || auth instanceof AnonymousAuthenticationToken) {
+            return "loginMarket";
+        }
         Object rawPassword = SecurityContextHolder.getContext().getAuthentication().getCredentials();
         String comparePass = (String) rawPassword;
          if(!password.equals(comparePass)) {
             model.addAttribute("errorM","Your password is wrong , please check again!");
             return "checkUserProfile";
         }
-        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         User user = ((UserServiceImp) auth.getPrincipal()).getUser();
         model.addAttribute("user",user);
         List<ToadClass> listToadClass = toadIngameService.findAllToadClass();

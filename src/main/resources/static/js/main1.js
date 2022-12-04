@@ -124,4 +124,27 @@ $("#intLimitTextBox").inputFilter(function (value) {
     return /^\d*$/.test(value) && (value === "" || parseInt(value) <= 1000000);
 })
 
+$("#intLimitTextBox1").inputFilter(function (value) {
+    return /^\d*$/.test(value) && (value === "" || parseInt(value) <= 1000000);
+})
 
+
+
+function validateFormInputPrice() {
+  var from = document.forms["form1"]["priceFrom"].value;
+  var to = document.forms["form1"]["priceTo"].value;
+  if (from == "" || from == null || to == "" || to == null) {
+    document.getElementById("errorMes").innerHTML = "All Field price must be filled out";
+    document.getElementById("errorMes").style = "color : red;";
+    return false;
+  } else if (from > to) {
+    document.getElementById("errorMes").innerHTML = "Price in range is invalid!";
+    document.getElementById("errorMes").style = "color : red;";
+    return false;
+  } else if(from == 0 || to == 0) {
+    document.getElementById("errorMes").innerHTML = "We don't have 0$ Toad";
+    document.getElementById("errorMes").style = "color : red;";
+    return false;
+  }
+  return true;
+}

@@ -16,12 +16,49 @@ public interface MarketRepositoty extends JpaRepository<Market, Integer> {
     Market findById(int id);
 
     @Query(
-            value = "SELECT * FROM market m WHERE m.price BETWEEN :from AND :to" , nativeQuery = true
+            value = "SELECT * FROM market m WHERE m.price BETWEEN :from AND :to", nativeQuery = true
     )
     List<Market> findBetweenPrice(@Param("from") int from, @Param("to") int to);
 
-    @Query(value = "SELECT m.id, m.price, m.time, m.seller_id, m.toad_ingame_id" +
-            " FROM market m inner join (toad_ingame tig inner join toad_data td on td.id = tig.toad_data_id) on m.toad_ingame_id = tig.id " +
-            "WHERE td.toad_class_id = :id", nativeQuery = true)
-    List<Market> findByToadClass(Integer id);
+    @Query(value =
+            "SELECT * FROM market m JOIN toad_ingame tig ON m.toad_ingame_id = tig.id \n" +
+                    "JOIN toad_data tdt ON tdt.id = tig.toad_data_id \n" +
+                    "WHERE tdt.name = :name", nativeQuery = true)
+    List<Market> findByName(@Param("name") String name);
+
+    @Query(value =
+            "SELECT * FROM market m JOIN toad_ingame tig ON m.toad_ingame_id = tig.id \n" +
+                    "JOIN toad_data tdt ON tdt.id = tig.toad_data_id \n" +
+                    "WHERE tdt.name LIKE %:nameContain%", nativeQuery = true)
+    List<Market> findByNameContain(@Param("nameContain") String nameContain);
+
+
+    @Query(value = "SELECT * FROM market m JOIN toad_ingame tig ON m.toad_ingame_id = tig.id \n" +
+            "JOIN toad_data tdt ON tdt.id = tig.toad_data_id \n" +
+            "JOIN toad_class tc ON tc.id = tdt.toad_class_id\n" +
+            "WHERE tc.id = :id", nativeQuery = true)
+    List<Market> findByToadClass(@Param("id") int id);
+
+    @Query(value =
+            "SELECT * FROM market m JOIN toad_ingame tig ON m.toad_ingame_id = tig.id " +
+                    "JOIN toad_data tdt ON tdt.id = tig.toad_data_id\n" +
+            "WHERE tdt.rarity = :rarityNum\n", nativeQuery = true)
+    List<Market> findByRarity(@Param("rarityNum") int rarityNum);
+
+    @Query(value = "\n" +
+            "SELECT COUNT(m.id) FROM market m JOIN toad_ingame tig ON m.toad_ingame_id = tig.id " +
+            "JOIN toad_data tdt ON tdt.id = tig.toad_data_id\n" +
+            "WHERE tdt.rarity = :countNum", nativeQuery = true)
+    int countToad(@Param("countNum") int countNum);
+
+    @Query(value = "SELECT COUNT(m.id) FROM market m",nativeQuery = true)
+    int countAllMarket();
+
+
+    @Query(value ="SELECT * FROM market m ORDER BY m.price DESC\n ", nativeQuery = true)
+    List<Market> sortFromHighestPrice();
+
+    @Query(value ="SELECT * FROM market m ORDER BY m.price ASC\n ", nativeQuery = true)
+    List<Market> sortFromLowestPrice();
+
 }
