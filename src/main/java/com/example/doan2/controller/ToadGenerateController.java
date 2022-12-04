@@ -7,6 +7,7 @@ import com.example.doan2.entity.User;
 import com.example.doan2.repository.ToadIngameRepository;
 import com.example.doan2.repository.ToadPoolRepository;
 import com.example.doan2.service.ToadCreationService;
+import com.example.doan2.service.ToadStatusLogicService;
 import com.example.doan2.service.ToadURIService;
 import com.example.doan2.service.UserService;
 import com.example.doan2.utils.Enum;
@@ -39,6 +40,8 @@ public class ToadGenerateController {
     @Autowired
     ToadPoolRepository toadPoolRepository;
 
+    @Autowired
+    ToadStatusLogicService toadStatusLogicService;
 
 
 
@@ -55,7 +58,7 @@ public class ToadGenerateController {
         toadIngame.setOwner(u);
         toadIngame.setDateOfBirth(new Timestamp(System.currentTimeMillis()));
         toadIngame.setTypeCounter(0);
-        ToadStatus toadStatus = new ToadStatus();
+        ToadStatus toadStatus = toadStatusLogicService.StatusGeneration(toadData);
         toadIngame.setToadStatus(toadStatus);
         toadStatus.setToadIngame(toadIngame);
 

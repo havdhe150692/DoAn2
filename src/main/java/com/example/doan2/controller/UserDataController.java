@@ -34,6 +34,23 @@ public class UserDataController {
     @Autowired
     TokenService tokenService;
 
+    @CrossOrigin(origins ="http://localhost:8000")
+    @RequestMapping(value ="/goodbye/{userId}", method= RequestMethod.GET)
+    public String cleanUser(@PathVariable(value = "userId") int userId) throws Exception {
+        User u = userRepository.findById(userId);
+        if(u != null)
+        {
+           InGameContractConnector inGameContractConnector = new InGameContractConnector(u);
+           inGameContractConnector.ReturnAllMoney();
+            var l = toadIngameRepository.findAllByOwner(u);
+            for (int i = 0; i < l.size(); i++) {
+                ToadIngame toadIngame =  l.get(i);
+                toadIngameRepository.delete(toadIngame);
+            }
+        }
+        return null;
+    }
+
 
     @CrossOrigin(origins ="http://localhost:8000")
     @RequestMapping(value ="/{userId}", method= RequestMethod.GET)

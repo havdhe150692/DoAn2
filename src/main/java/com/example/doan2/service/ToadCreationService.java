@@ -2,14 +2,12 @@ package com.example.doan2.service;
 
 
 import com.example.doan2.entity.*;
-import com.example.doan2.repository.ContractExecutionService;
 import com.example.doan2.repository.ToadDataRepository;
 import com.example.doan2.repository.ToadIngameRepository;
 import com.example.doan2.repository.ToadPoolRepository;
 import com.example.doan2.utils.Enum;
 import com.example.doan2.utils.randomRarity.RandomRarityGenerator;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.autoconfigure.amqp.RabbitAutoConfiguration;
 import org.springframework.stereotype.Service;
 
 import java.sql.Timestamp;
@@ -35,13 +33,19 @@ public class ToadCreationService {
     @Autowired
     ContractExecutionService contractExecutionService;
 
+    @Autowired
+    ToadStatusLogicService toadStatusLogicService;
+
 
     public ToadData GenerateACommonToad()
     {
         List<ToadData> listToad = toadDataRepository.findAllByRarity(Enum.Rarity.Common);
+
         Random random = new Random();
         int returnNumber =  random.nextInt(listToad.size());
         System.out.println("----------Entry ");
+        System.out.println(listToad.size());
+        System.out.println(returnNumber);
         System.out.println("Toad Data " + listToad.get(returnNumber).getName());
         return listToad.get(returnNumber);
     }
@@ -102,7 +106,7 @@ public class ToadCreationService {
         toadIngame.setOwner(u);
         toadIngame.setDateOfBirth(new Timestamp(System.currentTimeMillis()));
         toadIngame.setTypeCounter(0);
-        ToadStatus toadStatus = new ToadStatus();
+        ToadStatus toadStatus = toadStatusLogicService.StatusGeneration(toadData);
         toadIngame.setToadStatus(toadStatus);
         toadStatus.setToadIngame(toadIngame);
 
