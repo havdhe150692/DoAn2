@@ -22,5 +22,15 @@ public interface MarketService {
 
     List<Market> findByToadClass(int id);
 
+    List<Market> findByRarity(int rarityNum);
+
+    int countToad(int countNum);
+
+    int countAllMarket();
+
+    List<Market> sortFromHighestPrice();
+
+    List<Market> sortFromLowestPrice();
+
 
 }
