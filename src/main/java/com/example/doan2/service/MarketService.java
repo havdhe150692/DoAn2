@@ -32,5 +32,4 @@ public interface MarketService {
 
     List<Market> sortFromLowestPrice();
 
-
 }

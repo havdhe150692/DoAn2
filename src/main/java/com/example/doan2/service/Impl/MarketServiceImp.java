@@ -1,6 +1,7 @@
 package com.example.doan2.service.Impl;
 
 import com.example.doan2.entity.Market;
+import com.example.doan2.entity.ToadClass;
 import com.example.doan2.repository.MarketRepositoty;
 import com.example.doan2.repository.ToadClassRepository;
 import com.example.doan2.service.MarketService;

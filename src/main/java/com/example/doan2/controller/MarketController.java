@@ -2,6 +2,7 @@ package com.example.doan2.controller;
 
 import com.example.doan2.entity.Market;
 import com.example.doan2.entity.ToadClass;
+import com.example.doan2.entity.ToadData;
 import com.example.doan2.entity.ToadIngame;
 import com.example.doan2.service.MarketService;
 import com.example.doan2.service.ToadIngameService;
@@ -9,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AnonymousAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -23,6 +25,7 @@ public class MarketController {
 
     @Autowired
     MarketService marketService;
+
 
     @GetMapping("/shop")
     public String viewShop(Model model) {
