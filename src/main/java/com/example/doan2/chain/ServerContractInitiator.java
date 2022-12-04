@@ -4,22 +4,33 @@ import com.example.doan2.chain.smartcontract.ToadKingNFT;
 import com.example.doan2.chain.smartcontract.ToadKingToken;
 import com.example.doan2.entity.ToadIngame;
 import com.example.doan2.entity.User;
+import okhttp3.OkHttpClient;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Service;
 import org.web3j.crypto.Credentials;
 import org.web3j.protocol.Web3j;
+import org.web3j.protocol.Web3jService;
 import org.web3j.protocol.http.HttpService;
+import org.web3j.spring.autoconfigure.Web3jAutoConfiguration;
 
 import java.math.BigInteger;
+import java.util.concurrent.TimeUnit;
+
 @Service
 @Scope("singleton")
 public class ServerContractInitiator {
 
-    private String hostAccountCredential = "0xecb53dc998e8f1b5e3633a4ac9914595ba55ce0bb05acd632ce8d115de1e0aec";
-    private Web3j web3j = Web3j.build(new HttpService("http://192.168.171.128:8545"));
+    public static String hostAccountCredential = "0xecb53dc998e8f1b5e3633a4ac9914595ba55ce0bb05acd632ce8d115de1e0aec";
+   // private Web3j web3j = Web3j.build(new HttpService("http://192.168.171.128:8545"));
 
-    public static String ToadKingToken_contractAddress = "0x3dfff798a84a8c81c0ee2eef91e11f322bc22b1d";
-    public static String ToadKingNFT_contractAddress = "0xdc44eee85fc6309a634ef3625e33fbe8d974cc8a";
+
+    public static Web3j web3j = Web3j.build(new HttpService("http://4.194.80.55:8545",
+                                            new OkHttpClient.Builder().connectTimeout(60*60*3, TimeUnit.SECONDS)
+                                                                     .writeTimeout(60*60*3, TimeUnit.SECONDS)
+                                                                     .readTimeout(60*60*3, TimeUnit.SECONDS).build()));
+
+    public static String ToadKingToken_contractAddress = "0xb30e48fce296d7787e4a6c338c943ceb0b15974b";
+    public static String ToadKingNFT_contractAddress = "0x2e649286625ebbe408f3720b76ab89502fe21def";
     public static ToadKingToken adminToadKingToken;
     public static ToadKingNFT adminToadKingNFT;
 
@@ -29,7 +40,7 @@ public class ServerContractInitiator {
       }
        catch (Exception e)
        {
-           System.out.println("Blockchain not connected. Catched exception!");
+          System.out.println("Blockchain not connected. Catched exception!");
        }
 
 

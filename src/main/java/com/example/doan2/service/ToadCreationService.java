@@ -33,6 +33,9 @@ public class ToadCreationService {
     @Autowired
     ContractExecutionService contractExecutionService;
 
+    @Autowired
+    ToadStatusLogicService toadStatusLogicService;
+
 
     public ToadData GenerateACommonToad()
     {
@@ -103,7 +106,7 @@ public class ToadCreationService {
         toadIngame.setOwner(u);
         toadIngame.setDateOfBirth(new Timestamp(System.currentTimeMillis()));
         toadIngame.setTypeCounter(0);
-        ToadStatus toadStatus = new ToadStatus();
+        ToadStatus toadStatus = toadStatusLogicService.StatusGeneration(toadData);
         toadIngame.setToadStatus(toadStatus);
         toadStatus.setToadIngame(toadIngame);
 

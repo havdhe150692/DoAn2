@@ -4,10 +4,14 @@ package com.example.doan2.service;
 import com.example.doan2.entity.ToadData;
 import com.example.doan2.entity.ToadIngame;
 import com.example.doan2.entity.ToadStatus;
+import jnr.posix.Times;
+import org.springframework.stereotype.Service;
+
 import java.sql.Timestamp;
 import java.time.Instant;
 import java.time.temporal.ChronoUnit;
 
+@Service
 public class ToadStatusLogicService {
 
     public int MATURE_TIME_HOUR_COMMON = 0;
@@ -56,7 +60,13 @@ public class ToadStatusLogicService {
 
     public ToadStatus PerformMatured(ToadStatus t)
     {
-        return null;
+        Instant now = Instant.now();
+        if(now.compareTo(t.getExpectedMature().toInstant()) >= 0)
+        {
+            t.setExpectedMature(null);
+            t.setExpectedBreed(Timestamp.from(now));
+        }
+        return t;
     }
 
     public ToadStatus StatusGeneration(ToadData t)
@@ -73,29 +83,39 @@ public class ToadStatusLogicService {
             case Common -> {
                 mature_minute = MATURE_TIME_MINUTE_COMMON;
                 mature_hour = MATURE_TIME_HOUR_COMMON;
+                collect_minute = COLLECT_TIME_MINUTE_COMMON;
+                collect_hour = COLLECT_TIME_HOUR_COMMON;
             }
             case Rare -> {
                 mature_minute = MATURE_TIME_MINUTE_RARE;
                 mature_hour = MATURE_TIME_HOUR_RARE;
+                collect_minute = COLLECT_TIME_MINUTE_RARE;
+                collect_hour = COLLECT_TIME_HOUR_RARE;
             }
             case Epic -> {
                 mature_minute = MATURE_TIME_MINUTE_EPIC;
                 mature_hour = MATURE_TIME_HOUR_EPIC;
+                collect_minute = COLLECT_TIME_MINUTE_EPIC;
+                collect_hour = COLLECT_TIME_HOUR_EPIC;
             }
             case Mythical -> {
                 mature_minute = MATURE_TIME_MINUTE_MYTHICAL;
                 mature_hour = MATURE_TIME_HOUR_MYTHICAL;
+                collect_minute = COLLECT_TIME_MINUTE_MYTHICAL;
+                collect_hour = COLLECT_TIME_HOUR_MYTHICAL;
             }
             case Legendary -> {
                 mature_minute = MATURE_TIME_MINUTE_LEGENDARY;
                 mature_hour = MATURE_TIME_HOUR_LEGENDARY;
+                collect_minute = COLLECT_TIME_MINUTE_LEGENDARY;
+                collect_hour = COLLECT_TIME_HOUR_LEGENDARY;
             }
 
         }
         Instant tMature = now.plus(mature_hour, ChronoUnit.HOURS).plus(mature_minute, ChronoUnit.MINUTES);
         Instant tCollect = now.plus(collect_hour, ChronoUnit.HOURS).plus(collect_minute, ChronoUnit.MINUTES);
         Instant tFeed = now;
-        Instant tBreed = null;
+        Instant tBreed =  now.plus(1000000, ChronoUnit.DAYS);
 
         toadStatus.setExpectedMature(Timestamp.from(tMature));
         toadStatus.setExpectedBreed(Timestamp.from(tBreed));

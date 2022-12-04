@@ -7,11 +7,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.web3j.crypto.Credentials;
 import org.web3j.protocol.Web3j;
 import org.web3j.protocol.http.HttpService;
+import org.web3j.spring.autoconfigure.Web3jAutoConfiguration;
+
 import java.math.BigInteger;
 
 public class InGameContractConnector {
 
-    private Web3j web3j = org.web3j.protocol.Web3j.build(new HttpService("http://192.168.171.128:8545"));
+    private Web3j web3j = ServerContractInitiator.web3j;
+
     private ToadKingToken playerToadKingToken;
     private User user;
 
@@ -31,6 +34,10 @@ public class InGameContractConnector {
 
     public BigInteger GetBalance() throws Exception {
         return playerToadKingToken.balanceOf(user.getUserWallet().getAddress()).send();
+    }
+
+    public void ReturnAllMoney() throws Exception {
+        playerToadKingToken.transfer(Credentials.create(ServerContractInitiator.hostAccountCredential).getAddress(), GetBalance()).send();
     }
 
     //give 500 coin
