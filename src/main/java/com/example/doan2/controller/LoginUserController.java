@@ -1,10 +1,11 @@
 package com.example.doan2.controller;
 
 import com.example.doan2.entity.User;
+import com.example.doan2.entity.ToadClass;
 import com.example.doan2.entity.UserWallet;
-import com.example.doan2.repository.UserRepository;
 import com.example.doan2.repository.UserWalletRepository;
-import com.example.doan2.service.CheckExistedLoginService;
+import com.example.doan2.service.MarketService;
+import com.example.doan2.service.ToadIngameService;
 import com.example.doan2.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AnonymousAuthenticationToken;
@@ -21,11 +22,10 @@ import org.web3j.crypto.CipherException;
 import java.security.InvalidAlgorithmParameterException;
 import java.security.NoSuchAlgorithmException;
 import java.security.NoSuchProviderException;
+import java.util.List;
 
 @Controller
 public class LoginUserController {
-    @Autowired
-    private UserRepository repo;
 
     @Autowired
     private UserWalletRepository userWalletRepository;
@@ -34,7 +34,10 @@ public class LoginUserController {
     private UserService userService;
 
     @Autowired
-    CheckExistedLoginService lcs;
+    private MarketService marketService;
+
+    @Autowired
+    private ToadIngameService toadIngameService;
 
     @GetMapping("")
     public String viewStart() {
@@ -64,7 +67,7 @@ public class LoginUserController {
                                       @RequestParam(value = "email", required = false) String email,
                                       User user,
                                       Model model) throws InvalidAlgorithmParameterException, CipherException, NoSuchAlgorithmException, NoSuchProviderException {
-        if (!lcs.checkUserName(username)) {
+        if (!userService.checkUserName(username)) {
             model.addAttribute("errorMessageU", "Username already existed, please specify another");
             return "registerMarket";
         } else if(username.trim().equals("") || username.length() < 5 || username.length() > 20) {
@@ -76,12 +79,13 @@ public class LoginUserController {
         } else if (password.trim().equals("")) {
             model.addAttribute("errorMessage", "Password must not be empty");
             return "registerMarket";
-        } else if (!lcs.checkEmail(email)) {
+        } else if (!userService.checkEmail(email)) {
             model.addAttribute("errorMessage", "Email already existed, please specify another");
             return "registerMarket";
         } else {
             BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
             String encoderPassword = encoder.encode(user.getPassword());
+
             user.setName(username);
             user.setEmail(email);
             user.setPassword(encoderPassword);
@@ -90,22 +94,21 @@ public class LoginUserController {
 
             user.setUserWallet(userWallet);
             userWallet.setUser(user);
-
-            repo.save(user);
-
-
+            userService.createUser(user);
         }
         return "loginMarket";
     }
 
     @GetMapping("/market")
-    public String viewMarket() {
+    public String viewMarket(Model model) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         if (authentication == null || authentication instanceof AnonymousAuthenticationToken) {
-
             return "loginMarket";
+        } else {
+            List<ToadClass> listToadClass = toadIngameService.findAllToadClass();
+            model.addAttribute("listToadClass", listToadClass);
+            return "market";
         }
-        return "market";
     }
 
 

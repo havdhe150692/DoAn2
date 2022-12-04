@@ -1,11 +1,12 @@
 package com.example.doan2.controller;
 
 import com.example.doan2.entity.Market;
-import com.example.doan2.entity.Toad;
+import com.example.doan2.entity.ToadClass;
+import com.example.doan2.entity.ToadIngame;
 import com.example.doan2.entity.User;
-import com.example.doan2.repository.MarketRepositoty;
-import com.example.doan2.repository.ToadRepository;
-import com.example.doan2.service.UserLoginService;
+import com.example.doan2.service.Impl.UserServiceImp;
+import com.example.doan2.service.MarketService;
+import com.example.doan2.service.ToadIngameService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -15,24 +16,26 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import java.util.Date;
 
 import java.sql.Timestamp;
+import java.util.Date;
+import java.util.List;
 
 @Controller
 public class SellToadController {
 
-    ToadRepository toadRepo;
+    @Autowired
+    ToadIngameService toadIngameService;
 
     @Autowired
-    private MarketRepositoty marketRepo;
+    MarketService marketService;
 
     @GetMapping("/sellToad/{id}")
     public String sellToad(Model model, @PathVariable("id") int id) {
-//        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-//        User user = ((UserLoginService) auth.getPrincipal()).getUser();
-        Toad myToad = toadRepo.findById(id);
+        ToadIngame myToad = toadIngameService.findById(id);
         model.addAttribute("myToad", myToad);
+        List<ToadClass> listToadClass = toadIngameService.findAllToadClass();
+        model.addAttribute("listToadClass", listToadClass);
         return "sellToad";
     }
 
@@ -41,22 +44,24 @@ public class SellToadController {
                               @PathVariable("id") int id,
                               Market market,
                               Model model) {
-//        if(price < 0 || price > 1000000) {
-//            model.addAttribute("errorPrice", "Max price only 1000000$");
-//            return "/sellToad/{id}";
-//        }
+        if(price <= 0 || price > 1000000) {
+            model.addAttribute("errorPrice", "Price only allow 1 to 1000000$");
+            return "redirect:/sellToad/{id}";
+        }
 
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        User user = ((UserLoginService) auth.getPrincipal()).getUser();
+        User user = ((UserServiceImp) auth.getPrincipal()).getUser();
         market.setPrice(price);
-        Date date = new Date();
+        Date date = new Date(System.currentTimeMillis() - (3600 * 1000)*7);
         market.setTime(new Timestamp(date.getTime()));
-        System.out.println("this is time: " + market.getTime());
         market.setSeller(user);
-        Toad myToad = toadRepo.findById(id);
-       // market.setToad(myToad);
-        marketRepo.save(market);
-        return "myToadCategory";
+
+        ToadIngame myToad = toadIngameService.findById(id);
+        market.setToadIngame(myToad);
+        marketService.saveMarket(market);
+        List<ToadClass> listToadClass = toadIngameService.findAllToadClass();
+        model.addAttribute("listToadClass", listToadClass);
+        return "redirect:/myToad";
     }
 
 }

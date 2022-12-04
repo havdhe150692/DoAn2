@@ -18,10 +18,12 @@ public class ToadService {
     @Autowired
     ToadStatusRepository toadStatusRepository;
 
+
     public List<Toad> findAllToadByOwner(User user)
     {
         return toadRepository.findAllByOwner(user);
     }
+
 
 
     public Toad findToadDetail(int id)

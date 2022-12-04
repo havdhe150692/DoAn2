@@ -1,63 +1,45 @@
 package com.example.doan2.service;
 
-
 import com.example.doan2.entity.User;
-import com.example.doan2.entity.UserWallet;
-import com.example.doan2.repository.UserRepository;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
-import org.springframework.stereotype.Service;
-import org.web3j.crypto.*;
 
-import java.security.InvalidAlgorithmParameterException;
-import java.security.NoSuchAlgorithmException;
-import java.security.NoSuchProviderException;
+import java.io.Serializable;
 import java.util.Collection;
 import java.util.List;
 import java.util.Optional;
 
-@Service
-public class UserService implements UserDetailsService {
+public interface UserService extends Serializable {
+    boolean checkEmail(String email);
 
-    @Autowired
-    UserRepository userRepository;
+    boolean checkUserName(String username);
 
+    User createUser(User user);
 
-    public User createUser(User user) {
-        return userRepository.save(user);
-    }
+    User updateUser(User user);
 
-    public List<User> getUsers() {
-        return userRepository.findAll();
-    }
+    List<User> getUsers();
 
-    public Optional<User> findUserById(Integer id) {
-        return userRepository.findById(id);
-    }
+    User findUserByName(String username);
 
-    public User findUserByName(String username) {
-        return userRepository.findByName(username);
-    }
+    Optional<User> findUserById(Integer id);
 
+    User findUserById(int Id);
 
-    public User findUserById(int Id) {
-        return
-                userRepository.findById(Id);
-    }
+    UserDetails loadUserByUsername(String email);
 
+    Collection<? extends GrantedAuthority> getAuthorities();
 
+    String getPassword();
 
-    // function for load User by Email
+    String getUsername();
 
-    @Override
-    public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
-        User user = userRepository.findByEmail(email);
-        if(user == null) {
-            throw new UsernameNotFoundException("User not found");
-        }
-        return new UserLoginService(user);
-    }
+    boolean isAccountNonExpired();
+
+    boolean isAccountNonLocked();
+
+    boolean isCredentialsNonExpired();
+
+    boolean isEnabled();
+
 }

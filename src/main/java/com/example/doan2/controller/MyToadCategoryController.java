@@ -1,10 +1,10 @@
 package com.example.doan2.controller;
 
-import com.example.doan2.entity.Toad;
+import com.example.doan2.entity.ToadClass;
+import com.example.doan2.entity.ToadIngame;
 import com.example.doan2.entity.User;
-import com.example.doan2.repository.ToadRepository;
-import com.example.doan2.repository.UserRepository;
-import com.example.doan2.service.UserLoginService;
+import com.example.doan2.service.Impl.UserServiceImp;
+import com.example.doan2.service.ToadIngameService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -17,39 +17,25 @@ import java.util.List;
 @Controller
 public class MyToadCategoryController {
 
-
-    ToadRepository toadRepo;
-
     @Autowired
-    UserRepository userRepo;
+    ToadIngameService toadIngameService;
+
 
     @GetMapping("/myToad")
     public String showMyToad(Model model) {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        User user = ((UserLoginService) auth.getPrincipal()).getUser();
-        List<Toad> myToadLists = toadRepo.findAllByOwner(user);
-        model.addAttribute("myToadList", myToadLists);
+        User user = ((UserServiceImp) auth.getPrincipal()).getUser();
+        List<ToadIngame> myToadLists = toadIngameService.findAllToadByOwner(user);
+        if (myToadLists.isEmpty()) {
+            model.addAttribute("condition", Boolean.FALSE);
+            return "myToadCategory";
+        } else {
+            List<ToadClass> listToadClass = toadIngameService.findAllToadClass();
+            model.addAttribute("listToadClass", listToadClass);
+            model.addAttribute("condition", Boolean.TRUE);
+            model.addAttribute("myToadList", myToadLists);
+        }
         return "myToadCategory";
     }
 
-
-
-//    @RequestMapping("/menu")
-//    public class ImageController {
-//
-//
-//
-//        @RequestMapping(value = "/imageDisplay", method = RequestMethod.GET)
-//        public void showImage(@RequestParam("id") Integer itemId, HttpServletResponse response, HttpServletRequest request) throws ServletException, IOException {
-//
-//
-//            Item item = itemService.get(itemId);
-//            response.setContentType("image/jpeg, image/jpg, image/png, image/gif");
-//            response.getOutputStream().write(item.getItemImage());
-//
-//
-//            response.getOutputStream().close();
-//        }
-//
-//    }
 }

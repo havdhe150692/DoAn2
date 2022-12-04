@@ -46,4 +46,12 @@ public class Market {
     public void setTime(Timestamp time) {
         this.time = time;
     }
+
+    public ToadIngame getToadIngame() {
+        return toadIngame;
+    }
+
+    public void setToadIngame(ToadIngame toadIngame) {
+        this.toadIngame = toadIngame;
+    }
 }

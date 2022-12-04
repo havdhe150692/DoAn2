@@ -53,9 +53,9 @@
             </form>
         </div>
         <div class="col-lg-3 col-6 text-right">
-            <a href="" class="btn border">
-                <i class="fas fa-shopping-cart text-primary"></i>
-                <span class="badge">0</span>
+            <a th:href="@{/checkUserProfile}" class="btn border">
+                <i class="fas fa-user text-primary"></i>
+                My profile
             </a>
         </div>
     </div>
@@ -75,21 +75,10 @@
             </a>
             <nav class="collapse position-absolute navbar navbar-vertical navbar-light align-items-start p-0 border border-top-0 border-bottom-0 bg-light"
                  id="navbar-vertical" style="width: calc(100% - 30px); z-index: 1;">
-                <div class="navbar-nav w-100 overflow-hidden" style="height: 410px">
-                    <div class="nav-item dropdown">
-                        <a href="#" class="nav-link" data-toggle="dropdown">Special Toad <i
-                                class="fa fa-angle-down float-right mt-1"></i></a>
-                        <div class="dropdown-menu position-absolute bg-primary border-0 rounded-0 w-100 m-0">
-                            <a href="" class="dropdown-item">Teacher Toad</a>
-                            <a href="" class="dropdown-item">Creator Toad</a>
-                        </div>
-                    </div>
-                    <a href="" class="nav-item nav-link">Graphic Toad</a>
-                    <a href="" class="nav-item nav-link">Economic Toad</a>
-                    <a href="" class="nav-item nav-link">Vovinam Toad</a>
-                    <a href="" class="nav-item nav-link">Software Toad</a>
-                    <a href="" class="nav-item nav-link">AI Toad</a>
-                    <a href="" class="nav-item nav-link">Bussiness Toad</a>
+                <div class="navbar-nav w-100 overflow-hidden toadClassL">
+                    <tr th:each="toadClass : ${listToadClass}">
+                        <a href="" class="nav-item nav-link" th:text="${toadClass.name}"></a>
+                    </tr>
                 </div>
             </nav>
         </div>
@@ -103,13 +92,9 @@
                     <span class="navbar-toggler-icon"></span>
                 </button>
                 <div class="collapse navbar-collapse justify-content-between" id="navbarCollapse">
-                    <div class="navbar-nav mr-auto py-0">
-                        <!--                        <a href="market.html" class="nav-item nav-link">Home</a>-->
-                        <!--                        <a href="shop.html" class="nav-item nav-link active">Shop</a>-->
-                        <!--                        <a href="productDetail.html" class="nav-item nav-link">Shop Detail</a>-->
+                    <div class="navbar-nav mr-auto py-0">>
                         <a th:href="@{/market}" class="nav-item nav-link active">Home</a>
                         <a th:href="@{/shop}" class="nav-item nav-link">Market</a>
-                        <a th:href="@{/productDetail}" class="nav-item nav-link">Shop Detail</a>
                         <a th:href="@{/myToad}" class="nav-item nav-link">My Toad</a>
                         <a th:href="@{/Homepage}" class="nav-item nav-link">Landing Page</a>
                     </div>
@@ -119,8 +104,6 @@
                         <form th:action="@{/logout}" method="post">
                             <button type="submit" class="nav-item nav-link customBtn"> Logout</button>
                         </form>
-                        <!--                        <a href="#" class="nav-item nav-link">Login</a>-->
-                        <!--                        <a href="#" class="nav-item nav-link">Register</a>-->
                     </div>
                 </div>
             </nav>
@@ -132,7 +115,7 @@
 
 <!-- Page Header Start -->
 <div class="container-fluid bg-secondary mb-5">
-    <div class="d-flex flex-column align-items-center justify-content-center" style="min-height: 200px">
+    <div class="d-flex flex-column align-items-center justify-content-center" style="min-height: 230px">
         <h1 class="font-weight-semi-bold text-uppercase mb-3">My Toad's</h1>
     </div>
 </div>
@@ -151,7 +134,7 @@
                     <div
                             class="custom-control custom-checkbox d-flex align-items-center justify-content-between mb-3">
                         <input type="checkbox" class="custom-control-input" checked id="color-all">
-                        <label class="custom-control-label" >All Rarity</label>
+                        <label class="custom-control-label">All Rarity</label>
                         <span class="badge border font-weight-normal">1000</span>
                     </div>
                     <div
@@ -220,27 +203,40 @@
                     </div>
                 </div>
 
-
-                <tr th:each="toad : ${myToadList}">
+                <div class="listEmpty" th:unless="${condition}">
+                    looks like you don't have any Toad yet!.
+                    <div class="customizeBtn">
+                        <a th:href="@{/shop}" class="btn border btn-primary">
+                            Get One!
+                        </a>
+                    </div>
+                </div>
+                <tr th:if="${condition}" th:each="toad : ${myToadList}">
                     <div class="col-lg-4 col-md-6 col-sm-12 pb-1">
                         <div class="card product-item border-0 mb-4">
                             <div
                                     class="card-header product-img position-relative overflow-hidden bg-transparent border p-0">
-                                <img class="img-fluid w-100" th:src="@{../img/menu/Icon-Coc-01.png}" alt="Image"/>
+                                <img class="img-fluid w-100"
+                                     th:src="@{${'/img/menu/' + 'Toad' + toad.toadData?.pictureId + '.png'}}"/>
                             </div>
                             <div class="card-body border-left border-right text-center p-0 pt-4 pb-3">
-                                <h6 th:text="${toad.name}" class="text-truncate mb-3"> Toad Types</h6>
+                                <h6 th:text="'Name: ' + ${toad.toadData?.name}"
+                                    class="text-truncate mb-3"></h6>
                                 <div class="d-flex justify-content-center">
-                                    <h6>$123.00</h6>
+                                    <h6 th:text="'Type: ' + ${toad.toadData?.toadClass?.name}"></h6>
+                                </div>
+                                <div class="d-flex justify-content-center">
+                                    <h6 th:text="'Rarity: '+ ${toad.toadData?.rarity}"></h6>
                                 </div>
                             </div>
                             <div class="card-footer d-flex centerBtn  bg-light border">
-                                <a th:href="@{sellToad/{id}(id=${toad.id})}"  class="btn btn-sm text-dark p-0"><i
+                                <a th:href="@{sellToad/{id}(id=${toad.id})}" class="btn btn-sm text-dark p-0"><i
                                         class="fas fa-eye text-primary mr-1"></i>View Detail</a>
                             </div>
                         </div>
                     </div>
                 </tr>
+
 
                 <div class="col-12 pb-1">
                     <nav aria-label="Page navigation">
