@@ -6,6 +6,7 @@ import com.example.doan2.entity.User;
 import com.example.doan2.service.Impl.UserServiceImp;
 import com.example.doan2.service.ToadIngameService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.AnonymousAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
@@ -24,8 +25,11 @@ public class MyToadCategoryController {
 
 
     @GetMapping("/myToad")
-    public String showMyToad(Model model) {
+    public String showToadDetail(Model model) {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        if(auth == null || auth instanceof AnonymousAuthenticationToken) {
+            return "loginMarket";
+        }
         User user = ((UserServiceImp) auth.getPrincipal()).getUser();
         List<ToadIngame> myToadLists = toadIngameService.findAllToadByOwner(user);
         if (myToadLists.isEmpty()) {
@@ -39,5 +43,4 @@ public class MyToadCategoryController {
         }
         return "myToadCategory";
     }
-
 }

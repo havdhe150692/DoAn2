@@ -39,5 +39,20 @@ public class MarketServiceImp implements MarketService {
         return findToadBetweenPrice;
     }
 
+    @Override
+    public List<Market> findByName(String name) {
+        return marketRepo.findByName(name);
+    }
+
+    @Override
+    public List<Market> findByNameContain(String name) {
+        return marketRepo.findByNameContain(name);
+    }
+
+    @Override
+    public List<Market> findByToadClass(int id) {
+        return marketRepo.findByToadClass(id);
+    }
+
 
 }

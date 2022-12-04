@@ -41,13 +41,12 @@
             </a>
         </div>
         <div class="col-lg-6 col-6 text-left">
-            <form action="">
+            <form method="post" th:action="@{/searchToadContainsName}">
                 <div class="input-group">
-                    <input type="text" class="form-control" placeholder="Search for products">
+                    <input th:value="${searchNameContains}" name="searchByNameContains" type="text" class="form-control" placeholder="Search toad contain name">
                     <div class="input-group-append">
-                            <span class="input-group-text bg-transparent text-primary">
-                                <i class="fa fa-search"></i>
-                            </span>
+                        <button class="input-group-text bg-transparent text-primary" type="submit"><i
+                                class="fa fa-search"> </i></button>
                     </div>
                 </div>
             </form>
@@ -75,7 +74,7 @@
                  id="navbar-vertical" style="width: calc(100% - 30px); z-index: 1;">
                 <div class="navbar-nav w-100 overflow-hidden toadClassL">
                     <tr th:each="toadClass : ${listToadClass}">
-                        <a href="" class="nav-item nav-link" th:text="${toadClass.name}"></a>
+                        <a th:href="@{/categories/{id}(id=${toadClass.id})}" class="nav-item nav-link" th:text="${toadClass.name}"></a>
                     </tr>
                 </div>
             </nav>

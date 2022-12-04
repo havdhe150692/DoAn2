@@ -8,6 +8,7 @@ import com.example.doan2.service.Impl.UserServiceImp;
 import com.example.doan2.service.MarketService;
 import com.example.doan2.service.ToadIngameService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.AnonymousAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
@@ -32,6 +33,10 @@ public class SellToadController {
 
     @GetMapping("/sellToad/{id}")
     public String sellToad(Model model, @PathVariable("id") int id) {
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        if(auth == null || auth instanceof AnonymousAuthenticationToken) {
+            return "loginMarket";
+        }
         ToadIngame myToad = toadIngameService.findById(id);
         model.addAttribute("myToad", myToad);
         List<ToadClass> listToadClass = toadIngameService.findAllToadClass();
@@ -40,18 +45,22 @@ public class SellToadController {
     }
 
     @PostMapping("/sellProcessing/{id}")
-    public String sellProcess(@RequestParam(value = "price", required = false) int price,
+    public String sellProcess(@RequestParam(value = "price", required = false) String price,
                               @PathVariable("id") int id,
                               Market market,
                               Model model) {
-        if(price <= 0 || price > 1000000) {
+        if(price.equals("") || price == null) {
             model.addAttribute("errorPrice", "Price only allow 1 to 1000000$");
             return "redirect:/sellToad/{id}";
         }
-
+        int sellPrice = Integer.parseInt(price);
+        if(sellPrice <= 0 || sellPrice > 1000000) {
+            model.addAttribute("errorPrice", "Price only allow 1 to 1000000$");
+            return "redirect:/sellToad/{id}";
+        }
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         User user = ((UserServiceImp) auth.getPrincipal()).getUser();
-        market.setPrice(price);
+        market.setPrice(sellPrice);
         Date date = new Date(System.currentTimeMillis() - (3600 * 1000)*7);
         market.setTime(new Timestamp(date.getTime()));
         market.setSeller(user);

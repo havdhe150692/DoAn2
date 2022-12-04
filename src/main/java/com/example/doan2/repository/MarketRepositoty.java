@@ -16,7 +16,27 @@ public interface MarketRepositoty extends JpaRepository<Market, Integer> {
     Market findById(int id);
 
     @Query(
-            value = "SELECT * FROM market m WHERE m.price BETWEEN :from AND :to" , nativeQuery = true
+            value = "SELECT * FROM market m WHERE m.price BETWEEN :from AND :to", nativeQuery = true
     )
     List<Market> findBetweenPrice(@Param("from") int from, @Param("to") int to);
+
+    @Query(value =
+            "SELECT * FROM market m JOIN toad_ingame tig ON m.toad_ingame_id = tig.id \n" +
+            "JOIN toad_data tdt ON tdt.id = tig.toad_data_id \n" +
+            "WHERE tdt.name = :name", nativeQuery = true)
+    List<Market> findByName(@Param("name") String name);
+
+    @Query(value =
+            "SELECT * FROM market m JOIN toad_ingame tig ON m.toad_ingame_id = tig.id \n" +
+            "JOIN toad_data tdt ON tdt.id = tig.toad_data_id \n" +
+            "WHERE tdt.name LIKE %:nameContain%", nativeQuery = true)
+    List<Market> findByNameContain(@Param("nameContain") String nameContain);
+
+
+    @Query(value = "SELECT * FROM market m JOIN toad_ingame tig ON m.toad_ingame_id = tig.id \n" +
+            "JOIN toad_data tdt ON tdt.id = tig.toad_data_id \n" +
+            "JOIN toad_class tc ON tc.id = tdt.toad_class_id" +
+            "WHERE tc.id = :id", nativeQuery = true)
+    List<Market> findByToadClass(@Param("id") int id);
+
 }
