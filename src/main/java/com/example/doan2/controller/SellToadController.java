@@ -7,6 +7,7 @@ import com.example.doan2.entity.User;
 import com.example.doan2.service.Impl.UserServiceImp;
 import com.example.doan2.service.MarketService;
 import com.example.doan2.service.ToadIngameService;
+import com.example.doan2.utils.Enum;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AnonymousAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -34,13 +35,23 @@ public class SellToadController {
     @GetMapping("/sellToad/{id}")
     public String sellToad(Model model, @PathVariable("id") int id) {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        User user = ((UserServiceImp) auth.getPrincipal()).getUser();
+        List<ToadClass> listToadClass = toadIngameService.findAllToadClass();
+        model.addAttribute("listToadClass", listToadClass);
         if(auth == null || auth instanceof AnonymousAuthenticationToken) {
             return "loginMarket";
         }
         ToadIngame myToad = toadIngameService.findById(id);
         model.addAttribute("myToad", myToad);
-        List<ToadClass> listToadClass = toadIngameService.findAllToadClass();
-        model.addAttribute("listToadClass", listToadClass);
+        System.out.println("this is rarity: " +myToad.getToadData().getRarity());
+        System.out.println("this is rarity: " +Enum.Rarity.Common);
+//        String enumPart = String.valueOf(Enum.Rarity.Common);
+        if(myToad.getToadData().getRarity().equals(Enum.Rarity.Common)) {
+            model.addAttribute("sellCondition", Boolean.FALSE);
+        } else {
+            model.addAttribute("sellCondition", Boolean.TRUE);
+            return "sellToad";
+        }
         return "sellToad";
     }
 

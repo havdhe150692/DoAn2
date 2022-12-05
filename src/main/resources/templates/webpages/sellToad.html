@@ -163,10 +163,14 @@
                                         <label class="input-group-text bg-primary">$</label>
                                     </div>
                                 </div>
-                                <button
-                                        data-toggle="modal" data-target="#exampleModal" type="button"
-                                        class="btn btn-primary px-3"><i class="fa fa-shopping-cart mr-1"></i> Sell
-                                </button>
+                                <div th:if="${sellCondition}">
+                                    <button
+                                            data-toggle="modal" data-target="#exampleModal" type="button"
+                                            class="btn btn-primary px-3"><i class="fa fa-shopping-cart mr-1"></i> Sell
+                                    </button>
+                                </div>
+                                <div th:unless="${sellCondition}">
+                                    Common Toad Can not sell</div>
                                 <div th:text="${errorPrice}">
                                 </div>
                             </div>
