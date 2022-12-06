@@ -26,6 +26,10 @@ public class Market {
         return seller;
     }
 
+    public int getId() {
+        return id;
+    }
+
     public void setSeller(User seller) {
         this.seller = seller;
     }
@@ -53,4 +57,5 @@ public class Market {
     public void setToadIngame(ToadIngame toadIngame) {
         this.toadIngame = toadIngame;
     }
+
 }

@@ -1,7 +1,6 @@
 package com.example.doan2.service.Impl;
 
 import com.example.doan2.entity.Market;
-import com.example.doan2.entity.ToadClass;
 import com.example.doan2.repository.MarketRepositoty;
 import com.example.doan2.repository.ToadClassRepository;
 import com.example.doan2.service.MarketService;
@@ -61,7 +60,7 @@ public class MarketServiceImp implements MarketService {
     }
 
     @Override
-    public int countToad(int countNum) {
+    public int countToadByRarity(int countNum) {
         return marketRepo.countToad(countNum);
     }
 
@@ -78,6 +77,41 @@ public class MarketServiceImp implements MarketService {
     @Override
     public List<Market> sortFromLowestPrice() {
         return marketRepo.sortFromLowestPrice();
+    }
+
+    @Override
+    public List<Market> findEconomicToad() {
+        return marketRepo.findEconomicToad();
+    }
+
+    @Override
+    public List<Market> findGraphicToad() {
+        return marketRepo.findGraphicToad();
+    }
+
+    @Override
+    public List<Market> findArtistToad() {
+        return marketRepo.findArtistToad();
+    }
+
+    @Override
+    public List<Market> findLectureToad() {
+        return marketRepo.findLectureToad();
+    }
+
+    @Override
+    public List<Market> findAIToad() {
+        return marketRepo.findAIToad();
+    }
+
+    @Override
+    public List<Market> findSoftwareToad() {
+        return marketRepo.findSoftwareToad();
+    }
+
+    @Override
+    public int countByToadClass(int id) {
+        return marketRepo.countByToadClass(id);
     }
 
 

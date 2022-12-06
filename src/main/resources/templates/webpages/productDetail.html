@@ -122,19 +122,19 @@
     <div class="container-fluid py-5">
         <div class="row px-xl-5">
             <div class="col-lg-5 pb-5">
-                <img class="w-100 h-100" th:src="@{${'/img/menu/' + 'Toad' + toadDetail.toadData?.pictureId + '.png'}}" alt="Image">
+                <img class="w-100 h-100" th:src="@{${'/img/menu/' + 'Toad' + toadDetail.toadIngame?.toadData?.pictureId + '.png'}}" alt="Image">
             </div>
 
             <div class="col-lg-7 pb-5">
-                <h3 class="font-weight-semi-bold bg-primary" th:text="${toadDetail.toadData?.name}"></h3>
-                <h3 class="font-weight-semi-bold mb-4 bg-primary" th:text="'Price: '+ ${toadPrice.price} + '$'"></h3>
+                <h3 class="font-weight-semi-bold bg-primary" th:text="${toadDetail.toadIngame?.toadData?.name}"></h3>
+                <h3 class="font-weight-semi-bold mb-4 bg-primary" th:text="'Price: '+ ${toadDetail.price} + '$'"></h3>
                 <h5 class="font-weight-semi-bold bg-secondary"
-                    th:text="|Date of birth: ${toadDetail.dateOfBirth}|"></h5>
+                    th:text="|Date of birth: ${toadDetail.toadIngame?.dateOfBirth}|"></h5>
                 <h6 class="font-weight-semi-bold bg-secondary"
-                    th:text="'Type: ' + ${toadDetail.toadData?.toadClass?.name}"></h6>
+                    th:text="'Type: ' + ${toadDetail.toadIngame?.toadData?.toadClass?.name}"></h6>
                 <h6 class="font-weight-semi-bold bg-secondary"
-                    th:text="'Rarity: ' + ${toadDetail.toadData?.rarity}"></h6>
-                <p class="mb-4" th:text="${toadDetail.toadData?.info}"></p>
+                    th:text="'Rarity: ' + ${toadDetail.toadIngame?.toadData?.rarity}"></h6>
+                <p class="mb-4" th:text="${toadDetail.toadIngame?.toadData?.info}"></p>
 
                 <div class="d-flex align-items-center mb-4 pt-2">
                     <button class="btn btn-primary px-3"><i class="fa fa-shopping-cart mr-1"></i> Buy</button>

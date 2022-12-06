@@ -24,7 +24,7 @@ public interface MarketService {
 
     List<Market> findByRarity(int rarityNum);
 
-    int countToad(int countNum);
+    int countToadByRarity(int countNum);
 
     int countAllMarket();
 
@@ -32,4 +32,17 @@ public interface MarketService {
 
     List<Market> sortFromLowestPrice();
 
+    List<Market> findEconomicToad();
+
+    List<Market> findGraphicToad();
+
+    List<Market> findArtistToad();
+
+    List<Market> findLectureToad();
+
+    List<Market> findAIToad();
+
+    List<Market> findSoftwareToad();
+
+    int countByToadClass(int id);
 }
