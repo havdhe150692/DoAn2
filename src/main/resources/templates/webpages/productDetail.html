@@ -134,12 +134,16 @@
                     th:text="'Type: ' + ${toadDetail.toadIngame?.toadData?.toadClass?.name}"></h6>
                 <h6 class="font-weight-semi-bold bg-secondary"
                     th:text="'Rarity: ' + ${toadDetail.toadIngame?.toadData?.rarity}"></h6>
+                <h6 class="font-weight-semi-bold bg-secondary"
+                    th:text="'Seller: ' + ${seller.getSeller()?.name}"></h6>
                 <p class="mb-4" th:text="${toadDetail.toadIngame?.toadData?.info}"></p>
 
-                <div class="d-flex align-items-center mb-4 pt-2">
+                <div th:if="${viewMarketBySeller}" class="d-flex align-items-center mb-4 pt-2">
                     <button class="btn btn-primary px-3"><i class="fa fa-shopping-cart mr-1"></i> Buy</button>
                 </div>
-
+                <div th:unless="${viewMarketBySeller}">
+                    <h6 class="font-weight-semi-bold bg-secondary">Seller Can not buy their Toad </h6>
+                </div>
             </div>
         </div>
         <div class="row px-xl-5">

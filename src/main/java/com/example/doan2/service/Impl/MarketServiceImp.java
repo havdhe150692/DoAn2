@@ -7,6 +7,7 @@ import com.example.doan2.service.MarketService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
 import java.util.List;
 
 @Service
@@ -114,5 +115,20 @@ public class MarketServiceImp implements MarketService {
         return marketRepo.countByToadClass(id);
     }
 
+    @Override
+    public Market findSellerToad(int toadId) {
+        return marketRepo.findSellerToad(toadId);
+    }
+
+    @Override
+    public Market findToadBySellerAtMarket(int toadId) {
+        return marketRepo.findToadBySellerAtMarket(toadId);
+    }
+
+    @Transactional
+    @Override
+    public void cancelSellToadAtMarket(int toadIngameId) {
+        marketRepo.cancelSellToadAtMarket(toadIngameId);
+    }
 
 }

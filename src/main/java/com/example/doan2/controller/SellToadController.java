@@ -32,25 +32,39 @@ public class SellToadController {
     @Autowired
     MarketService marketService;
 
+    @PostMapping("/cancelSellProcessing/{id}")
+    public String cancelSellingToad(Model model, @PathVariable("id") int id) {
+        marketService.cancelSellToadAtMarket(id);
+        return "redirect:/sellToad/{id}";
+    }
+
     @GetMapping("/sellToad/{id}")
+
     public String sellToad(Model model, @PathVariable("id") int id) {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         User user = ((UserServiceImp) auth.getPrincipal()).getUser();
         List<ToadClass> listToadClass = toadIngameService.findAllToadClass();
         model.addAttribute("listToadClass", listToadClass);
-        if(auth == null || auth instanceof AnonymousAuthenticationToken) {
+        if (auth == null || auth instanceof AnonymousAuthenticationToken) {
             return "loginMarket";
         }
         ToadIngame myToad = toadIngameService.findById(id);
         model.addAttribute("myToad", myToad);
-        System.out.println("this is rarity: " +myToad.getToadData().getRarity());
-        System.out.println("this is rarity: " +Enum.Rarity.Common);
-//        String enumPart = String.valueOf(Enum.Rarity.Common);
-        if(myToad.getToadData().getRarity().equals(Enum.Rarity.Common)) {
+        // Common rarity cannot be sold
+        if (myToad.getToadData().getRarity().equals(Enum.Rarity.Common)) {
             model.addAttribute("sellCondition", Boolean.FALSE);
         } else {
-            model.addAttribute("sellCondition", Boolean.TRUE);
-            return "sellToad";
+            Market toadSellAtMarket = marketService.findToadBySellerAtMarket(id);
+            // if toad is already placed at market
+            if (toadSellAtMarket != null) {
+                //cancel sell toad case
+                model.addAttribute("sellCondition", Boolean.TRUE);
+                model.addAttribute("cancelSellAtMarket", Boolean.FALSE);
+            } else {
+                //Display Sell button
+                model.addAttribute("cancelSellAtMarket", Boolean.TRUE);
+                model.addAttribute("sellCondition", Boolean.TRUE);
+            }
         }
         return "sellToad";
     }
@@ -60,19 +74,19 @@ public class SellToadController {
                               @PathVariable("id") int id,
                               Market market,
                               Model model) {
-        if(price.equals("") || price == null) {
+        if (price.equals("") || price == null) {
             model.addAttribute("errorPrice", "Price only allow 1 to 1000000$");
             return "redirect:/sellToad/{id}";
         }
         int sellPrice = Integer.parseInt(price);
-        if(sellPrice <= 0 || sellPrice > 1000000) {
+        if (sellPrice <= 0 || sellPrice > 1000000) {
             model.addAttribute("errorPrice", "Price only allow 1 to 1000000$");
             return "redirect:/sellToad/{id}";
         }
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         User user = ((UserServiceImp) auth.getPrincipal()).getUser();
         market.setPrice(sellPrice);
-        Date date = new Date(System.currentTimeMillis() - (3600 * 1000)*7);
+        Date date = new Date(System.currentTimeMillis() - (3600 * 1000) * 7);
         market.setTime(new Timestamp(date.getTime()));
         market.setSeller(user);
         ToadIngame myToad = toadIngameService.findById(id);

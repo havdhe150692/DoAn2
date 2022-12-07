@@ -45,4 +45,11 @@ public interface MarketService {
     List<Market> findSoftwareToad();
 
     int countByToadClass(int id);
+
+    Market findSellerToad(int toadId);
+
+    Market findToadBySellerAtMarket(int toadId);
+
+    void cancelSellToadAtMarket(int toadIngameId);
+
 }

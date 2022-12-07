@@ -2,6 +2,8 @@ package com.example.doan2.controller;
 
 import com.example.doan2.entity.Market;
 import com.example.doan2.entity.ToadClass;
+import com.example.doan2.entity.User;
+import com.example.doan2.service.Impl.UserServiceImp;
 import com.example.doan2.service.MarketService;
 import com.example.doan2.service.ToadIngameService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -79,8 +81,16 @@ public class MarketController {
         }
         Market toadDetail = marketService.findById(id);
         model.addAttribute("toadDetail", toadDetail);
+        Market seller = marketService.findSellerToad(id);
+        model.addAttribute("seller", seller);
         List<ToadClass> listToadClass = toadIngameService.findAllToadClass();
         model.addAttribute("listToadClass", listToadClass);
+        User user = ((UserServiceImp) auth.getPrincipal()).getUser();
+        if(seller.getSeller().getName().equals(user.getName())) {
+            model.addAttribute("viewMarketBySeller", Boolean.FALSE);
+        } else {
+            model.addAttribute("viewMarketBySeller", Boolean.TRUE);
+        }
         return "productDetail";
     }
 

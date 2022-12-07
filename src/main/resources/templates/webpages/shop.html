@@ -254,6 +254,9 @@
                                 <div class="d-flex justify-content-center">
                                     <h6 th:text="'Rarity: '+ ${toad.toadIngame?.toadData?.rarity}"></h6>
                                 </div>
+                                <div class="d-flex justify-content-center">
+                                    <h6 th:text="'Seller: '+ ${toad.getSeller()?.name}"></h6>
+                                </div>
                             </div>
                             <div class="card-footer d-flex centerBtn bg-light border">
                                 <a th:href="@{productDetail/{id}(id=${toad.getId()})}"
