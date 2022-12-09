@@ -13,4 +13,14 @@ public interface ToadIngameService {
     List<ToadIngame> findAllToadByOwner(User owner);
 
     List<ToadClass> findAllToadClass();
+
+    List<ToadIngame> findUserToadByRarity(int rarityNum,int userId);
+
+    int countAllUserToad(int userId);
+
+    int countUserToadByRarity(int userId, int rarityNum);
+
+    List<ToadIngame> findUserToadByName(String name, int userId);
+
+
 }

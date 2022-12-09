@@ -34,4 +34,25 @@ public class ToadIngameServiceImp implements ToadIngameService {
     public List<ToadClass> findAllToadClass() {
         return toadClassRepository.findAll();
     }
+
+    @Override
+    public List<ToadIngame> findUserToadByRarity(int rarityNum, int userId) {
+        return toadIngameRepository.findUserToadByRarity(rarityNum,userId);
+    }
+
+    @Override
+    public int countAllUserToad(int userId) {
+        return toadIngameRepository.countAllUserToad(userId);
+    }
+
+    @Override
+    public int countUserToadByRarity(int userId, int rarityNum) {
+        return toadIngameRepository.countUserToadByRarity(userId, rarityNum);
+    }
+
+    @Override
+    public List<ToadIngame> findUserToadByName(String name, int userId) {
+        return toadIngameRepository.findUserToadByName(name, userId);
+    }
+
 }

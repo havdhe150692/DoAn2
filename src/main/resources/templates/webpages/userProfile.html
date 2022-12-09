@@ -36,7 +36,8 @@
         <div class="col-lg-6 col-6 text-left">
             <form method="post" th:action="@{/searchToadContainsName}">
                 <div class="input-group">
-                    <input th:value="${searchNameContains}" name="searchByNameContains" type="text" class="form-control" placeholder="Search toad contain name">
+                    <input th:value="${searchNameContains}" name="searchByNameContains" type="text" class="form-control"
+                           placeholder="Search toad contain name">
                     <div class="input-group-append">
                         <button class="input-group-text bg-transparent text-primary" type="submit"><i
                                 class="fa fa-search"> </i></button>
@@ -67,7 +68,8 @@
                  id="navbar-vertical" style="width: calc(100% - 30px); z-index: 1;">
                 <div class="navbar-nav w-100 overflow-hidden toadClassL">
                     <tr th:each="toadClass : ${listToadClass}">
-                        <a th:href="@{/categories/{id}(id=${toadClass.id})}" class="nav-item nav-link" th:text="${toadClass.name}"></a>
+                        <a th:href="@{/categories/{id}(id=${toadClass.id})}" class="nav-item nav-link"
+                           th:text="${toadClass.name}"></a>
                     </tr>
                 </div>
             </nav>
@@ -101,16 +103,22 @@
     </div>
 </div>
 
-<div class="container rounded bg-white mt-5 mb-5">
-    <div class="row">
-        <div class="col-md-3 border-right">
-            <div class="d-flex flex-column align-items-center text-center p-3 py-5"><img class="rounded-circle mt-5"
-                                                                                         width="150px"
-                                                                                         src="https://st3.depositphotos.com/15648834/17930/v/600/depositphotos_179308454-stock-illustration-unknown-person-silhouette-glasses-profile.jpg"><span
-                    class="font-weight-bold">[[${#request.userPrincipal.principal.name}]]</span><span
-                    class="text-black-50" th:text="${user.email}"></span><span> </span></div>
+<div class="rounded bg-white mt-5 mb-5">
+    <div class="row px-xl-5">
+        <div class="col-lg-3 col-md-12 border-right">
+            <div class="d-flex flex-column align-items-center text-center p-3 py-5">
+                <img
+                        class="rounded-circle mt-5"
+                        width="150px"
+                        src="https://st3.depositphotos.com/15648834/17930/v/600/depositphotos_179308454-stock-illustration-unknown-person-silhouette-glasses-profile.jpg">
+                <span
+                        class="font-weight-bold">[[${#request.userPrincipal.principal.name}]]
+                </span>
+                <span class="text-black-50" th:text="${user.email}">
+            </span>
+            </div>
         </div>
-        <div class="col-md-5 border-right">
+        <div class="col-lg-9 col-md-12 border-right">
             <div class="p-3 py-5">
                 <div class="d-flex justify-content-between align-items-center mb-3">
                     <h4 class="text-right">Profile Settings</h4>

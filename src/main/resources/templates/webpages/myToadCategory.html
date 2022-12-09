@@ -129,43 +129,30 @@
             <!-- Rarity Start -->
             <div class="border-bottom mb-4 pb-4">
                 <h5 class="font-weight-semi-bold mb-4">Filter by rarity</h5>
-                <form>
-                    <div
-                            class="custom-control custom-checkbox d-flex align-items-center justify-content-between mb-3">
-                        <input type="checkbox" class="custom-control-input" checked id="color-all">
-                        <label class="custom-control-label">All Rarity</label>
-                        <span class="badge border font-weight-normal">1000</span>
-                    </div>
-                    <div
-                            class="custom-control custom-checkbox d-flex align-items-center justify-content-between mb-3">
-                        <input type="checkbox" class="custom-control-input" id="color-1">
-                        <label class="custom-control-label" for="color-1">Common</label>
-                        <span class="badge border font-weight-normal">150</span>
-                    </div>
-                    <div
-                            class="custom-control custom-checkbox d-flex align-items-center justify-content-between mb-3">
-                        <input type="checkbox" class="custom-control-input" id="color-2">
-                        <label class="custom-control-label" for="color-2">Rare</label>
-                        <span class="badge border font-weight-normal">295</span>
-                    </div>
-                    <div
-                            class="custom-control custom-checkbox d-flex align-items-center justify-content-between mb-3">
-                        <input type="checkbox" class="custom-control-input" id="color-3">
-                        <label class="custom-control-label" for="color-3">Epic</label>
-                        <span class="badge border font-weight-normal">246</span>
-                    </div>
-                    <div
-                            class="custom-control custom-checkbox d-flex align-items-center justify-content-between mb-3">
-                        <input type="checkbox" class="custom-control-input" id="color-4">
-                        <label class="custom-control-label" for="color-4">Mythical</label>
-                        <span class="badge border font-weight-normal">145</span>
-                    </div>
-                    <div class="custom-control custom-checkbox d-flex align-items-center justify-content-between">
-                        <input type="checkbox" class="custom-control-input" id="color-5">
-                        <label class="custom-control-label" for="color-5">Legend</label>
-                        <span class="badge border font-weight-normal">168</span>
-                    </div>
-                </form>
+                <div class="custom-control d-flex align-items-center justify-content-between mb-3">
+                    <a class="filterLink" th:href="@{/myToad}">All Rarity</a>
+                    <span class="badge border font-weight-normal" th:text="${countUserToadSize}"></span>
+                </div>
+                <div class="custom-control  d-flex align-items-center justify-content-between mb-3">
+                    <a class="filterLink" th:href="@{/findUserToadCommonRarity}">Common</a>
+                    <span class="badge border font-weight-normal" th:text="${countUserCommonSize}"></span>
+                </div>
+                <div class="custom-control  d-flex align-items-center justify-content-between mb-3">
+                    <a class="filterLink" th:href="@{/findUserToadRareRarity}">Rare</a>
+                    <span class="badge border font-weight-normal" th:text="${countUserRareSize}"></span>
+                </div>
+                <div class="custom-control  d-flex align-items-center justify-content-between mb-3">
+                    <a class="filterLink" th:href="@{/findUserToadEpicRarity}">Epic</a>
+                    <span class="badge border font-weight-normal" th:text="${countUserEpicSize}"></span>
+                </div>
+                <div class="custom-control  d-flex align-items-center justify-content-between mb-3">
+                    <a class="filterLink" th:href="@{/findUserToadMythicalRarity}">Mythical</a>
+                    <span class="badge border font-weight-normal" th:text="${countUserMythicalSize}"></span>
+                </div>
+                <div class="custom-control  d-flex align-items-center justify-content-between mb-3">
+                    <a class="filterLink" th:href="@{/findUserToadLegendRarity}">Legend</a>
+                    <span class="badge border font-weight-normal" th:text="${countUserLegendSize}"></span>
+                </div>
             </div>
             <!-- Color End -->
 
@@ -178,13 +165,12 @@
             <div class="row pb-3">
                 <div class="col-12 pb-1">
                     <div class="d-flex align-items-center justify-content-between mb-4">
-                        <form action="">
+                        <form method="get" th:action="@{/searchUserToadByName}">
                             <div class="input-group">
-                                <input type="text" class="form-control" placeholder="Search by name">
+                                <input th:value="${searchName}" name="searchUserToadByName" type="text" class="form-control" placeholder="Search by toad name">
                                 <div class="input-group-append">
-                                        <span class="input-group-text bg-transparent text-primary">
-                                            <i class="fa fa-search"></i>
-                                        </span>
+                                    <button class="input-group-text bg-transparent text-primary" type="submit"><i
+                                            class="fa fa-search"> </i></button>
                                 </div>
                             </div>
                         </form>
@@ -201,7 +187,7 @@
                         </div>
                     </div>
                 </div>
-
+                <div class="listEmpty" th:text="${mess}"></div>
                 <div class="listEmpty" th:unless="${condition}">
                     looks like you don't have any Toad yet!.
                     <div class="customizeBtn">
