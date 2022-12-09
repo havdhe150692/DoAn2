@@ -1,6 +1,8 @@
 package com.example.doan2.service;
 
 import com.example.doan2.entity.Market;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -52,4 +54,7 @@ public interface MarketService {
 
     void cancelSellToadAtMarket(int toadIngameId);
 
+    void removeToadAtMarket(int toadIngameId);
+
+    Page<Market> pagingMarket(Pageable pageable);
 }

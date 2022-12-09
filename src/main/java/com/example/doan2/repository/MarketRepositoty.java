@@ -7,7 +7,6 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
-import javax.transaction.Transactional;
 import java.util.List;
 
 @Repository
@@ -114,7 +113,13 @@ public interface MarketRepositoty extends JpaRepository<Market, Integer> {
     Market findToadBySellerAtMarket(@Param("toadId") int toadId);
 
 
-    @Modifying()
+    @Modifying
     @Query(value = "DELETE FROM market m where m.toad_ingame_id = :toadIngameId", nativeQuery = true)
     void cancelSellToadAtMarket(@Param("toadIngameId") int toadIngameId);
+
+    @Modifying
+    @Query(value = "DELETE FROM market m where m.toad_ingame_id = :toadIngameId", nativeQuery = true)
+    void removeToadAtMarket(@Param("toadIngameId") int toadIngameId);
+
+
 }

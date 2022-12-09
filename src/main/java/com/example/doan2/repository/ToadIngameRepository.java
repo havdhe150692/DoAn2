@@ -5,6 +5,7 @@ package com.example.doan2.repository;
 import com.example.doan2.entity.ToadIngame;
 import com.example.doan2.entity.User;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
@@ -40,4 +41,8 @@ public interface ToadIngameRepository extends JpaRepository<ToadIngame, Integer>
             " toad_data tdt ON tdt.id = tig.toad_data_id WHERE \n" +
             " tdt.name = :name AND tig.owner_id = :user", nativeQuery = true)
     List<ToadIngame> findUserToadByName(@Param("name") String name,@Param("user") int userId);
+
+    @Modifying
+    @Query(value = "UPDATE toad_ingame tig SET tig.owner_id = :ownerId WHERE tig.id = :toadId", nativeQuery = true)
+    void changeToadOwner(@Param("ownerId") int userId, @Param("toadId") int toadId);
 }

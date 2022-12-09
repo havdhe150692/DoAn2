@@ -9,6 +9,7 @@ import com.example.doan2.service.ToadIngameService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
 import java.util.List;
 
 @Service
@@ -55,4 +56,9 @@ public class ToadIngameServiceImp implements ToadIngameService {
         return toadIngameRepository.findUserToadByName(name, userId);
     }
 
+    @Transactional
+    @Override
+    public void changeToadOwner(int ownerId, int toadId) {
+        toadIngameRepository.changeToadOwner(ownerId, toadId);
+    }
 }

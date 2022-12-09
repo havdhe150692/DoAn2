@@ -22,5 +22,5 @@ public interface ToadIngameService {
 
     List<ToadIngame> findUserToadByName(String name, int userId);
 
-
+    void changeToadOwner(int ownerId, int toadId);
 }
