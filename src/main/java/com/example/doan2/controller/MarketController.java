@@ -2,10 +2,12 @@ package com.example.doan2.controller;
 
 import com.example.doan2.entity.Market;
 import com.example.doan2.entity.ToadClass;
+import com.example.doan2.entity.ToadIngame;
 import com.example.doan2.entity.User;
 import com.example.doan2.service.Impl.UserServiceImp;
 import com.example.doan2.service.MarketService;
 import com.example.doan2.service.ToadIngameService;
+import com.example.doan2.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -19,6 +21,11 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import java.sql.Timestamp;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -32,6 +39,9 @@ public class MarketController {
 
     @Autowired
     MarketService marketService;
+
+    @Autowired
+    UserService userService;
 
     @GetMapping("/market")
     public String viewMarket(Model model) {
@@ -511,14 +521,15 @@ public class MarketController {
 
     @GetMapping("/paging")
     public String pagingMarket(Model model,
-                               @RequestParam(value = "page", required = false) Optional<Integer> page,
-                               @RequestParam(value = "size", required = false) Optional<Integer> size) {
+                               @RequestParam(value = "page", required = false) Optional<Integer> page
+//                               @RequestParam(value = "size", required = false) Optional<Integer> size) {
+                               ) {
 
         int currentPage = page.orElse(1);
-        int pageSize = size.orElse(1);
+//        int pageSize = size.orElse(1);
         System.out.println("currentPage: " + currentPage);
-        System.out.println("pageSize: " + pageSize);
-        Page<Market> toadPagingMarket = marketService.pagingMarket(PageRequest.of(currentPage - 1, pageSize));
+//        System.out.println("pageSize: " + pageSize);
+        Page<Market> toadPagingMarket = marketService.pagingMarket(PageRequest.of(currentPage - 1, 5));
         model.addAttribute("condition", Boolean.TRUE);
         model.addAttribute("toadList", toadPagingMarket);
         System.out.println("this is toadPaging market: " + toadPagingMarket.getTotalElements());
@@ -527,6 +538,7 @@ public class MarketController {
         if (totalPages > 0) {
             List<Integer> pageNumbers = IntStream.rangeClosed(1, totalPages).boxed().collect(Collectors.toList());
             model.addAttribute("pageNumbers",pageNumbers);
+            model.addAttribute("currentPage", currentPage);
         }
         return "shop";
     }

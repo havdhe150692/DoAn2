@@ -20,8 +20,19 @@ public class Market {
 
     private int price;
 
+
+    private int isSelling = 0;
+
     private Timestamp time;
 
+
+    public int isSelling() {
+        return isSelling;
+    }
+
+    public void setSelling(int selling) {
+        isSelling = selling;
+    }
 
     public User getSeller() {
         return seller;

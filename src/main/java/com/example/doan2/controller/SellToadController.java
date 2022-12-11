@@ -89,6 +89,7 @@ public class SellToadController {
         Date date = new Date(System.currentTimeMillis() - (3600 * 1000) * 7);
         market.setTime(new Timestamp(date.getTime()));
         market.setSeller(user);
+//        market.setSelling(1);
 
         ToadIngame myToad = toadIngameService.findById(id);
         market.setToadIngame(myToad);
