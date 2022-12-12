@@ -34,18 +34,6 @@ public interface MarketService {
 
     List<Market> sortFromLowestPrice();
 
-    List<Market> findEconomicToad();
-
-    List<Market> findGraphicToad();
-
-    List<Market> findArtistToad();
-
-    List<Market> findLectureToad();
-
-    List<Market> findAIToad();
-
-    List<Market> findSoftwareToad();
-
     int countByToadClass(int id);
 
     Market findSellerToad(int toadId);
@@ -57,4 +45,6 @@ public interface MarketService {
     void removeToadAtMarket(int toadIngameId);
 
     Page<Market> pagingMarket(Pageable pageable);
+
+    Page<Market> customPaging(Pageable pageable, List<Market> customList);
 }

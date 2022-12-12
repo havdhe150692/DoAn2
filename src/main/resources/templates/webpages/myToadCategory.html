@@ -134,23 +134,23 @@
                     <span class="badge border font-weight-normal" th:text="${countUserToadSize}"></span>
                 </div>
                 <div class="custom-control  d-flex align-items-center justify-content-between mb-3">
-                    <a class="filterLink" th:href="@{/findUserToadCommonRarity}">Common</a>
+                    <a class="filterLink" th:href="@{/findUserToadByRarity/{rarity}(rarity=${0})}">Common</a>
                     <span class="badge border font-weight-normal" th:text="${countUserCommonSize}"></span>
                 </div>
                 <div class="custom-control  d-flex align-items-center justify-content-between mb-3">
-                    <a class="filterLink" th:href="@{/findUserToadRareRarity}">Rare</a>
+                    <a class="filterLink" th:href="@{/findUserToadByRarity/{rarity}(rarity=${1})}">Rare</a>
                     <span class="badge border font-weight-normal" th:text="${countUserRareSize}"></span>
                 </div>
                 <div class="custom-control  d-flex align-items-center justify-content-between mb-3">
-                    <a class="filterLink" th:href="@{/findUserToadEpicRarity}">Epic</a>
+                    <a class="filterLink" th:href="@{/findUserToadByRarity/{rarity}(rarity=${2})}">Epic</a>
                     <span class="badge border font-weight-normal" th:text="${countUserEpicSize}"></span>
                 </div>
                 <div class="custom-control  d-flex align-items-center justify-content-between mb-3">
-                    <a class="filterLink" th:href="@{/findUserToadMythicalRarity}">Mythical</a>
+                    <a class="filterLink" th:href="@{/findUserToadByRarity/{rarity}(rarity=${3})}">Mythical</a>
                     <span class="badge border font-weight-normal" th:text="${countUserMythicalSize}"></span>
                 </div>
                 <div class="custom-control  d-flex align-items-center justify-content-between mb-3">
-                    <a class="filterLink" th:href="@{/findUserToadLegendRarity}">Legend</a>
+                    <a class="filterLink" th:href="@{/findUserToadByRarity/{rarity}(rarity=${4})}">Legend</a>
                     <span class="badge border font-weight-normal" th:text="${countUserLegendSize}"></span>
                 </div>
             </div>

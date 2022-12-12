@@ -90,7 +90,6 @@ public class SellToadController {
         market.setTime(new Timestamp(date.getTime()));
         market.setSeller(user);
 //        market.setSelling(1);
-
         ToadIngame myToad = toadIngameService.findById(id);
         market.setToadIngame(myToad);
         marketService.saveMarket(market);

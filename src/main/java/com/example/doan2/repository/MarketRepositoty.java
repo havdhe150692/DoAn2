@@ -62,43 +62,6 @@ public interface MarketRepositoty extends JpaRepository<Market, Integer> {
     @Query(value = "SELECT * FROM market m ORDER BY m.price ASC\n ", nativeQuery = true)
     List<Market> sortFromLowestPrice();
 
-
-    @Query(value = "SELECT * FROM market m JOIN toad_ingame tig ON m.toad_ingame_id = tig.id \n" +
-            "JOIN toad_data tdt ON tdt.id = tig.toad_data_id \n" +
-            "JOIN toad_class tc ON tc.id = tdt.toad_class_id\n" +
-            "WHERE tc.id = 2", nativeQuery = true)
-    List<Market> findEconomicToad();
-
-    @Query(value = "SELECT * FROM market m JOIN toad_ingame tig ON m.toad_ingame_id = tig.id \n" +
-            "JOIN toad_data tdt ON tdt.id = tig.toad_data_id \n" +
-            "JOIN toad_class tc ON tc.id = tdt.toad_class_id\n" +
-            "WHERE tc.id = 4", nativeQuery = true)
-    List<Market> findGraphicToad();
-
-    @Query(value = "SELECT * FROM market m JOIN toad_ingame tig ON m.toad_ingame_id = tig.id \n" +
-            "JOIN toad_data tdt ON tdt.id = tig.toad_data_id \n" +
-            "JOIN toad_class tc ON tc.id = tdt.toad_class_id\n" +
-            "WHERE tc.id = 6", nativeQuery = true)
-    List<Market> findArtistToad();
-
-    @Query(value = "SELECT * FROM market m JOIN toad_ingame tig ON m.toad_ingame_id = tig.id \n" +
-            "JOIN toad_data tdt ON tdt.id = tig.toad_data_id \n" +
-            "JOIN toad_class tc ON tc.id = tdt.toad_class_id\n" +
-            "WHERE tc.id = 8", nativeQuery = true)
-    List<Market> findLectureToad();
-
-    @Query(value = "SELECT * FROM market m JOIN toad_ingame tig ON m.toad_ingame_id = tig.id \n" +
-            "JOIN toad_data tdt ON tdt.id = tig.toad_data_id \n" +
-            "JOIN toad_class tc ON tc.id = tdt.toad_class_id\n" +
-            "WHERE tc.id = 5", nativeQuery = true)
-    List<Market> findAIToad();
-
-    @Query(value = "SELECT * FROM market m JOIN toad_ingame tig ON m.toad_ingame_id = tig.id \n" +
-            "JOIN toad_data tdt ON tdt.id = tig.toad_data_id \n" +
-            "JOIN toad_class tc ON tc.id = tdt.toad_class_id\n" +
-            "WHERE tc.id = 3", nativeQuery = true)
-    List<Market> findSoftwareToad();
-
     @Query(value = "SELECT COUNT(m.id) FROM market m JOIN toad_ingame tig ON m.toad_ingame_id = tig.id \n" +
             "JOIN toad_data tdt ON tdt.id = tig.toad_data_id \n" +
             "JOIN toad_class tc ON tc.id = tdt.toad_class_id\n" +
