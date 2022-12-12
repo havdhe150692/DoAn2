@@ -359,7 +359,6 @@ public class MarketController {
             List<Integer> pageNumbers = IntStream.rangeClosed(1, totalPages).boxed().collect(Collectors.toList());
             model.addAttribute("pageNumbers", pageNumbers);
             model.addAttribute("currentPage", currentPage);
-
         }
         return "shop";
     }
