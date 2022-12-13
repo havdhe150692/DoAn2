@@ -1,6 +1,7 @@
 package com.example.doan2.entity;
 
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
@@ -17,13 +18,13 @@ public class ToadStatus {
     @OneToOne
     @MapsId
     private ToadIngame toadIngame;
-
+    @JsonFormat(timezone = "Asia/Ho_Chi_Minh")
     private Timestamp expectedMature;
-
+    @JsonFormat(timezone = "Asia/Ho_Chi_Minh")
     private Timestamp expectedBreed;
-
+    @JsonFormat(timezone = "Asia/Ho_Chi_Minh")
     private Timestamp expectedHungry;
-
+    @JsonFormat(timezone = "Asia/Ho_Chi_Minh")
     private Timestamp expectedCollect;
 
 

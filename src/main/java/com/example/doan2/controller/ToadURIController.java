@@ -2,6 +2,7 @@ package com.example.doan2.controller;
 
 
 import com.example.doan2.entity.ItemInventory;
+import com.example.doan2.service.ContractExecutionService;
 import com.example.doan2.service.ToadCreationService;
 import com.example.doan2.service.ToadURIService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,12 +23,23 @@ public class ToadURIController {
     @Autowired
     ToadCreationService toadCreationService;
 
+    @Autowired
+    ContractExecutionService contractExecutionService;
+
     @CrossOrigin(origins ="http://localhost:8000")
     @RequestMapping(value ="/{id}", method= RequestMethod.GET)
-    public JSONObject readToadURI(@PathVariable(value = "id") int toadId) throws JSONException {
+    public String readToadURI(@PathVariable(value = "id") int toadId) throws JSONException {
 
-        return toadURIService.ReturnToadURI(toadURIService.FindToadById(toadId));
+        return toadURIService.ReturnToadURI(toadURIService.FindToadById(toadId)).toString();
     }
+
+    @CrossOrigin(origins ="http://localhost:8000")
+    @RequestMapping(value ="/metadata/{id}", method= RequestMethod.GET)
+    public String readToadMetaData(@PathVariable(value = "id") int toadId) throws Exception {
+
+        return contractExecutionService.CheckNFT(toadId);
+    }
+
 
     @CrossOrigin(origins ="http://localhost:8000")
     @RequestMapping(value ="/test", method= RequestMethod.GET)

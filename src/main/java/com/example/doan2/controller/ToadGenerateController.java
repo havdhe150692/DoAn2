@@ -56,7 +56,12 @@ public class ToadGenerateController {
         ToadIngame toadIngame = new ToadIngame();
         toadIngame.setToadData(toadData);
         toadIngame.setOwner(u);
-        toadIngame.setDateOfBirth(new Timestamp(System.currentTimeMillis()));
+
+        Instant instant = Instant.now();
+        Timestamp timestamp = Timestamp.from(instant);
+        System.out.print("The time is " + timestamp);
+
+        toadIngame.setDateOfBirth(timestamp);
         toadIngame.setTypeCounter(0);
         ToadStatus toadStatus = toadStatusLogicService.StatusGeneration(toadData);
         toadIngame.setToadStatus(toadStatus);

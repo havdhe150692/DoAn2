@@ -1,6 +1,7 @@
 package com.example.doan2.entity;
 
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
@@ -26,6 +27,8 @@ public class ToadIngame {
     private User owner;
 
     private int typeCounter;
+
+    @JsonFormat(timezone = "Asia/Ho_Chi_Minh")
     private Timestamp dateOfBirth;
 
     @OneToOne(cascade = CascadeType.ALL, mappedBy = "toadIngame")
