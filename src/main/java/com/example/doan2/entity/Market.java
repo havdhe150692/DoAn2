@@ -22,12 +22,29 @@ public class Market {
 
     private int price;
 
+
+    private int isSelling = 0;
+
+
+
     @JsonFormat(timezone = "Asia/Ho_Chi_Minh")
     private Timestamp time;
 
 
+    public int isSelling() {
+        return isSelling;
+    }
+
+    public void setSelling(int selling) {
+        isSelling = selling;
+    }
+
     public User getSeller() {
         return seller;
+    }
+
+    public int getId() {
+        return id;
     }
 
     public void setSeller(User seller) {
@@ -57,4 +74,5 @@ public class Market {
     public void setToadIngame(ToadIngame toadIngame) {
         this.toadIngame = toadIngame;
     }
+
 }

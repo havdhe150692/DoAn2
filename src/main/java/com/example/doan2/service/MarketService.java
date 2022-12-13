@@ -1,6 +1,8 @@
 package com.example.doan2.service;
 
 import com.example.doan2.entity.Market;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -24,7 +26,7 @@ public interface MarketService {
 
     List<Market> findByRarity(int rarityNum);
 
-    int countToad(int countNum);
+    int countToadByRarity(int countNum);
 
     int countAllMarket();
 
@@ -32,4 +34,27 @@ public interface MarketService {
 
     List<Market> sortFromLowestPrice();
 
+    List<Market> findEconomicToad();
+
+    List<Market> findGraphicToad();
+
+    List<Market> findArtistToad();
+
+    List<Market> findLectureToad();
+
+    List<Market> findAIToad();
+
+    List<Market> findSoftwareToad();
+
+    int countByToadClass(int id);
+
+    Market findSellerToad(int toadId);
+
+    Market findToadBySellerAtMarket(int toadId);
+
+    void cancelSellToadAtMarket(int toadIngameId);
+
+    void removeToadAtMarket(int toadIngameId);
+
+    Page<Market> pagingMarket(Pageable pageable);
 }

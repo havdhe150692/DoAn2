@@ -43,7 +43,8 @@
         <div class="col-lg-6 col-6 text-left">
             <form method="post" th:action="@{/searchToadContainsName}">
                 <div class="input-group">
-                    <input th:value="${searchNameContains}" name="searchByNameContains" type="text" class="form-control" placeholder="Search toad contain name">
+                    <input th:value="${searchNameContains}" name="searchByNameContains" type="text" class="form-control"
+                           placeholder="Search toad contain name">
                     <div class="input-group-append">
                         <button class="input-group-text bg-transparent text-primary" type="submit"><i
                                 class="fa fa-search"> </i></button>
@@ -77,7 +78,8 @@
                  id="navbar-vertical" style="width: calc(100% - 30px); z-index: 1;">
                 <div class="navbar-nav w-100 overflow-hidden toadClassL">
                     <tr th:each="toadClass : ${listToadClass}">
-                        <a th:href="@{/categories/{id}(id=${toadClass.id})}" class="nav-item nav-link" th:text="${toadClass.name}"></a>
+                        <a th:href="@{/categories/{id}(id=${toadClass.id})}" class="nav-item nav-link"
+                           th:text="${toadClass.name}"></a>
                     </tr>
                 </div>
             </nav>
@@ -135,11 +137,12 @@
             <!-- Price Start -->
             <div class="border-bottom mb-4 pb-4">
                 <h5 class="font-weight-semi-bold mb-4">Filter by price</h5>
-                <form th:action="@{/searchByPriceBetween}" method="post" name="form1" id="form1" onsubmit="return validateFormInputPrice()">
+                <form th:action="@{/searchByPriceBetween}" method="post" name="form1" id="form1"
+                      onsubmit="return validateFormInputPrice()">
                     <div class="custom-control d-flex mb-3">
                         <p id="errorMes" th:text="${errorPrice}"></p>
                     </div>
-                    <div  class="custom-control d-flex mb-3">
+                    <div class="custom-control d-flex mb-3">
                         <p style="font-size:20px;">From</p>
                         <input th:value="${from}" id="intLimitTextBox" name="priceFrom" type="text"
                                class="form-control bg-secondary text-center customInput"
@@ -209,7 +212,8 @@
                     <div class="d-flex align-items-center justify-content-between mb-4">
                         <form method="post" th:action="@{/searchToadByName}">
                             <div class="input-group">
-                                <input th:value="${searchName}" name="searchByName" type="text" class="form-control" placeholder="Search by toad name">
+                                <input th:value="${searchName}" name="searchByName" type="text" class="form-control"
+                                       placeholder="Search by toad name">
                                 <div class="input-group-append">
                                     <button class="input-group-text bg-transparent text-primary" type="submit"><i
                                             class="fa fa-search"> </i></button>
@@ -254,16 +258,78 @@
                                 <div class="d-flex justify-content-center">
                                     <h6 th:text="'Rarity: '+ ${toad.toadIngame?.toadData?.rarity}"></h6>
                                 </div>
+                                <div class="d-flex justify-content-center">
+                                    <h6 th:text="'Seller: '+ ${toad.getSeller()?.name}"></h6>
+                                </div>
                             </div>
                             <div class="card-footer d-flex centerBtn bg-light border">
-                                <a th:href="@{productDetail/{id}(id=${toad.toadIngame?.id})}"
+                                <a th:href="@{productDetail/{id}(id=${toad.getId()})}"
                                    class="btn btn-sm text-dark p-0"><i
                                         class="fas fa-eye text-primary mr-1"></i>View Detail</a>
                             </div>
                         </div>
                     </div>
                 </tr>
+                <div class="col-12 pb-1 pagination">
+                    <nav aria-label="Page navigation">
+                        <ul class="pagination justify-content-center flex-wrap">
+                            <li th:class="${currentPage > 1 ? 'page-item' : 'page-item disabled'}">
+                                <a class="page-link" th:href="@{/paging(size=${toadList.size}, page = 1)}"
+                                >First</a>
+                            </li>
+                            <li th:class="${currentPage > 1 ? 'page-item' : 'page-item disabled'}">
+                                <a class="page-link" th:href="@{/paging(size=${toadList.size}, page = ${currentPage - 1})}"
+                                >Previous</a>
+                            </li>
+<!--                            <li th:if="${toadList.totalPages > 0}" th:each="pageNumber : ${pageNumbers}" class="page-item"-->
+<!--                                th:class="${pageNumber==bookPage.number + 1} ? 'active' + 'page-item'"-->
+<!--                            >-->
+<!--                                <a class="page-link" th:href="@{/paging(size=${toadList.size}, page=${pageNumber})}"-->
+<!--                                   th:text="${pageNumber}"-->
+<!--                                ></a>-->
+<!--                            </li>-->
+                            <th:block th:if = "${pageNumbers.size <= 10}">
+                                <li th:each="pageNumber : ${#numbers.sequence(1, pageNumbers.size)}"
+                                    th:class="${pageNumber == currentPage} ? 'active page-item' : 'page-item'">
+                                    <a th:href="@{/paging(page = ${pageNumber})}" th:text="${pageNumber}"></a>
+                                </li>
+                            </th:block>
+                            <th:block th:if = "${pageNumbers.size > 10}">
+                                <th:block th:if="${currentPage <= 5 || currentPage > pageNumbers.size - 4}">
+                                    <li th:each="pageNumber : ${#numbers.sequence(1, 5)}"
+                                        th:class="${pageNumber == currentPage} ? 'page-item active' : 'page-item'">
+                                        <a class="page-link" th:href="@{/paging(page = ${pageNumber})}" th:text="${pageNumber}"></a>
+                                    </li>
+                                    <a class="page-link" th:href="@{/paging (page = 6)}">...</a>
+                                    <li th:each="pageNumber : ${#numbers.sequence(pageNumbers.size - 4, pageNumbers.size)}"
+                                        th:class="${pageNumber == currentPage} ? 'active page-item' : 'page-item'">
+                                        <a class="page-link" th:href="@{/paging(page = ${pageNumber})}" th:text="${pageNumber}"></a>
+                                    </li>
+                                </th:block>
+                                <th:block th:if="${currentPage > 5 && currentPage <= pageNumbers.size - 4}">
+                                    <a th:href="@{/paging (page = ${currentPage - 5})}" class="page-link">...
+                                    </a>
 
+                                    <li th:each="pageNumber:${#numbers.sequence(currentPage - 4, currentPage + 4)}">
+                                    <a th:href="@{/paging (page = ${pageNumber})}" class="page-link" th:text="${pageNumber}">
+                                    </a>
+                                    </li>
+
+                                    <a th:href="@{/paging (page = ${currentPage + 5})}" class="page-link">...
+                                    </a>
+                                </th:block>
+                            </th:block>
+                            <li th:class="${currentPage >= 1 ? 'page-item' : 'page-item disabled'}">
+                                <a class="page-link" th:href="@{/paging(size=${toadList.size}, page = ${currentPage==pageNumbers.size ? currentPage : currentPage + 1})}"
+                                >Next</a>
+                            </li>
+                            <li th:class="${currentPage < pageNumbers.size ? 'page-item' : 'page-item disabled'}">
+                                <a class="page-link" th:href="@{/paging(size=${toadList.size}, page = ${pageNumbers.size})}"
+                                >Last</a>
+                            </li>
+                        </ul>
+                    </nav>
+                </div>
 
                 <div class="col-12 pb-1">
                     <nav aria-label="Page navigation">
