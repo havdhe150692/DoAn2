@@ -5,6 +5,8 @@ import com.example.doan2.entity.ToadData;
 import com.example.doan2.entity.ToadIngame;
 import com.example.doan2.entity.ToadStatus;
 import jnr.posix.Times;
+import org.springframework.boot.configurationprocessor.json.JSONException;
+import org.springframework.boot.configurationprocessor.json.JSONObject;
 import org.springframework.stereotype.Service;
 
 import java.sql.Timestamp;
@@ -67,6 +69,28 @@ public class ToadStatusLogicService {
             t.setExpectedBreed(Timestamp.from(now));
         }
         return t;
+    }
+
+
+    public JSONObject StatusCheck(ToadStatus t) throws JSONException {
+        JSONObject jsonObject = new JSONObject();
+        Instant now = Instant.now();
+
+        jsonObject.put("id", t.getId());
+        jsonObject.put("isMature", (now.compareTo(t.getExpectedMature().toInstant()) >= 0));
+        jsonObject.put("isToBreed", (now.compareTo(t.getExpectedBreed().toInstant()) >= 0));
+        jsonObject.put("isToFeed", (now.compareTo(t.getExpectedCollect().toInstant()) >= 0));
+        jsonObject.put("isToCollect", (now.compareTo(t.getExpectedHungry().toInstant()) >= 0));
+
+
+        if((t.getExpectedMature() != null) && (now.compareTo(t.getExpectedMature().toInstant()) >= 0))
+        {
+            t.setExpectedMature(null);
+            t.setExpectedBreed(Timestamp.from(now));
+        }
+
+
+        return jsonObject;
     }
 
     public ToadStatus StatusGeneration(ToadData t)

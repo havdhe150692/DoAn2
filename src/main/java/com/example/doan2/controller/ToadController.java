@@ -6,14 +6,18 @@ import com.example.doan2.entity.ToadIngame;
 import com.example.doan2.entity.ToadStatus;
 import com.example.doan2.entity.User;
 import com.example.doan2.repository.ToadIngameRepository;
+import com.example.doan2.service.AdminContractExecutionService;
 import com.example.doan2.service.ToadService;
+import com.example.doan2.service.ToadStatusLogicService;
 import com.example.doan2.service.UserService;
 import com.example.doan2.utils.jsonObject.ToadDetailJson;
 import com.example.doan2.utils.jsonObject.ToadListJson;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.configurationprocessor.json.JSONObject;
+import org.springframework.boot.configurationprocessor.json.JSONArray;
+import org.springframework.boot.configurationprocessor.json.JSONException;
 import org.springframework.web.bind.annotation.*;
 
+import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -32,6 +36,12 @@ public class ToadController {
 
     @Autowired
     UserService userService;
+
+    @Autowired
+    ToadStatusLogicService toadStatusLogicService;
+
+    @Autowired
+    AdminContractExecutionService adminContractExecutionService;
 
 
 
@@ -79,6 +89,28 @@ public class ToadController {
 
 
     @CrossOrigin(origins ="http://localhost:8000")
+    @RequestMapping(value ="/status/{userId}", method= RequestMethod.GET)
+    public String readAllToadStatus(@PathVariable(value = "userId") int userId) throws JSONException {
+        User u = userService.findUserById(userId);
+        if (u != null)
+        {
+            List<ToadIngame> toadList = toadIngameRepository.findAllByOwner(u);
+            JSONArray jsonArray = new JSONArray();
+            for (int i = 0; i < toadList.size(); i++) {
+                ToadIngame toadIngame =  toadList.get(i);
+                ToadStatus toadStatus = toadIngame.getToadStatus();
+                jsonArray.put(toadStatusLogicService.StatusCheck(toadStatus));
+            }
+
+            return jsonArray.toString();
+        }
+        else
+        {
+            return null;
+        }
+    }
+
+    @CrossOrigin(origins ="http://localhost:8000")
     @RequestMapping(value ="/detail/{toadId}", method= RequestMethod.GET)
     public ToadDetailJson getDetailOfThisToad(@PathVariable(value = "toadId") int toadId)
     {
@@ -87,6 +119,16 @@ public class ToadController {
         tJson.CopyFromDataFromToad(t);
         return tJson;
     }
+
+    @CrossOrigin(origins ="http://localhost:8000")
+    @RequestMapping(value ="/toadNFT/count/{userId}", method= RequestMethod.GET)
+    public BigInteger countNFT(@PathVariable(value = "userId") int userId) throws Exception {
+        User u = userService.findUserById(userId);
+
+
+        return  adminContractExecutionService.CountNFT(u);
+    }
+
 
 
 //    @CrossOrigin(origins ="http://localhost:8000")

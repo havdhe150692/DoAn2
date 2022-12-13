@@ -1,5 +1,7 @@
 package com.example.doan2.entity;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 import javax.persistence.*;
 import java.sql.Timestamp;
 
@@ -23,6 +25,9 @@ public class Market {
 
     private int isSelling = 0;
 
+
+
+    @JsonFormat(timezone = "Asia/Ho_Chi_Minh")
     private Timestamp time;
 
 

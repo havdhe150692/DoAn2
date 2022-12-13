@@ -1,20 +1,17 @@
 package com.example.doan2.controller;
 
 
-import com.example.doan2.chain.InGameContractConnector;
+import com.example.doan2.chain.UserContractConnector;
 import com.example.doan2.entity.ToadIngame;
 import com.example.doan2.entity.User;
 import com.example.doan2.repository.ToadIngameRepository;
-import com.example.doan2.repository.ToadRepository;
 import com.example.doan2.repository.UserRepository;
 import com.example.doan2.service.TokenService;
 import com.example.doan2.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.configurationprocessor.json.JSONException;
 import org.springframework.boot.configurationprocessor.json.JSONObject;
 import org.springframework.web.bind.annotation.*;
 
-import javax.persistence.Access;
 import java.math.BigInteger;
 import java.util.List;
 
@@ -40,8 +37,8 @@ public class UserDataController {
         User u = userRepository.findById(userId);
         if(u != null)
         {
-           InGameContractConnector inGameContractConnector = new InGameContractConnector(u);
-           inGameContractConnector.ReturnAllMoney();
+           UserContractConnector userContractConnector = new UserContractConnector(u);
+           userContractConnector.ReturnAllMoney();
             var l = toadIngameRepository.findAllByOwner(u);
             for (int i = 0; i < l.size(); i++) {
                 ToadIngame toadIngame =  l.get(i);

@@ -29,7 +29,7 @@ public class DemoPublicContract {
             System.out.println(toadKingToken.name().send());
             System.out.println(toadKingToken.symbol().send());
             System.out.println(toadKingToken.totalSupply().send());
-            System.out.println(toadKingToken.owner().send());
+            //System.out.println(toadKingToken.owner().send());
             System.out.println(toadKingToken.balanceOf("0x5a7b17Ba110f5ec1BDeF1A814381552D0E74db91").send());
             System.out.println(toadKingToken.balanceOf("0x029834be5bfc967fc5134ba53df0e5b8666b9c10").send());
             System.out.println(toadKingToken.requestCurrentGasPrice());
