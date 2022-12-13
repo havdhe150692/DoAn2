@@ -1,16 +1,12 @@
 package com.example.doan2.controller;
 
 
-import com.example.doan2.entity.ItemInventory;
-import com.example.doan2.service.ContractExecutionService;
+import com.example.doan2.service.AdminContractExecutionService;
 import com.example.doan2.service.ToadCreationService;
 import com.example.doan2.service.ToadURIService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.configurationprocessor.json.JSONException;
-import org.springframework.boot.configurationprocessor.json.JSONObject;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
 
 @RestController
 @RequestMapping("/uriApi/")
@@ -24,7 +20,7 @@ public class ToadURIController {
     ToadCreationService toadCreationService;
 
     @Autowired
-    ContractExecutionService contractExecutionService;
+    AdminContractExecutionService adminContractExecutionService;
 
     @CrossOrigin(origins ="http://localhost:8000")
     @RequestMapping(value ="/{id}", method= RequestMethod.GET)
@@ -37,7 +33,7 @@ public class ToadURIController {
     @RequestMapping(value ="/metadata/{id}", method= RequestMethod.GET)
     public String readToadMetaData(@PathVariable(value = "id") int toadId) throws Exception {
 
-        return contractExecutionService.CheckNFT(toadId);
+        return adminContractExecutionService.CheckNFT(toadId);
     }
 
 

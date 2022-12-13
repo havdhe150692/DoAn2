@@ -7,10 +7,7 @@ import com.example.doan2.chain.smartcontract.ToadKingNFT;
 import com.example.doan2.chain.smartcontract.ToadKingToken;
 import com.example.doan2.entity.ToadIngame;
 import com.example.doan2.entity.User;
-import com.example.doan2.service.ToadURIService;
-import com.fasterxml.jackson.annotation.JsonFormat;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.configurationprocessor.json.JSONException;
 import org.springframework.boot.configurationprocessor.json.JSONObject;
 import org.springframework.stereotype.Service;
 import org.web3j.crypto.Credentials;
@@ -18,7 +15,7 @@ import org.web3j.crypto.Credentials;
 import java.math.BigInteger;
 
 @Service
-public class ContractExecutionService {
+public class AdminContractExecutionService {
 
     @Autowired
     ToadURIService toadURIService;

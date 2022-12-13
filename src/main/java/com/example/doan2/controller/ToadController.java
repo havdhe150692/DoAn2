@@ -6,7 +6,7 @@ import com.example.doan2.entity.ToadIngame;
 import com.example.doan2.entity.ToadStatus;
 import com.example.doan2.entity.User;
 import com.example.doan2.repository.ToadIngameRepository;
-import com.example.doan2.service.ContractExecutionService;
+import com.example.doan2.service.AdminContractExecutionService;
 import com.example.doan2.service.ToadService;
 import com.example.doan2.service.ToadStatusLogicService;
 import com.example.doan2.service.UserService;
@@ -15,7 +15,6 @@ import com.example.doan2.utils.jsonObject.ToadListJson;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.configurationprocessor.json.JSONArray;
 import org.springframework.boot.configurationprocessor.json.JSONException;
-import org.springframework.boot.configurationprocessor.json.JSONObject;
 import org.springframework.web.bind.annotation.*;
 
 import java.math.BigInteger;
@@ -42,7 +41,7 @@ public class ToadController {
     ToadStatusLogicService toadStatusLogicService;
 
     @Autowired
-    ContractExecutionService contractExecutionService;
+    AdminContractExecutionService adminContractExecutionService;
 
 
 
@@ -127,7 +126,7 @@ public class ToadController {
         User u = userService.findUserById(userId);
 
 
-        return  contractExecutionService.CountNFT(u);
+        return  adminContractExecutionService.CountNFT(u);
     }
 
 

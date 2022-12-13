@@ -3,15 +3,10 @@ package com.example.doan2.chain;
 import com.example.doan2.chain.smartcontract.ToadKingMarketplace;
 import com.example.doan2.chain.smartcontract.ToadKingNFT;
 import com.example.doan2.chain.smartcontract.ToadKingToken;
-import com.example.doan2.entity.Toad;
 import com.example.doan2.entity.User;
-import com.example.doan2.service.ContractExecutionService;
-import org.web3j.abi.EventEncoder;
+import com.example.doan2.service.AdminContractExecutionService;
 import org.web3j.crypto.Credentials;
 import org.web3j.protocol.Web3j;
-import org.web3j.protocol.core.DefaultBlockParameterName;
-import org.web3j.protocol.core.methods.request.EthFilter;
-import org.web3j.utils.RevertReasonExtractor;
 
 import java.math.BigInteger;
 
@@ -25,12 +20,12 @@ public class UserContractConnector {
     public ToadKingMarketplace playerToadKingMarket;
     private User user;
 
-    ContractExecutionService contractExecutionService;
+    AdminContractExecutionService adminContractExecutionService;
 
     public UserContractConnector(User user) throws Exception
     {
         this.user = user;
-        this.contractExecutionService = new ContractExecutionService();
+        this.adminContractExecutionService = new AdminContractExecutionService();
         playerToadKingToken = ToadKingToken.load(ServerContractInitiator.ToadKingToken_contractAddress,
                 web3j,
                 Credentials.create(user.getUserWallet().getPrivateKey()),
@@ -65,11 +60,11 @@ public class UserContractConnector {
 
     //give 500 coin
     public void RequestMoney() throws Exception {
-        contractExecutionService.TransferTokenFromCentral(user, 500);
+        adminContractExecutionService.TransferTokenFromCentral(user, 500);
     }
 
     public void RequestMoney(int amount) throws Exception {
-        contractExecutionService.TransferTokenFromCentral(user, amount);
+        adminContractExecutionService.TransferTokenFromCentral(user, amount);
     }
 
 

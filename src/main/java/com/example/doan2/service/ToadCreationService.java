@@ -31,7 +31,7 @@ public class ToadCreationService {
     ToadIngameRepository toadIngameRepository;
 
     @Autowired
-    ContractExecutionService contractExecutionService;
+    AdminContractExecutionService adminContractExecutionService;
 
     @Autowired
     ToadStatusLogicService toadStatusLogicService;
@@ -117,7 +117,7 @@ public class ToadCreationService {
             toadIngame.setTypeCounter(pool.getCurrentIndex());
             toadIngameRepository.save(toadIngame);
 
-            contractExecutionService.MintNFTFromCentral(u, toadIngame);
+            adminContractExecutionService.MintNFTFromCentral(u, toadIngame);
         }
 
         toadIngameRepository.save(toadIngame);

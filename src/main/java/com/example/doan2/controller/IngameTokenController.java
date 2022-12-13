@@ -4,7 +4,7 @@ package com.example.doan2.controller;
 import com.example.doan2.chain.UserContractConnector;
 import com.example.doan2.entity.User;
 import com.example.doan2.repository.UserRepository;
-import com.example.doan2.service.ContractExecutionService;
+import com.example.doan2.service.AdminContractExecutionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
@@ -76,7 +76,7 @@ public class IngameTokenController {
         {
             UserContractConnector i = new UserContractConnector(u1);
 
-            ContractExecutionService c = new ContractExecutionService();
+            AdminContractExecutionService c = new AdminContractExecutionService();
             c.TransferFromImplementationExecution(u1, u2, 500);
 
             BigInteger balance =  i.GetBalance();
