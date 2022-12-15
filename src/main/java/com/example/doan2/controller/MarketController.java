@@ -1,5 +1,6 @@
 package com.example.doan2.controller;
 
+import com.example.doan2.chain.UserContractConnector;
 import com.example.doan2.entity.Market;
 import com.example.doan2.entity.ToadClass;
 import com.example.doan2.entity.ToadIngame;
@@ -332,10 +333,12 @@ public class MarketController {
 
     @PostMapping("/buyToad/{id}")
     public String buyToad(Model model, @PathVariable("id") int id) {
-        marketService.removeToadAtMarket(id);
-        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        User user = ((UserServiceImp) auth.getPrincipal()).getUser();
-        toadIngameService.changeToadOwner(user.getId(), id);
+//        marketService.removeToadAtMarket(id);
+//        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+//        User user = ((UserServiceImp) auth.getPrincipal()).getUser();
+//        toadIngameService.changeToadOwner(user.getId(), id);
+
+
         return "redirect:/shop";
     }
 

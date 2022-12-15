@@ -12,7 +12,7 @@ import java.util.List;
 @Repository
 public interface MarketRepositoty extends JpaRepository<Market, Integer> {
 
-    List<Market> findAll();
+    List<Market> findAllBy();
 
     Market findById(int id);
 

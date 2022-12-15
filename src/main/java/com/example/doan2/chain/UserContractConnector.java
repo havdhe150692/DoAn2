@@ -49,6 +49,25 @@ public class UserContractConnector {
 
     }
 
+    public UserContractConnector() throws Exception {
+
+        this.adminContractExecutionService = new AdminContractExecutionService();
+        playerToadKingToken = ToadKingToken.load(ServerContractInitiator.ToadKingToken_contractAddress,
+                web3j,
+                Credentials.create(ServerContractInitiator.hostAccountCredential),
+                BigInteger.ZERO, BigInteger.valueOf(182865));
+
+        playerToadKingNFT = ToadKingNFT.load(ServerContractInitiator.ToadKingNFT_contractAddress,
+                web3j,
+                Credentials.create(ServerContractInitiator.hostAccountCredential),
+                BigInteger.ZERO, BigInteger.valueOf(182865));
+
+        playerToadKingMarket = ToadKingMarketplace.load(ServerContractInitiator.ToadKingMarketplace_contractAddress,
+                web3j,
+                Credentials.create(ServerContractInitiator.hostAccountCredential),
+                BigInteger.ZERO, BigInteger.valueOf(16234336));
+    }
+
 
     public BigInteger GetBalance() throws Exception {
         return playerToadKingToken.balanceOf(user.getUserWallet().getAddress()).send();

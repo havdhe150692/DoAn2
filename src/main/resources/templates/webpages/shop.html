@@ -294,7 +294,7 @@
                             <th:block th:if="${pageNumbers.size <= 10}">
                                 <li th:each="pageNumber : ${#numbers.sequence(1, pageNumbers.size)}"
                                     th:class="${pageNumber == currentPage} ? 'active page-item' : 'page-item'">
-                                    <a th:href="@{/paging(page = ${pageNumber})}" th:text="${pageNumber}"></a>
+                                    <a class="page-link" th:href="@{/paging(page = ${pageNumber})}" th:text="${pageNumber}"></a>
                                 </li>
                             </th:block>
                             <th:block th:if="${pageNumbers.size > 10}">

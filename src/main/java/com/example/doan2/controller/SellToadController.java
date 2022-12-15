@@ -1,5 +1,6 @@
 package com.example.doan2.controller;
 
+import com.example.doan2.chain.UserContractConnector;
 import com.example.doan2.entity.Market;
 import com.example.doan2.entity.ToadClass;
 import com.example.doan2.entity.ToadIngame;
@@ -73,7 +74,7 @@ public class SellToadController {
     public String sellProcess(@RequestParam(value = "price", required = false) String price,
                               @PathVariable("id") int id,
                               Market market,
-                              Model model) {
+                              Model model) throws Exception {
         if (price.equals("") || price == null) {
             model.addAttribute("errorPrice", "Price only allow 1 to 1000000$");
             return "redirect:/sellToad/{id}";
@@ -89,12 +90,15 @@ public class SellToadController {
         Date date = new Date(System.currentTimeMillis() - (3600 * 1000) * 7);
         market.setTime(new Timestamp(date.getTime()));
         market.setSeller(user);
-//        market.setSelling(1);
+        market.setSelling(1);
         ToadIngame myToad = toadIngameService.findById(id);
         market.setToadIngame(myToad);
         marketService.saveMarket(market);
         List<ToadClass> listToadClass = toadIngameService.findAllToadClass();
         model.addAttribute("listToadClass", listToadClass);
+
+//        UserContractConnector userContractConnector = new UserContractConnector(user);
+//        userContractConnector.ListNFT();
         return "redirect:/myToad";
     }
 

@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
@@ -32,4 +33,26 @@ public class MarketplaceNFTController {
 
         return "";
     }
+
+    @RequestMapping(value ="/buyNFT", method = RequestMethod.GET)
+    public String buyNFT(@RequestParam Integer userId,@RequestParam Integer tokenId,@RequestParam  Integer price) throws Exception {
+        User u = userService.findUserById(userId.intValue());
+        if(u != null)
+        {
+            UserContractConnector userContractConnector = new UserContractConnector(u);
+            userContractConnector.BuyNFT(tokenId, price);
+        }
+
+        return "";
+    }
+
+    @RequestMapping(value ="/getListNFT", method = RequestMethod.GET)
+    public String getListingNFT() throws Exception {
+
+            UserContractConnector userContractConnector = new UserContractConnector();
+            var a = userContractConnector.GetListingNFT();
+
+        return a;
+    }
+
 }
