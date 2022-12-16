@@ -3,7 +3,6 @@ package com.example.doan2.chain;
 import com.example.doan2.chain.smartcontract.ToadKingMarketplace;
 import com.example.doan2.chain.smartcontract.ToadKingNFT;
 import com.example.doan2.chain.smartcontract.ToadKingToken;
-import com.example.doan2.entity.ToadIngame;
 import com.example.doan2.entity.User;
 import okhttp3.OkHttpClient;
 import org.springframework.context.annotation.Scope;
@@ -15,11 +14,9 @@ import org.web3j.abi.datatypes.Address;
 import org.web3j.abi.datatypes.generated.Uint256;
 import org.web3j.crypto.Credentials;
 import org.web3j.protocol.Web3j;
-import org.web3j.protocol.Web3jService;
 import org.web3j.protocol.core.DefaultBlockParameterName;
 import org.web3j.protocol.core.methods.request.EthFilter;
 import org.web3j.protocol.http.HttpService;
-import org.web3j.spring.autoconfigure.Web3jAutoConfiguration;
 
 import java.math.BigInteger;
 import java.util.concurrent.TimeUnit;
@@ -39,10 +36,10 @@ public class ServerContractInitiator {
 
     public static String ToadKingToken_contractAddress = "0x8533f27a9a53440feaf02edd2cb677502150f6d1";
     public static String ToadKingNFT_contractAddress = "0x21903bf4d0633df2b9e2a03f4a5b55c11b2b7c0f";
-    public static String ToadKingMarketplace_contractAddress = "0xcc538236d36c2e29012c4b00b2357010084226bf";
+    public static String ToadKingMarketplace_contractAddress = "0xd98fd5930689c13d823ccb5468b2cc5b115e45e2";
     public static String hostAccountAddress = "0xb4a80296950b343A1A9a47c5d73fA5AeDb5B4273";
 
-    public static  ToadKingMarketplace adminToadKingMarketplace;
+    public static ToadKingMarketplace adminToadKingMarketplace;
     public static ToadKingToken adminToadKingToken;
     public static ToadKingNFT adminToadKingNFT;
 
@@ -163,23 +160,23 @@ public class ServerContractInitiator {
 
     public void DeployToadKingMarketplace() throws Exception {
 
-        ToadKingMarketplace toadKingMarketplace = ToadKingMarketplace.load(ToadKingMarketplace_contractAddress,
+        ToadKingMarketplace ToadKingMarketplace = com.example.doan2.chain.smartcontract.ToadKingMarketplace.load(ToadKingMarketplace_contractAddress,
                 web3j,
                 Credentials.create(hostAccountCredential),
                 BigInteger.ZERO, BigInteger.valueOf(16234336));
 
-        if(!toadKingMarketplace.isValid())  {
+        if(!ToadKingMarketplace.isValid())  {
             System.out.println("Contract is not existed. Starting deployment....");
 
-            toadKingMarketplace = ToadKingMarketplace.deploy(web3j,
+            ToadKingMarketplace = ToadKingMarketplace.deploy(web3j,
                     Credentials.create(hostAccountCredential),
                     BigInteger.ZERO, BigInteger.valueOf(16234336),
                     ToadKingToken_contractAddress, ToadKingNFT_contractAddress).send();
         }
 
-        ToadKingMarketplace_contractAddress = toadKingMarketplace.getContractAddress();
-        System.out.println("Marketplace Contract at: " + toadKingMarketplace.getContractAddress());
-        adminToadKingMarketplace = toadKingMarketplace;
+        ToadKingMarketplace_contractAddress = ToadKingMarketplace.getContractAddress();
+        System.out.println("Marketplace Contract at: " + ToadKingMarketplace.getContractAddress());
+        adminToadKingMarketplace = ToadKingMarketplace;
 
     }
 }

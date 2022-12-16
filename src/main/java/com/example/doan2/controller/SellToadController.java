@@ -9,6 +9,7 @@ import com.example.doan2.service.Impl.UserServiceImp;
 import com.example.doan2.service.MarketService;
 import com.example.doan2.service.ToadIngameService;
 import com.example.doan2.utils.Enum;
+import com.sun.xml.bind.v2.TODO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AnonymousAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -40,7 +41,6 @@ public class SellToadController {
     }
 
     @GetMapping("/sellToad/{id}")
-
     public String sellToad(Model model, @PathVariable("id") int id) {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         User user = ((UserServiceImp) auth.getPrincipal()).getUser();
@@ -93,7 +93,22 @@ public class SellToadController {
         market.setSelling(1);
         ToadIngame myToad = toadIngameService.findById(id);
         market.setToadIngame(myToad);
-        marketService.saveMarket(market);
+        
+        if(user != null)
+        {
+            Market temp = new Market();
+            try{
+                temp = marketService.saveMarket(market);
+                UserContractConnector userContractConnector = new UserContractConnector(user);
+                userContractConnector.ListNFT(id, Integer.parseInt(price), temp.getId());
+            }
+            catch (Exception  e){
+                System.out.println(e.getMessage());
+                marketService.deleteById(temp.getId());
+                // TODO: 16/12/2022 return to error page 
+            }
+        }
+        
         List<ToadClass> listToadClass = toadIngameService.findAllToadClass();
         model.addAttribute("listToadClass", listToadClass);
 

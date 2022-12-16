@@ -23,7 +23,7 @@ public class Market {
     private int price;
 
 
-    private int isSelling = 0;
+    private int isSelling;
 
 
 

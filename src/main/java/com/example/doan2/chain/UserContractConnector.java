@@ -9,6 +9,8 @@ import org.web3j.crypto.Credentials;
 import org.web3j.protocol.Web3j;
 
 import java.math.BigInteger;
+import java.util.ArrayList;
+import java.util.List;
 
 public class UserContractConnector {
 
@@ -66,6 +68,9 @@ public class UserContractConnector {
                 web3j,
                 Credentials.create(ServerContractInitiator.hostAccountCredential),
                 BigInteger.ZERO, BigInteger.valueOf(16234336));
+
+        System.out.println(playerToadKingNFT.setApprovalForAll(ServerContractInitiator.ToadKingMarketplace_contractAddress,  true).send().getTransactionHash());
+
     }
 
 
@@ -87,9 +92,9 @@ public class UserContractConnector {
     }
 
 
-    public void ListNFT(int tokenId, int price) throws Exception {
-        //var transaction1 = playerToadKingNFT.approve(Credentials.create(ServerContractInitiator.hostAccountCredential).getAddress(), BigInteger.valueOf(tokenId)).send();
-        var transaction2 = playerToadKingMarket.listNft(BigInteger.valueOf(tokenId), BigInteger.valueOf(price)).send();
+    public void ListNFT(int tokenId, int price, int marketId) throws Exception {
+//        var transaction1 = playerToadKingNFT.approve(Credentials.create(ServerContractInitiator.hostAccountCredential).getAddress(), BigInteger.valueOf(tokenId)).send();
+        var transaction2 = playerToadKingMarket.listNft(BigInteger.valueOf(tokenId), BigInteger.valueOf(price), BigInteger.valueOf(marketId)).send();
         System.out.println("Transaction 1 " + transaction2);
 
 
@@ -116,10 +121,21 @@ public class UserContractConnector {
         var t = playerToadKingMarket.cancelSellNft(BigInteger.valueOf(listingId)).send();
         System.out.println(t.getTransactionHash());
     }
-
     public String GetListingNFT() throws Exception {
-        var t1 = playerToadKingMarket.getListingNfts().send();
+        var t1 = (List<ToadKingMarketplace.ToadNFTMarket>)playerToadKingMarket.getListingNfts().send();
         System.out.println(t1.toString());
+
+        List<ToadKingMarketplace.ToadNFTMarket> listNFT = new ArrayList<>();
+
+        t1.forEach(i -> {
+            ToadKingMarketplace.ToadNFTMarket temp = (ToadKingMarketplace.ToadNFTMarket) i;
+            listNFT.add(temp);
+        });
+
+        listNFT.forEach(i -> {
+            System.out.println(i.itemId);
+        });
+
         return t1.toString();
     }
 

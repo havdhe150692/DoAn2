@@ -96,14 +96,12 @@ contract ToadKingMarketplace is ReentrancyGuard, Ownable {
         emit Logging(msg.sender, owner(), address(this));
     }
 
-    function listNft(uint256 _tokenId, uint256 _price) onlyTokenOwner(_tokenId) validPrice(_price) public {
+    function listNft(uint256 _tokenId, uint256 _price, uint256 _itemId) onlyTokenOwner(_tokenId) validPrice(_price) public {
 
         _marketItemIds.increment();
 
-        uint256 marketItemId = _marketItemIds.current();
-
-        toadMarketItems[marketItemId] = ToadNFTMarket(
-            marketItemId,
+        toadMarketItems[_itemId] = ToadNFTMarket(
+            _itemId,
             _tokenId,
             _price,
             payable(msg.sender),
@@ -116,7 +114,7 @@ contract ToadKingMarketplace is ReentrancyGuard, Ownable {
 
 
         emit ToadNFTListed(
-            marketItemId,
+            _itemId,
             _tokenId,
             msg.sender,
             address(this),
@@ -219,7 +217,7 @@ contract ToadKingMarketplace is ReentrancyGuard, Ownable {
 
         ToadNFTMarket[] memory nfts = new ToadNFTMarket[](unsoldNftsCount);
         uint256 nftsIndex = 0;
-        for (uint256 i = 0; i < nftCount; i++) {
+        for (uint256 i = 0; i < 10000; i++) {
             if (toadMarketItems[i + 1].isSelling) {
                 nfts[nftsIndex] = toadMarketItems[i + 1];
                 nftsIndex++;

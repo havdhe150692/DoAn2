@@ -1,6 +1,7 @@
 package com.example.doan2.service;
 
 import com.example.doan2.entity.Market;
+import jnr.ffi.annotations.In;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -44,7 +45,15 @@ public interface MarketService {
 
     void removeToadAtMarket(int toadIngameId);
 
-    Page<Market> pagingMarket(Pageable pageable);
+    Page<Market> pagingMarket(Pageable pageable) throws Exception;
 
     Page<Market> customPaging(Pageable pageable, List<Market> customList);
+
+    Market findByToadInGameId (Integer id);
+
+    List<Market> findByListToadIngameId(List<Integer> id);
+
+    void updateMarketId(Integer newId, Integer oldId);
+
+    void deleteById(Integer id);
 }

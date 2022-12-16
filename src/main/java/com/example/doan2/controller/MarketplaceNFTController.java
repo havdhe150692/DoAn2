@@ -2,6 +2,7 @@ package com.example.doan2.controller;
 
 
 import com.example.doan2.chain.UserContractConnector;
+import com.example.doan2.chain.smartcontract.ToadKingMarketplace;
 import com.example.doan2.entity.User;
 import com.example.doan2.service.AdminContractExecutionService;
 import com.example.doan2.service.UserService;
@@ -11,6 +12,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/marketplaceApi/")
@@ -23,12 +26,12 @@ public class MarketplaceNFTController {
     UserService userService;
 
     @RequestMapping(value ="/listNFT", method = RequestMethod.POST, consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
-    public String listNFT(int userId, int tokenId, int price) throws Exception {
+    public String listNFT(int userId, int tokenId, int price, int marketId) throws Exception {
         User u = userService.findUserById(userId);
         if(u != null)
         {
             UserContractConnector userContractConnector = new UserContractConnector(u);
-            userContractConnector.ListNFT(tokenId, price);
+            userContractConnector.ListNFT(tokenId, price, marketId);
         }
 
         return "";
@@ -52,7 +55,8 @@ public class MarketplaceNFTController {
             UserContractConnector userContractConnector = new UserContractConnector();
             var a = userContractConnector.GetListingNFT();
 
-        return a;
+        return a.toString();
     }
+
 
 }

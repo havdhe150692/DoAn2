@@ -26,9 +26,7 @@ import java.sql.Timestamp;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
@@ -65,7 +63,7 @@ public class MarketController {
     @GetMapping("/shop")
     public String viewShop(Model model,
                            @RequestParam(value = "page", required = false) Optional<Integer> page,
-                           @RequestParam(value = "size", required = false) Optional<Integer> size) {
+                           @RequestParam(value = "size", required = false) Optional<Integer> size) throws Exception {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         if (auth == null || auth instanceof AnonymousAuthenticationToken) {
             return "loginMarket";
@@ -332,27 +330,54 @@ public class MarketController {
     }
 
     @PostMapping("/buyToad/{id}")
-    public String buyToad(Model model, @PathVariable("id") int id) {
-//        marketService.removeToadAtMarket(id);
-//        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-//        User user = ((UserServiceImp) auth.getPrincipal()).getUser();
-//        toadIngameService.changeToadOwner(user.getId(), id);
+    public String buyToad(Model model, @PathVariable("id") int id) throws Exception {
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        User user = ((UserServiceImp) auth.getPrincipal()).getUser();
 
+
+        Market market = marketService.findByToadInGameId(id);
+
+        User u = userService.findUserById(user.getId().intValue());
+        if(u != null)
+        {
+            try {
+                UserContractConnector userContractConnector = new UserContractConnector(u);
+                userContractConnector.BuyNFT(id, market.getPrice());
+                toadIngameService.changeToadOwner(user.getId(), id);
+            }
+            catch (Exception e){
+                System.out.println(e.getMessage());
+            }
+        }
 
         return "redirect:/shop";
     }
 
     @GetMapping("/paging")
     public String pagingMarket(Model model,
-                               @RequestParam(value = "page", required = false) Optional<Integer> page
+                               @RequestParam(value = "page", required = false) Optional<Integer> page,
+                               @RequestParam(required = false) List<Object> toadList
 //                               @RequestParam(value = "size", required = false) Optional<Integer> size) {
-    ) {
+    ) throws Exception {
+
+        List<Market> toadListToCheck = new ArrayList<>();
+        toadList.forEach(i -> {
+            Market i1 = (Market) i;
+            toadListToCheck.add(i1);
+        });
+
 
         int currentPage = page.orElse(1);
 //        int pageSize = size.orElse(1);
         System.out.println("currentPage: " + currentPage);
 //        System.out.println("pageSize: " + pageSize);
-        Page<Market> toadPagingMarket = marketService.pagingMarket(PageRequest.of(currentPage - 1, 5));
+        Page<Market> toadPagingMarket;
+        if(toadList == null){
+            toadPagingMarket = marketService.pagingMarket(PageRequest.of(currentPage-1, 5));
+        }
+        else {
+            toadPagingMarket = marketService.customPaging(PageRequest.of(currentPage - 1, 5), toadListToCheck);
+        }
         model.addAttribute("condition", Boolean.TRUE);
         model.addAttribute("toadList", toadPagingMarket);
         System.out.println("this is toadPaging market: " + toadPagingMarket.getTotalElements());

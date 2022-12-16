@@ -1,6 +1,7 @@
 package com.example.doan2.repository;
 
 import com.example.doan2.entity.Market;
+import com.example.doan2.entity.ToadIngame;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
@@ -85,4 +86,15 @@ public interface MarketRepositoty extends JpaRepository<Market, Integer> {
     void removeToadAtMarket(@Param("toadIngameId") int toadIngameId);
 
 
+    @Query(value = "SELECT * FROM market WHERE toad_ingame_id = :toadIngameId", nativeQuery = true)
+    Market findByToadIngame(Integer toadIngameId);
+
+    @Query(value = "SELECT * FROM market WHERE toad_ingame_id IN :id AND is_selling = 1", nativeQuery = true)
+    List<Market> findAllByToadIngameId(List<Integer> id);
+
+    @Modifying
+    @Query(value = "UPDATE market SET id = :newId WHERE id = :oldId AND is_selling = 1", nativeQuery = true)
+    void updateMarketId(Integer newId, Integer oldId);
+
+    void deleteById(Integer id);
 }
