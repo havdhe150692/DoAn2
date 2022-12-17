@@ -150,7 +150,7 @@
             <div class="col-lg-4 col-md-6 pb-1">
                 <div class="cat-item d-flex flex-column border mb-4" style="padding: 30px;">
                     <p class="text-right" th:text="${countEconomicToad} + ' Products'"></p>
-                    <a th:href="@{/EconomicToad}" class="cat-img position-relative overflow-hidden mb-3">
+                    <a th:href="@{categories/{id}(id=${2})}" class="cat-img position-relative overflow-hidden mb-3">
                         <img class="img-fluid" th:src="@{../img/menu/Toad7.png}" alt="Image"/>
                     </a>
                     <h5 class="font-weight-semi-bold m-0">Economic Toad</h5>
@@ -159,7 +159,7 @@
             <div class="col-lg-4 col-md-6 pb-1">
                 <div class="cat-item d-flex flex-column border mb-4" style="padding: 30px;">
                     <p class="text-right" th:text="${countGraphicToad} + ' Products'"></p>
-                    <a th:href="@{/GraphicToad}" class="cat-img position-relative overflow-hidden mb-3">
+                    <a th:href="@{categories/{id}(id=${4})}" class="cat-img position-relative overflow-hidden mb-3">
                         <img class="img-fluid" th:src="@{../img/menu/Toad2.png}" alt="Image"/>
                     </a>
                     <h5 class="font-weight-semi-bold m-0">Graphic Toad</h5>
@@ -168,7 +168,7 @@
             <div class="col-lg-4 col-md-6 pb-1">
                 <div class="cat-item d-flex flex-column border mb-4" style="padding: 30px;">
                     <p class="text-right" th:text="${countArtistToad} + ' Products'"></p>
-                    <a th:href="@{/ArtistToad}" class="cat-img position-relative overflow-hidden mb-3">
+                    <a th:href="@{categories/{id}(id=${6})}" class="cat-img position-relative overflow-hidden mb-3">
                         <img class="img-fluid" th:src="@{../img/menu/Toad8.png}" alt="Image"/>
                     </a>
                     <h5 class="font-weight-semi-bold m-0">Artist Toad</h5>
@@ -177,7 +177,7 @@
             <div class="col-lg-4 col-md-6 pb-1">
                 <div class="cat-item d-flex flex-column border mb-4" style="padding: 30px;">
                     <p class="text-right" th:text="${countLectureToad} + ' Products'"></p>
-                    <a th:href="@{/LectureToad}" class="cat-img position-relative overflow-hidden mb-3">
+                    <a th:href="@{categories/{id}(id=${8})}" class="cat-img position-relative overflow-hidden mb-3">
                         <img class="img-fluid" th:src="@{../img/menu/Toad9.png}" alt="Image"/>
                     </a>
                     <h5 class="font-weight-semi-bold m-0">Lecture Toad</h5>
@@ -186,7 +186,7 @@
             <div class="col-lg-4 col-md-6 pb-1">
                 <div class="cat-item d-flex flex-column border mb-4" style="padding: 30px;">
                     <p class="text-right" th:text="${countAIToad} + ' Products'"></p>
-                    <a th:href="@{/AIToad}" class="cat-img position-relative overflow-hidden mb-3">
+                    <a th:href="@{categories/{id}(id=${5})}" class="cat-img position-relative overflow-hidden mb-3">
                         <img class="img-fluid" th:src="@{../img/menu/Toad10.png}" alt="Image"/>
                     </a>
                     <h5 class="font-weight-semi-bold m-0">AI Toad</h5>
@@ -195,7 +195,7 @@
             <div class="col-lg-4 col-md-6 pb-1">
                 <div class="cat-item d-flex flex-column border mb-4" style="padding: 30px;">
                     <p class="text-right" th:text="${countSoftwareToad} + ' Products'"></p>
-                    <a th:href="@{/SoftwareToad}" class="cat-img position-relative overflow-hidden mb-3">
+                    <a th:href="@{categories/{id}(id=${3})}" class="cat-img position-relative overflow-hidden mb-3">
                         <img class="img-fluid" th:src="@{../img/menu/Toad13.png}" alt="Image"/>
                     </a>
                     <h5 class="font-weight-semi-bold m-0">Software Toad</h5>

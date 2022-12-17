@@ -41,7 +41,7 @@ public class MarketServiceImp implements MarketService {
 
     @Override
     public List<Market> findBetweenPrice(int from, int to) {
-        List<Market> findToadBetweenPrice = marketRepo.findBetweenPrice(from,to);
+        List<Market> findToadBetweenPrice = marketRepo.findBetweenPrice(from, to);
         return findToadBetweenPrice;
     }
 
@@ -85,35 +85,6 @@ public class MarketServiceImp implements MarketService {
         return marketRepo.sortFromLowestPrice();
     }
 
-    @Override
-    public List<Market> findEconomicToad() {
-        return marketRepo.findEconomicToad();
-    }
-
-    @Override
-    public List<Market> findGraphicToad() {
-        return marketRepo.findGraphicToad();
-    }
-
-    @Override
-    public List<Market> findArtistToad() {
-        return marketRepo.findArtistToad();
-    }
-
-    @Override
-    public List<Market> findLectureToad() {
-        return marketRepo.findLectureToad();
-    }
-
-    @Override
-    public List<Market> findAIToad() {
-        return marketRepo.findAIToad();
-    }
-
-    @Override
-    public List<Market> findSoftwareToad() {
-        return marketRepo.findSoftwareToad();
-    }
 
     @Override
     public int countByToadClass(int id) {
@@ -135,6 +106,7 @@ public class MarketServiceImp implements MarketService {
     public void cancelSellToadAtMarket(int toadIngameId) {
         marketRepo.cancelSellToadAtMarket(toadIngameId);
     }
+
     @Transactional
     @Override
     public void removeToadAtMarket(int toadIngameId) {
@@ -142,22 +114,43 @@ public class MarketServiceImp implements MarketService {
     }
 
 
-
     @Override
     public Page<Market> pagingMarket(Pageable pageable) {
         List<Market> toads = marketRepo.findAll();
-        int pageSize = pageable.getPageSize();
-        int currentPage = pageable.getPageNumber();
-        int startItem = currentPage * pageSize;
-        List<Market> listToad;
-        if(toads.size() < startItem) {
-            listToad = Collections.emptyList();
-        } else {
-            int toIndex = Math.min(startItem + pageSize, toads.size());
-            listToad = toads.subList(startItem, toIndex);
+        if (!toads.isEmpty()) {
+            int pageSize = pageable.getPageSize();
+            int currentPage = pageable.getPageNumber();
+            int startItem = currentPage * pageSize;
+            List<Market> listToad;
+            if (toads.size() < startItem) {
+                listToad = Collections.emptyList();
+            } else {
+                int toIndex = Math.min(startItem + pageSize, toads.size());
+                listToad = toads.subList(startItem, toIndex);
+            }
+            Page<Market> toadPage = new PageImpl<Market>(listToad, PageRequest.of(currentPage, pageSize), toads.size());
+            return toadPage;
         }
-        Page<Market> toadPage = new PageImpl<Market>(listToad, PageRequest.of(currentPage,pageSize), toads.size());
-        return toadPage;
+        return null;
+    }
+
+    @Override
+    public Page<Market> customPaging(Pageable pageable, List<Market> toads) {
+        if(!toads.isEmpty()) {
+            int pageSize = pageable.getPageSize();
+            int currentPage = pageable.getPageNumber();
+            int startItem = currentPage * pageSize;
+            List<Market> listToad;
+            if (toads.size() < startItem) {
+                listToad = Collections.emptyList();
+            } else {
+                int toIndex = Math.min(startItem + pageSize, toads.size());
+                listToad = toads.subList(startItem, toIndex);
+            }
+            Page<Market> toadPage = new PageImpl<Market>(listToad, PageRequest.of(currentPage, pageSize), toads.size());
+            return toadPage;
+        }
+        return null;
     }
 
 
