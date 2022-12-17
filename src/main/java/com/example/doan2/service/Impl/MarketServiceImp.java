@@ -124,16 +124,14 @@ public class MarketServiceImp implements MarketService {
         UserContractConnector userContractConnector = new UserContractConnector();
         var a =  userContractConnector.GetListingNFT();
 
-        List<String> nfts = List.of(a.split(" "));
+        List<String> nfts = new ArrayList<>();
 
-        nfts.forEach(nft -> {
-            nft = nft.trim();
-            String[] temp = nft.split(" ");
-            id.add(Integer.parseInt(temp[2]));
-            System.out.println(temp[2]);
+        a.forEach(i -> {
+            nfts.add(String.valueOf(i.tokenId));
         });
 
         List<Market> toads = marketRepo.findAllByToadIngameId(id);
+
 
 
 

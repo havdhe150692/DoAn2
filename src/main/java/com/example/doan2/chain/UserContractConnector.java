@@ -121,22 +121,13 @@ public class UserContractConnector {
         var t = playerToadKingMarket.cancelSellNft(BigInteger.valueOf(listingId)).send();
         System.out.println(t.getTransactionHash());
     }
-    public String GetListingNFT() throws Exception {
+    public List<ToadKingMarketplace.ToadNFTMarket> GetListingNFT() throws Exception {
         var t1 = (List<ToadKingMarketplace.ToadNFTMarket>)playerToadKingMarket.getListingNfts().send();
         System.out.println(t1.toString());
-
-        List<ToadKingMarketplace.ToadNFTMarket> listNFT = new ArrayList<>();
-
         t1.forEach(i -> {
-            ToadKingMarketplace.ToadNFTMarket temp = (ToadKingMarketplace.ToadNFTMarket) i;
-            listNFT.add(temp);
+            System.out.println(i.itemId + " " + i.tokenId);
         });
-
-        listNFT.forEach(i -> {
-            System.out.println(i.itemId);
-        });
-
-        return t1.toString();
+        return t1;
     }
 
     public String GetMyListingNFT() throws Exception {
