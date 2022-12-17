@@ -2,21 +2,31 @@ package com.example.doan2.controller;
 
 
 import com.example.doan2.chain.UserContractConnector;
+import com.example.doan2.entity.ToadIngame;
 import com.example.doan2.entity.User;
+import com.example.doan2.repository.ToadIngameRepository;
 import com.example.doan2.repository.UserRepository;
 import com.example.doan2.service.AdminContractExecutionService;
+import com.example.doan2.service.ToadStatusLogicService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
 import java.math.BigInteger;
+import java.time.Instant;
 
 @RestController
 @RequestMapping("/tokenApi/")
 public class IngameTokenController {
 
     @Autowired
-    private UserRepository userRepository;
+     UserRepository userRepository;
+
+    @Autowired
+    ToadIngameRepository toadIngameRepository;
+
+    @Autowired
+    ToadStatusLogicService toadStatusLogicService;
 
 
     @CrossOrigin(origins ="http://localhost:8000")
@@ -65,6 +75,52 @@ public class IngameTokenController {
         return BigInteger.valueOf(0);
 
     }
+
+
+
+    @CrossOrigin(origins ="http://localhost:8000")
+    @RequestMapping(value ="/collectMoney",  method= RequestMethod.POST, consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
+    public BigInteger requestCollectMoney(int userId, int toadId) throws Exception {
+        User u = userRepository.findById(userId);
+        ToadIngame t = toadIngameRepository.findById(toadId);
+        UserContractConnector i = new UserContractConnector(u);
+        if(u != null && t != null )
+        {
+            Instant inst = Instant.now();
+            if(inst.compareTo(t.getToadStatus().getExpectedCollect().toInstant())
+                >= 0)
+            {
+                toadStatusLogicService.ToadCollect(t);
+                int money = 0;
+                System.out.println(t.getToadData().getRarity());
+                switch (t.getToadData().getRarity())
+                {
+
+                    case Common -> {
+                        money = 50;
+                    }
+                    case Rare -> {
+                        money = 200;
+                    }
+                    case Epic -> {
+                        money = 600;
+                    }
+                    case Mythical -> {
+                        money = 1000;
+                    }
+                    case Legendary -> {
+                        money = 2000;
+                    }
+                }
+                System.out.print(money);
+                i.RequestMoney(money);
+            }
+             return i.GetBalance();
+        }
+        return BigInteger.valueOf(0);
+
+    }
+
 
 
     @CrossOrigin(origins ="http://localhost:8000")

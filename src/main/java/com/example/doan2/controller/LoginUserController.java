@@ -3,18 +3,24 @@ package com.example.doan2.controller;
 import com.example.doan2.entity.User;
 import com.example.doan2.entity.UserWallet;
 import com.example.doan2.repository.UserWalletRepository;
+import com.example.doan2.service.Impl.UserServiceImp;
 import com.example.doan2.service.MarketService;
 import com.example.doan2.service.ToadIngameService;
 import com.example.doan2.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.view.RedirectView;
 import org.web3j.crypto.CipherException;
 
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletResponse;
 import java.security.InvalidAlgorithmParameterException;
 import java.security.NoSuchAlgorithmException;
 import java.security.NoSuchProviderException;
@@ -92,6 +98,18 @@ public class LoginUserController {
             userService.createUser(user);
         }
         return "loginMarket";
+    }
+
+    @GetMapping("/game")
+    public RedirectView      game(HttpServletResponse response) {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        User user = ((UserServiceImp) authentication.getPrincipal()).getUser();
+        Cookie cookie  = new Cookie("userId", user.getId().toString());
+        response.addCookie(cookie);
+
+        RedirectView redirectView = new RedirectView();
+        redirectView.setUrl("http://localhost:8000");
+        return  redirectView;
     }
 
 }

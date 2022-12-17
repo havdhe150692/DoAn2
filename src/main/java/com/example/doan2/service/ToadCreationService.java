@@ -50,6 +50,13 @@ public class ToadCreationService {
         return listToad.get(returnNumber);
     }
 
+
+    public List<String> GenerateRarityCheck(Enum.Rarity rA, Enum.Rarity rB)
+    {
+        RandomRarityGenerator randomRarityGenerator = new RandomRarityGenerator();
+        return randomRarityGenerator.CheckRarity(rA, rB);
+    }
+
     public ToadData GenerateNewToadFromParent(Enum.Rarity pA, Enum.Rarity pB)
     {
         RandomRarityGenerator randomRarityGenerator = new RandomRarityGenerator();

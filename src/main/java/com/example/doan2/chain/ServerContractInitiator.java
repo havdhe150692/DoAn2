@@ -39,7 +39,7 @@ public class ServerContractInitiator {
 
     public static String ToadKingToken_contractAddress = "0x8533f27a9a53440feaf02edd2cb677502150f6d1";
     public static String ToadKingNFT_contractAddress = "0x21903bf4d0633df2b9e2a03f4a5b55c11b2b7c0f";
-    public static String ToadKingMarketplace_contractAddress = "0xcc538236d36c2e29012c4b00b2357010084226bf";
+    public static String ToadKingMarketplace_contractAddress = "0xd412381a8fe980932fa02942a106f1054e51c9b3";
     public static String hostAccountAddress = "0xb4a80296950b343A1A9a47c5d73fA5AeDb5B4273";
 
     public static  ToadKingMarketplace adminToadKingMarketplace;
@@ -47,15 +47,15 @@ public class ServerContractInitiator {
     public static ToadKingNFT adminToadKingNFT;
 
     public ServerContractInitiator() throws Exception {
-      try {
+     // try {
            System.out.println("Host Account Address is " + Credentials.create(hostAccountCredential).getAddress());
            DeployContract();
-      }
+     // }
 
-      catch (Exception e)
-      {
-          System.out.println("Blockchain not connected. Catched exception!");
-      }
+     // catch (Exception e)
+     // {
+    //      System.out.println("Blockchain not connected. Catched exception!");
+     // }
 
 
     }

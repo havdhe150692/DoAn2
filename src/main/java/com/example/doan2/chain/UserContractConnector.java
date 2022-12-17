@@ -9,6 +9,7 @@ import org.web3j.crypto.Credentials;
 import org.web3j.protocol.Web3j;
 
 import java.math.BigInteger;
+import java.util.List;
 
 public class UserContractConnector {
 
@@ -83,8 +84,9 @@ public class UserContractConnector {
 
     }
 
-    public void GetNFTSellHistory(int tokenId) throws Exception {
+    public String GetNFTSellHistory(int tokenId) throws Exception {
         var t = playerToadKingMarket.getNftSellHistory(BigInteger.valueOf(tokenId)).send();
+        return t.toString();
     }
 
     public void BuyNFT(int listingId, int price) throws Exception {
@@ -100,7 +102,12 @@ public class UserContractConnector {
 
     public String GetListingNFT() throws Exception {
         var t1 = playerToadKingMarket.getListingNfts().send();
-        System.out.println(t1.toString());
+        for (int i = 0; i < t1.size(); i++) {
+            Object o =  t1.get(i);
+            ToadKingMarketplace.ToadNFTMarket obj = (ToadKingMarketplace.ToadNFTMarket) o;
+            System.out.println(obj.toString());
+        }
+
         return t1.toString();
     }
 
