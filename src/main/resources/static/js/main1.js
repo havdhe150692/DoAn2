@@ -148,3 +148,16 @@ function validateFormInputPrice() {
   }
   return true;
 }
+
+//Feed back validation
+function validateRadioButton() {
+if (typeof $("input[name='rating']:checked").val() === "undefined") {
+    document.getElementById("radioMess").innerHTML = "Please rate us with a point!";
+    document.getElementById("radioMess").style = "color : red;";
+    return false;
+ } else {
+    return true;
+ }
+return true;
+}
+

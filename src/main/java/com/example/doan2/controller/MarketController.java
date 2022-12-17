@@ -64,7 +64,8 @@ public class MarketController {
     @GetMapping("/shop")
     public String viewShop(Model model,
                            @RequestParam(value = "page", required = false) Optional<Integer> page,
-                           @RequestParam(value = "size", required = false) Optional<Integer> size) {
+                           @RequestParam(value = "size", required = false) Optional<Integer> size,
+                           Market market) {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         if (auth == null || auth instanceof AnonymousAuthenticationToken) {
             return "loginMarket";
@@ -331,10 +332,11 @@ public class MarketController {
     }
 
     @PostMapping("/buyToad/{id}")
-    public String buyToad(Model model, @PathVariable("id") int id) {
-        marketService.removeToadAtMarket(id);
+    public String buyToad(Model model, @PathVariable("id") int id, Market market) {
+//        marketService.removeToadAtMarket(id);
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         User user = ((UserServiceImp) auth.getPrincipal()).getUser();
+        marketService.removeToadAtMarket(id);
         toadIngameService.changeToadOwner(user.getId(), id);
         return "redirect:/shop";
     }

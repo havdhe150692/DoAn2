@@ -30,6 +30,11 @@ public class MarketServiceImp implements MarketService {
     }
 
     @Override
+    public List<Market> findAllToad() {
+        return marketRepo.findAllToad();
+    }
+
+    @Override
     public Market findById(int id) {
         return marketRepo.findById(id);
     }
@@ -116,7 +121,7 @@ public class MarketServiceImp implements MarketService {
 
     @Override
     public Page<Market> pagingMarket(Pageable pageable) {
-        List<Market> toads = marketRepo.findAll();
+        List<Market> toads = marketRepo.findAllToad();
         if (!toads.isEmpty()) {
             int pageSize = pageable.getPageSize();
             int currentPage = pageable.getPageNumber();

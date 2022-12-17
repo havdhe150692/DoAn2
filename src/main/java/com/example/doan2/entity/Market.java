@@ -21,13 +21,22 @@ public class Market {
     private int price;
 
 
-    private int isSelling = 0;
+    private int isSelling;
+
 
     private Timestamp time;
 
 
     public int isSelling() {
         return isSelling;
+    }
+
+    public int getIsSelling() {
+        return isSelling;
+    }
+
+    public void setIsSelling(int isSelling) {
+        this.isSelling = isSelling;
     }
 
     public void setSelling(int selling) {

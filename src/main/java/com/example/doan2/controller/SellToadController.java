@@ -34,6 +34,7 @@ public class SellToadController {
 
     @PostMapping("/cancelSellProcessing/{id}")
     public String cancelSellingToad(Model model, @PathVariable("id") int id) {
+        Market market = marketService.findToadBySellerAtMarket(id);
         marketService.cancelSellToadAtMarket(id);
         return "redirect:/sellToad/{id}";
     }
@@ -89,7 +90,7 @@ public class SellToadController {
         Date date = new Date(System.currentTimeMillis() - (3600 * 1000) * 7);
         market.setTime(new Timestamp(date.getTime()));
         market.setSeller(user);
-//        market.setSelling(1);
+        market.setSelling(1);
         ToadIngame myToad = toadIngameService.findById(id);
         market.setToadIngame(myToad);
         marketService.saveMarket(market);
