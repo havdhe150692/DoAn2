@@ -43,14 +43,10 @@ public class FeedbackController {
         User user = ((UserServiceImp) authentication.getPrincipal()).getUser();
         Feedback userFeedback = feedbackService.userFeedback(user.getId());
 
-        System.out.println("this is userFeedback ratePoint: " + userFeedback.getRatePoint());
-        System.out.println("this is userFeedback getInfo: " + userFeedback.getInfo());
-        System.out.println("this is userFeedback getUserId: " + userFeedback.getTimePost());
 
-
-        if (userFeedback != null) {
+        if (feedbackService.userFeedback(user.getId()) != null) {
             model.addAttribute("updateFeedback", Boolean.TRUE);
-            model.addAttribute("userUpdateFeedback", userFeedback);
+            model.addAttribute("userUpdateFeedback",feedbackService.userFeedback(user.getId()));
         } else {
             model.addAttribute("updateFeedback", Boolean.FALSE);
         }
