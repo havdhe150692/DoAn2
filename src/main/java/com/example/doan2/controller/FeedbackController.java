@@ -42,16 +42,11 @@ public class FeedbackController {
         model.addAttribute("listToadClass", listToadClass);
         User user = ((UserServiceImp) authentication.getPrincipal()).getUser();
         Feedback userFeedback = feedbackService.userFeedback(user.getId());
-        System.out.println("this is userFeedback ratePoint: " + userFeedback.getRatePoint());
-        System.out.println("this is userFeedback getInfo: " + userFeedback.getInfo());
-        System.out.println("this is userFeedback getUserId: " + userFeedback.getTimePost());
         if (userFeedback != null) {
             model.addAttribute("updateFeedback", Boolean.TRUE);
             model.addAttribute("userUpdateFeedback", userFeedback);
         } else {
-
             model.addAttribute("updateFeedback", Boolean.FALSE);
-
         }
         List<Feedback> listFeedback = feedbackService.findAll();
         if (listFeedback.isEmpty()) {
@@ -89,8 +84,12 @@ public class FeedbackController {
                 //Update here
                 System.out.println("this is rating num2: " + ratingNum);
                 System.out.println("this is rating feedback2: " + feedback);
-                Date date = new Date(System.currentTimeMillis() - (3600 * 1000));
-                feedbackService.updateUserFeedback(ratingNum, feedback, user.getId(), new Timestamp(date.getTime()));
+                Date date = new Date(System.currentTimeMillis() - (3600 * 1000) * 7);
+//                feedbackService.updateUserFeedback(ratingNum, feedback, user.getId(), new Timestamp(date.getTime()));
+                userFeedback.setInfo(feedback);
+                userFeedback.setRatePoint(ratingNum);
+                userFeedback.setTimePost(new Timestamp(date.getTime()));
+                feedbackService.saveFeedback(userFeedback);
             }
         } else {
             if (feedback == null || feedback.trim().equals("")) {
@@ -104,7 +103,7 @@ public class FeedbackController {
                 System.out.println("this is rating num3: " + ratingNum);
                 System.out.println("this is rating feedback3: " + feedback);
                 feedb.setInfo(feedback);
-                Date date = new Date(System.currentTimeMillis() - (3600 * 1000) * 7);
+                Date date = new Date(System.currentTimeMillis() - (3600 * 1000) *7);
                 feedb.setTimePost(new Timestamp(date.getTime()));
                 feedb.setUserId(user);
                 feedb.setRatePoint(ratingNum);

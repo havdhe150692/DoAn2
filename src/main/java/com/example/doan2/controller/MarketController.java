@@ -1,9 +1,7 @@
 package com.example.doan2.controller;
 
-import com.example.doan2.entity.Market;
-import com.example.doan2.entity.ToadClass;
-import com.example.doan2.entity.ToadIngame;
-import com.example.doan2.entity.User;
+import com.example.doan2.entity.*;
+import com.example.doan2.service.FeedbackService;
 import com.example.doan2.service.Impl.UserServiceImp;
 import com.example.doan2.service.MarketService;
 import com.example.doan2.service.ToadIngameService;
@@ -43,11 +41,23 @@ public class MarketController {
     @Autowired
     UserService userService;
 
+    @Autowired
+    FeedbackService feedbackService;
+
     @GetMapping("/market")
     public String viewMarket(Model model) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         if (authentication == null || authentication instanceof AnonymousAuthenticationToken) {
             return "loginMarket";
+        }
+        User user = ((UserServiceImp) authentication.getPrincipal()).getUser();
+        Feedback userFeedback = feedbackService.userFeedback(user.getId());
+        if (userFeedback != null) {
+            model.addAttribute("updateFeedback", Boolean.TRUE);
+            model.addAttribute("userUpdateFeedback", userFeedback);
+        } else {
+
+            model.addAttribute("updateFeedback", Boolean.FALSE);
         }
         List<ToadClass> listToadClass = toadIngameService.findAllToadClass();
         model.addAttribute("listToadClass", listToadClass);
@@ -69,6 +79,15 @@ public class MarketController {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         if (auth == null || auth instanceof AnonymousAuthenticationToken) {
             return "loginMarket";
+        }
+        User user = ((UserServiceImp) auth.getPrincipal()).getUser();
+        Feedback userFeedback = feedbackService.userFeedback(user.getId());
+        if (userFeedback != null) {
+            model.addAttribute("updateFeedback", Boolean.TRUE);
+            model.addAttribute("userUpdateFeedback", userFeedback);
+        } else {
+
+            model.addAttribute("updateFeedback", Boolean.FALSE);
         }
         int currentPage = page.orElse(1);
         int pageSize = size.orElse(6);
@@ -108,13 +127,21 @@ public class MarketController {
         if (auth == null || auth instanceof AnonymousAuthenticationToken) {
             return "loginMarket";
         }
+        User user = ((UserServiceImp) auth.getPrincipal()).getUser();
+        Feedback userFeedback = feedbackService.userFeedback(user.getId());
+        if (userFeedback != null) {
+            model.addAttribute("updateFeedback", Boolean.TRUE);
+            model.addAttribute("userUpdateFeedback", userFeedback);
+        } else {
+            model.addAttribute("updateFeedback", Boolean.FALSE);
+        }
         Market toadDetail = marketService.findById(id);
         model.addAttribute("toadDetail", toadDetail);
         Market seller = marketService.findSellerToad(id);
         model.addAttribute("seller", seller);
         List<ToadClass> listToadClass = toadIngameService.findAllToadClass();
         model.addAttribute("listToadClass", listToadClass);
-        User user = ((UserServiceImp) auth.getPrincipal()).getUser();
+
         if (seller.getSeller().getName().equals(user.getName())) {
             model.addAttribute("viewMarketBySeller", Boolean.FALSE);
         } else {
@@ -136,6 +163,15 @@ public class MarketController {
         model.addAttribute("countEpicSize", marketService.countToadByRarity(2));
         model.addAttribute("countMythicalSize", marketService.countToadByRarity(3));
         model.addAttribute("countLegendSize", marketService.countToadByRarity(4));
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        User user = ((UserServiceImp) auth.getPrincipal()).getUser();
+        Feedback userFeedback = feedbackService.userFeedback(user.getId());
+        if (userFeedback != null) {
+            model.addAttribute("updateFeedback", Boolean.TRUE);
+            model.addAttribute("userUpdateFeedback", userFeedback);
+        } else {
+            model.addAttribute("updateFeedback", Boolean.FALSE);
+        }
         if (name.trim().equals("")) {
             model.addAttribute("condition", Boolean.TRUE);
             model.addAttribute("pagingEmpty", Boolean.TRUE);
@@ -172,6 +208,15 @@ public class MarketController {
                                            @RequestParam(value = "searchByNameContains", required = false) String name,
                                            @RequestParam(value = "page", required = false) Optional<Integer> page,
                                            @RequestParam(value = "size", required = false) Optional<Integer> size) {
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        User user = ((UserServiceImp) auth.getPrincipal()).getUser();
+        Feedback userFeedback = feedbackService.userFeedback(user.getId());
+        if (userFeedback != null) {
+            model.addAttribute("updateFeedback", Boolean.TRUE);
+            model.addAttribute("userUpdateFeedback", userFeedback);
+        } else {
+            model.addAttribute("updateFeedback", Boolean.FALSE);
+        }
         List<ToadClass> listToadClass = toadIngameService.findAllToadClass();
         model.addAttribute("listToadClass", listToadClass);
         model.addAttribute("countToadSize", marketService.countAllMarket());
@@ -219,6 +264,15 @@ public class MarketController {
         model.addAttribute("countEpicSize", marketService.countToadByRarity(2));
         model.addAttribute("countMythicalSize", marketService.countToadByRarity(3));
         model.addAttribute("countLegendSize", marketService.countToadByRarity(4));
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        User user = ((UserServiceImp) auth.getPrincipal()).getUser();
+        Feedback userFeedback = feedbackService.userFeedback(user.getId());
+        if (userFeedback != null) {
+            model.addAttribute("updateFeedback", Boolean.TRUE);
+            model.addAttribute("userUpdateFeedback", userFeedback);
+        } else {
+            model.addAttribute("updateFeedback", Boolean.FALSE);
+        }
         if (priceTo == null || priceFrom == null) {
             model.addAttribute("errorPrice", "Not allow Null values!");
             return "shop";
@@ -246,6 +300,15 @@ public class MarketController {
 
     @GetMapping("categories/{id}")
     public String viewToadByCategories(@PathVariable("id") int id, Model model) {
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        User user = ((UserServiceImp) auth.getPrincipal()).getUser();
+        Feedback userFeedback = feedbackService.userFeedback(user.getId());
+        if (userFeedback != null) {
+            model.addAttribute("updateFeedback", Boolean.TRUE);
+            model.addAttribute("userUpdateFeedback", userFeedback);
+        } else {
+            model.addAttribute("updateFeedback", Boolean.FALSE);
+        }
         List<Market> listToadFromCategories = marketService.findByToadClass(id);
         List<ToadClass> listToadClass = toadIngameService.findAllToadClass();
         model.addAttribute("listToadClass", listToadClass);
@@ -268,6 +331,15 @@ public class MarketController {
 
     @GetMapping("/findByRarity/{rarity}")
     public String viewCommonRarity(@PathVariable("rarity") int rarity, Model model) {
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        User user = ((UserServiceImp) auth.getPrincipal()).getUser();
+        Feedback userFeedback = feedbackService.userFeedback(user.getId());
+        if (userFeedback != null) {
+            model.addAttribute("updateFeedback", Boolean.TRUE);
+            model.addAttribute("userUpdateFeedback", userFeedback);
+        } else {
+            model.addAttribute("updateFeedback", Boolean.FALSE);
+        }
         List<Market> listCommonRarity = marketService.findByRarity(rarity);
         List<ToadClass> listToadClass = toadIngameService.findAllToadClass();
         model.addAttribute("listToadClass", listToadClass);
@@ -291,6 +363,15 @@ public class MarketController {
 
     @GetMapping("/sortFromHighestPrice")
     public String sortFromHighestPrice(Model model) {
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        User user = ((UserServiceImp) auth.getPrincipal()).getUser();
+        Feedback userFeedback = feedbackService.userFeedback(user.getId());
+        if (userFeedback != null) {
+            model.addAttribute("updateFeedback", Boolean.TRUE);
+            model.addAttribute("userUpdateFeedback", userFeedback);
+        } else {
+            model.addAttribute("updateFeedback", Boolean.FALSE);
+        }
         List<Market> listSortByHighestPrice = marketService.sortFromHighestPrice();
         List<ToadClass> listToadClass = toadIngameService.findAllToadClass();
         model.addAttribute("listToadClass", listToadClass);
@@ -312,6 +393,15 @@ public class MarketController {
 
     @GetMapping("/sortFromLowestPrice")
     public String sortFromLowestPrice(Model model) {
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        User user = ((UserServiceImp) auth.getPrincipal()).getUser();
+        Feedback userFeedback = feedbackService.userFeedback(user.getId());
+        if (userFeedback != null) {
+            model.addAttribute("updateFeedback", Boolean.TRUE);
+            model.addAttribute("userUpdateFeedback", userFeedback);
+        } else {
+            model.addAttribute("updateFeedback", Boolean.FALSE);
+        }
         List<Market> listSortByLowestPrice = marketService.sortFromLowestPrice();
         List<ToadClass> listToadClass = toadIngameService.findAllToadClass();
         model.addAttribute("listToadClass", listToadClass);
@@ -346,12 +436,29 @@ public class MarketController {
                                @RequestParam(value = "page", required = false) Optional<Integer> page
 //                               @RequestParam(value = "size", required = false) Optional<Integer> size) {
     ) {
-
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        User user = ((UserServiceImp) auth.getPrincipal()).getUser();
+        Feedback userFeedback = feedbackService.userFeedback(user.getId());
+        if (userFeedback != null) {
+            model.addAttribute("updateFeedback", Boolean.TRUE);
+            model.addAttribute("userUpdateFeedback", userFeedback);
+        } else {
+            model.addAttribute("updateFeedback", Boolean.FALSE);
+        }
         int currentPage = page.orElse(1);
 //        int pageSize = size.orElse(1);
         System.out.println("currentPage: " + currentPage);
-//        System.out.println("pageSize: " + pageSize);
-        Page<Market> toadPagingMarket = marketService.pagingMarket(PageRequest.of(currentPage - 1, 5));
+        List<ToadClass> listToadClass = toadIngameService.findAllToadClass();
+        model.addAttribute("listToadClass", listToadClass);
+        model.addAttribute("countToadSize", marketService.countAllMarket());
+        model.addAttribute("countCommonSize", marketService.countToadByRarity(0));
+        model.addAttribute("countRareSize", marketService.countToadByRarity(1));
+        model.addAttribute("countEpicSize", marketService.countToadByRarity(2));
+        model.addAttribute("countMythicalSize", marketService.countToadByRarity(3));
+        model.addAttribute("countLegendSize", marketService.countToadByRarity(4));
+        model.addAttribute("pagingEmpty", Boolean.FALSE);
+        model.addAttribute("condition", Boolean.TRUE);
+        Page<Market> toadPagingMarket = marketService.pagingMarket(PageRequest.of(currentPage - 1, 6));
         model.addAttribute("condition", Boolean.TRUE);
         model.addAttribute("toadList", toadPagingMarket);
         System.out.println("this is toadPaging market: " + toadPagingMarket.getTotalElements());

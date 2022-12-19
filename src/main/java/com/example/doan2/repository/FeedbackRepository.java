@@ -25,4 +25,5 @@ public interface FeedbackRepository extends JpaRepository<Feedback, Integer> {
     void updateUserFeedback(@Param("ratePoint") int ratePoint, @Param("info") String info, @Param("userId") int userId, @Param("timePost") Timestamp timepost);
 
 
+
 }
