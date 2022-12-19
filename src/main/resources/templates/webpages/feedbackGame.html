@@ -93,6 +93,9 @@
                         <a th:href="@{/Homepage}" class="nav-item nav-link">Landing Page</a>
                     </div>
                     <div class="navbar-nav ml-auto py-0">
+                        <a th:href="@{/game}" class="nav-item nav-link">
+                            <i class="fas fa-gamepad text-primary"></i>
+                            Let's Play</a>
                         <a class="nav-item nav-link nonClickable"> Welcome <b>[[${#request.userPrincipal.principal.name}]]</b>
                         </a>
                         <form th:action="@{/logout}" method="post">
@@ -236,7 +239,7 @@
                                 <div>
                                     <h6 class="fw-bold mb-1" th:text="${feedbackPost.userId?.name}"></h6>
                                     <div class="d-flex align-items-center mb-3">
-                                        <p class="mb-0" th:text="${feedbackPost.timePost}">
+                                        <p class="mb-0" th:text="${feedbackPost?.timePost}">
                                             <!--                                        bg-success1 bg-danger1 bg-primary-->
                                             <!--                                            -->
                                         </p>

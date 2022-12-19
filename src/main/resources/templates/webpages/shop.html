@@ -105,6 +105,9 @@
                             Landing Page</a>
                     </div>
                     <div class="navbar-nav ml-auto py-0">
+                        <a th:href="@{/game}" class="nav-item nav-link">
+                            <i class="fas fa-gamepad text-primary"></i>
+                            Let's Play</a>
                         <a class="nav-item nav-link nonClickable"> Welcome <b>[[${#request.userPrincipal.principal.name}]]</b>
                         </a>
                         <form th:action="@{/logout}" method="post">
@@ -272,6 +275,129 @@
                         </div>
                     </div>
                 </tr>
+                <!-- feedback-->
+                <div id="feedback-form-wrapper">
+                    <div id="floating-icon">
+                        <button style="background-color: #C7D3FF;" type="button"
+                                class="btn btn-secondary btn-sm rounded-0"
+                                data-toggle="modal"
+                                data-target="#exampleModal">
+                            Feedback
+                        </button>
+
+                    </div>
+                    <div id="feedback-form-modal">
+                        <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
+                             aria-hidden="true">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="exampleModalLabel">Feedback Form</h5>
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                    </div>
+                                    <form method="post" th:action="@{/feedbackProcessing}"
+                                          onsubmit="return validateRadioButton()"
+                                    >
+                                        <div class="modal-body">
+                                            <div class="form-group">
+                                                <label>How likely you would like to rate our game?</label>
+                                                <label id="radioMess"></label>
+                                                <div class="rating-input-wrapper d-flex justify-content-between mt-2">
+                                                    <label>
+                                                        <input th:checked="${userUpdateFeedback?.ratePoint == 1}"
+                                                               type="radio"
+                                                               name="rating" value="1"/>
+                                                        <span class="border rounded px-3 py-2">1</span>
+                                                    </label>
+                                                    <label>
+                                                        <input th:checked="${userUpdateFeedback?.ratePoint == 2}"
+                                                               type="radio"
+                                                               name="rating" value="2"/>
+                                                        <span class="border rounded px-3 py-2">2</span>
+                                                    </label>
+                                                    <label>
+                                                        <input th:checked="${userUpdateFeedback?.ratePoint == 3}"
+                                                               type="radio"
+                                                               name="rating" value="3"/>
+                                                        <span class="border rounded px-3 py-2">3</span>
+                                                    </label>
+                                                    <label>
+                                                        <input th:checked="${userUpdateFeedback?.ratePoint == 4}"
+                                                               type="radio"
+                                                               name="rating" value="4"/>
+                                                        <span class="border rounded px-3 py-2">4</span>
+                                                    </label>
+                                                    <label>
+                                                        <input th:checked="${userUpdateFeedback?.ratePoint == 5}"
+                                                               type="radio"
+                                                               name="rating" value="5"/>
+                                                        <span class="border rounded px-3 py-2">5</span>
+                                                    </label>
+                                                    <label>
+                                                        <input th:checked="${userUpdateFeedback?.ratePoint == 6}"
+                                                               type="radio"
+                                                               name="rating" value="6"/>
+                                                        <span class="border rounded px-3 py-2">6</span>
+                                                    </label>
+                                                    <label>
+                                                        <input th:checked="${userUpdateFeedback?.ratePoint == 7}"
+                                                               type="radio"
+                                                               name="rating" value="7"/>
+                                                        <span class="border rounded px-3 py-2">7</span>
+                                                    </label>
+                                                    <label>
+                                                        <input th:checked="${userUpdateFeedback?.ratePoint == 8}"
+                                                               type="radio"
+                                                               name="rating" value="8"/>
+                                                        <span class="border rounded px-3 py-2">8</span>
+                                                    </label>
+                                                    <label>
+                                                        <input th:checked="${userUpdateFeedback?.ratePoint == 9}"
+                                                               type="radio"
+                                                               name="rating" value="9"/>
+                                                        <span class="border rounded px-3 py-2">9</span>
+                                                    </label>
+                                                    <label>
+                                                        <input th:checked="${userUpdateFeedback?.ratePoint == 10}"
+                                                               type="radio"
+                                                               name="rating" value="10"/>
+                                                        <span class="border rounded px-3 py-2">10</span>
+                                                    </label>
+                                                </div>
+                                                <div class="rating-labels d-flex justify-content-between mt-1">
+                                                    <label>Very unlikely</label>
+                                                    <label>Very likely</label>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label>Your feedback helps us to improve our game in the future</label>
+                                                <label th:text="${feedbackMess}" style="color: red;"></label>
+                                                <textarea th:text="${userUpdateFeedback?.info}" name="feedback" required
+                                                          wrap="hard"
+                                                          maxlength="500"
+                                                          class="form-control" rows="4"></textarea>
+                                            </div>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close
+                                            </button>
+                                            <button th:if="${updateFeedback == false}" type="submit"
+                                                    class="btn btn-primary">Enter
+                                            </button>
+                                            <button th:if="${updateFeedback == true}" type="submit"
+                                                    class="btn btn-primary">Update
+                                            </button>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!--end feedback-->
+
                 <div th:if="${condition == true and pagingEmpty == false}" class="col-12 pb-1">
                     <nav aria-label="Page navigation">
                         <ul class="pagination justify-content-center mb-3">
@@ -393,6 +519,72 @@
 <!--                        </ul>-->
 <!--                    </nav>-->
 <!--                </div>-->
+                        <!--                        <ul class="pagination justify-content-center flex-wrap">-->
+                        <!--                            <li th:class="${currentPage > 1 ? 'page-item' : 'page-item disabled'}">-->
+                        <!--                                <a class="page-link" th:href="@{/paging(size=${toadList.size}, page = 1)}"-->
+                        <!--                                >First</a>-->
+                        <!--                            </li>-->
+                        <!--                            <li th:class="${currentPage > 1 ? 'page-item' : 'page-item disabled'}">-->
+                        <!--                                <a class="page-link"-->
+                        <!--                                   th:href="@{/paging(size=${toadList.size}, page = ${currentPage - 1})}"-->
+                        <!--                                >Previous</a>-->
+                        <!--                            </li>-->
+                        <!--                            &lt;!&ndash;                            <li th:if="${toadList.totalPages > 0}" th:each="pageNumber : ${pageNumbers}" class="page-item"&ndash;&gt;-->
+                        <!--                            &lt;!&ndash;                                th:class="${pageNumber==bookPage.number + 1} ? 'active' + 'page-item'"&ndash;&gt;-->
+                        <!--                            &lt;!&ndash;                            >&ndash;&gt;-->
+                        <!--                            &lt;!&ndash;                                <a class="page-link" th:href="@{/paging(size=${toadList.size}, page=${pageNumber})}"&ndash;&gt;-->
+                        <!--                            &lt;!&ndash;                                   th:text="${pageNumber}"&ndash;&gt;-->
+                        <!--                            &lt;!&ndash;                                ></a>&ndash;&gt;-->
+                        <!--                            &lt;!&ndash;                            </li>&ndash;&gt;-->
+                        <!--                            <th:block th:if="${pageNumbers.size <= 10}">-->
+                        <!--                                <li th:each="pageNumber : ${#numbers.sequence(1, pageNumbers.size)}"-->
+                        <!--                                    th:class="${pageNumber == currentPage} ? 'active page-item' : 'page-item'">-->
+                        <!--                                    <a th:href="@{/paging(page = ${pageNumber})}" th:text="${pageNumber}"></a>-->
+                        <!--                                </li>-->
+                        <!--                            </th:block>-->
+                        <!--                            <th:block th:if="${pageNumbers.size > 10}">-->
+                        <!--                                <th:block th:if="${currentPage <= 5 || currentPage > pageNumbers.size - 4}">-->
+                        <!--                                    <li th:each="pageNumber : ${#numbers.sequence(1, 5)}"-->
+                        <!--                                        th:class="${pageNumber == currentPage} ? 'page-item active' : 'page-item'">-->
+                        <!--                                        <a class="page-link" th:href="@{/paging(page = ${pageNumber})}"-->
+                        <!--                                           th:text="${pageNumber}"></a>-->
+                        <!--                                    </li>-->
+                        <!--                                    <a class="page-link" th:href="@{/paging (page = 6)}">...</a>-->
+                        <!--                                    <li th:each="pageNumber : ${#numbers.sequence(pageNumbers.size - 4, pageNumbers.size)}"-->
+                        <!--                                        th:class="${pageNumber == currentPage} ? 'active page-item' : 'page-item'">-->
+                        <!--                                        <a class="page-link" th:href="@{/paging(page = ${pageNumber})}"-->
+                        <!--                                           th:text="${pageNumber}"></a>-->
+                        <!--                                    </li>-->
+                        <!--                                </th:block>-->
+                        <!--                                <th:block th:if="${currentPage > 5 && currentPage <= pageNumbers.size - 4}">-->
+                        <!--                                    <a th:href="@{/paging (page = ${currentPage - 5})}" class="page-link">...-->
+                        <!--                                    </a>-->
+
+                        <!--                                    <li th:each="pageNumber:${#numbers.sequence(currentPage - 4, currentPage + 4)}">-->
+                        <!--                                        <a th:href="@{/paging (page = ${pageNumber})}" class="page-link"-->
+                        <!--                                           th:text="${pageNumber}">-->
+                        <!--                                        </a>-->
+                        <!--                                    </li>-->
+
+                        <!--                                    <a th:href="@{/paging (page = ${currentPage + 5})}" class="page-link">...-->
+                        <!--                                    </a>-->
+                        <!--                                </th:block>-->
+                        <!--                            </th:block>-->
+                        <!--                            <li th:class="${currentPage >= 1 ? 'page-item' : 'page-item disabled'}">-->
+                        <!--                                <a class="page-link"-->
+                        <!--                                   th:href="@{/paging(size=${toadList.size}, page = ${currentPage==pageNumbers.size ? currentPage : currentPage + 1})}"-->
+                        <!--                                >Next</a>-->
+                        <!--                            </li>-->
+                        <!--                            <li th:class="${currentPage < pageNumbers.size ? 'page-item' : 'page-item disabled'}">-->
+                        <!--                                <a class="page-link"-->
+                        <!--                                   th:href="@{/paging(size=${toadList.size}, page = ${pageNumbers.size})}"-->
+                        <!--                                >Last</a>-->
+                        <!--                            </li>-->
+                        <!--                        </ul>-->
+                    </nav>
+                </div>
+
+                <!--0-->
 
                 <!--                <div class="col-12 pb-1">-->
                 <!--                    <nav aria-label="Page navigation">-->

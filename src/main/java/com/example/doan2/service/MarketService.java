@@ -51,4 +51,6 @@ public interface MarketService {
     Page<Market> pagingMarket(Pageable pageable);
 
     Page<Market> customPaging(Pageable pageable, List<Market> customList);
+
+    List<Market> findListToadBySellerAtMarket(int sellerId);
 }

@@ -158,5 +158,10 @@ public class MarketServiceImp implements MarketService {
         return null;
     }
 
+    @Override
+    public List<Market> findListToadBySellerAtMarket(int sellerId) {
+        return marketRepo.findListToadBySellerAtMarket(sellerId);
+    }
+
 
 }
