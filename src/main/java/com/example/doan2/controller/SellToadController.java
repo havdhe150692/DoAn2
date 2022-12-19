@@ -6,6 +6,8 @@ import com.example.doan2.entity.ToadClass;
 import com.example.doan2.entity.ToadIngame;
 import com.example.doan2.entity.User;
 import com.example.doan2.repository.MarketRepositoty;
+import com.example.doan2.entity.*;
+import com.example.doan2.service.FeedbackService;
 import com.example.doan2.service.Impl.UserServiceImp;
 import com.example.doan2.service.MarketService;
 import com.example.doan2.service.ToadIngameService;
@@ -27,6 +29,9 @@ import java.util.List;
 
 @Controller
 public class SellToadController {
+
+    @Autowired
+    FeedbackService feedbackService;
 
     @Autowired
     ToadIngameService toadIngameService;
@@ -71,6 +76,13 @@ public class SellToadController {
     public String sellToad(Model model, @PathVariable("id") int id) {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         User user = ((UserServiceImp) auth.getPrincipal()).getUser();
+        Feedback userFeedback = feedbackService.userFeedback(user.getId());
+        if (userFeedback != null) {
+            model.addAttribute("updateFeedback", Boolean.TRUE);
+            model.addAttribute("userUpdateFeedback", userFeedback);
+        } else {
+            model.addAttribute("updateFeedback", Boolean.FALSE);
+        }
         List<ToadClass> listToadClass = toadIngameService.findAllToadClass();
         model.addAttribute("listToadClass", listToadClass);
         if (auth == null || auth instanceof AnonymousAuthenticationToken) {
@@ -111,6 +123,7 @@ public class SellToadController {
             model.addAttribute("errorPrice", "Price only allow 1 to 1000000$");
             return "redirect:/sellToad/{id}";
         }
+
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         User user = ((UserServiceImp) auth.getPrincipal()).getUser();
 

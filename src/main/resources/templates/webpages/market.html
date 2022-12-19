@@ -52,6 +52,7 @@
                 </form>
             </div>
             <div class="col-lg-3 col-6 text-right">
+
                 <a th:href="@{/checkUserProfile}" class="btn border">
                     <i class="fas fa-user text-primary"></i>
                     My profile
@@ -97,6 +98,9 @@
                             <a th:href="@{/Homepage}" class="nav-item nav-link">Landing Page</a>
                         </div>
                         <div class="navbar-nav ml-auto py-0">
+                            <a th:href="@{/game}" class="nav-item nav-link">
+                                <i class="fas fa-gamepad text-primary"></i>
+                                Let's Play</a>
                             <a class="nav-item nav-link nonClickable"> Welcome <b>[[${#request.userPrincipal.principal.name}]]</b> </a>
                            <form th:action="@{/logout}" method="post">
                                <button type="submit" class="nav-item nav-link customBtn"> Logout</button>
@@ -144,7 +148,114 @@
         </div>
     </div>
     <!-- Navbar End -->
+    <!-- feedback-->
+    <div id="feedback-form-wrapper">
+        <div id="floating-icon">
+            <button style="background-color: #C7D3FF;" type="button" class="btn btn-secondary btn-sm rounded-0"
+                    data-toggle="modal"
+                    data-target="#exampleModal">
+                Feedback
+            </button>
 
+        </div>
+        <div id="feedback-form-modal">
+            <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
+                 aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel">Feedback Form</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <form method="post" th:action="@{/feedbackProcessing}" onsubmit="return validateRadioButton()"
+                        >
+                            <div class="modal-body">
+                                <div class="form-group">
+                                    <label>How likely you would like to rate our game?</label>
+                                    <label id="radioMess"></label>
+                                    <div class="rating-input-wrapper d-flex justify-content-between mt-2">
+                                        <label>
+                                            <input th:checked="${userUpdateFeedback?.ratePoint == 1}" type="radio"
+                                                   name="rating" value="1"/>
+                                            <span class="border rounded px-3 py-2">1</span>
+                                        </label>
+                                        <label>
+                                            <input th:checked="${userUpdateFeedback?.ratePoint == 2}" type="radio"
+                                                   name="rating" value="2"/>
+                                            <span class="border rounded px-3 py-2">2</span>
+                                        </label>
+                                        <label>
+                                            <input th:checked="${userUpdateFeedback?.ratePoint == 3}" type="radio"
+                                                   name="rating" value="3"/>
+                                            <span class="border rounded px-3 py-2">3</span>
+                                        </label>
+                                        <label>
+                                            <input th:checked="${userUpdateFeedback?.ratePoint == 4}" type="radio"
+                                                   name="rating" value="4"/>
+                                            <span class="border rounded px-3 py-2">4</span>
+                                        </label>
+                                        <label>
+                                            <input th:checked="${userUpdateFeedback?.ratePoint == 5}" type="radio"
+                                                   name="rating" value="5"/>
+                                            <span class="border rounded px-3 py-2">5</span>
+                                        </label>
+                                        <label>
+                                            <input th:checked="${userUpdateFeedback?.ratePoint == 6}" type="radio"
+                                                   name="rating" value="6"/>
+                                            <span class="border rounded px-3 py-2">6</span>
+                                        </label>
+                                        <label>
+                                            <input th:checked="${userUpdateFeedback?.ratePoint == 7}" type="radio"
+                                                   name="rating" value="7"/>
+                                            <span class="border rounded px-3 py-2">7</span>
+                                        </label>
+                                        <label>
+                                            <input th:checked="${userUpdateFeedback?.ratePoint == 8}" type="radio"
+                                                   name="rating" value="8"/>
+                                            <span class="border rounded px-3 py-2">8</span>
+                                        </label>
+                                        <label>
+                                            <input th:checked="${userUpdateFeedback?.ratePoint == 9}" type="radio"
+                                                   name="rating" value="9"/>
+                                            <span class="border rounded px-3 py-2">9</span>
+                                        </label>
+                                        <label>
+                                            <input th:checked="${userUpdateFeedback?.ratePoint == 10}" type="radio"
+                                                   name="rating" value="10"/>
+                                            <span class="border rounded px-3 py-2">10</span>
+                                        </label>
+                                    </div>
+                                    <div class="rating-labels d-flex justify-content-between mt-1">
+                                        <label>Very unlikely</label>
+                                        <label>Very likely</label>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label>Your feedback helps us to improve our game in the future</label>
+                                    <label th:text="${feedbackMess}" style="color: red;"></label>
+                                    <textarea th:text="${userUpdateFeedback?.info}" name="feedback" required wrap="hard"
+                                              maxlength="500"
+                                              class="form-control" rows="4"></textarea>
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                <button th:if="${updateFeedback == false}"  type="submit"
+                                        class="btn btn-primary">Enter
+                                </button>
+                                <button th:if="${updateFeedback == true}" type="submit"
+                                        class="btn btn-primary">Update
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--end feedback-->
     <!-- Categories Start -->
     <div class="container-fluid pt-5">
         <div class="row px-xl-5 pb-3">
@@ -216,7 +327,7 @@
                     <div class="position-relative" style="z-index: 1;">
                         <h5 class="text-uppercase text-primary mb-3">20% off the all purchase</h5>
                         <h1 class="mb-4 font-weight-semi-bold">Toad Event</h1>
-                        <a href="" class="btn btn-outline-primary py-md-2 px-md-3">Shop Now</a>
+                        <a th:href="@{/shop}" class="btn btn-outline-primary py-md-2 px-md-3">Shop Now</a>
                     </div>
                 </div>
             </div>
@@ -226,7 +337,7 @@
                     <div class="position-relative" style="z-index: 1;">
                         <h5 class="text-uppercase text-primary mb-3">20% off the all purchase</h5>
                         <h1 class="mb-4 font-weight-semi-bold">Toad Festival</h1>
-                        <a href="" class="btn btn-outline-primary py-md-2 px-md-3">Shop Now</a>
+                        <a th:href="@{/shop}" class="btn btn-outline-primary py-md-2 px-md-3">Shop Now</a>
                     </div>
                 </div>
             </div>
@@ -236,24 +347,24 @@
 
 
     <!-- Subscribe Start -->
-    <div class="container-fluid bg-secondary my-5">
-        <div class="row justify-content-md-center py-5 px-xl-5">
-            <div class="col-md-6 col-12 py-5">
-                <div class="text-center mb-2 pb-2">
-                    <h2 class="section-title px-5 mb-3"><span class="bg-secondary px-2">Stay Updated</span></h2>
-                    <p>To get the newest information about our Toad Kingdom</p>
-                </div>
-                <form action="">
-                    <div class="input-group">
-                        <input type="text" class="form-control border-white p-4" placeholder="Email Goes Here">
-                        <div class="input-group-append">
-                            <button class="btn btn-primary px-4">Subscribe</button>
-                        </div>
-                    </div>
-                </form>
-            </div>
-        </div>
-    </div>
+<!--    <div class="container-fluid bg-secondary my-5">-->
+<!--        <div class="row justify-content-md-center py-5 px-xl-5">-->
+<!--            <div class="col-md-6 col-12 py-5">-->
+<!--                <div class="text-center mb-2 pb-2">-->
+<!--                    <h2 class="section-title px-5 mb-3"><span class="bg-secondary px-2">Stay Updated</span></h2>-->
+<!--                    <p>To get the newest information about our Toad Kingdom</p>-->
+<!--                </div>-->
+<!--                <form action="">-->
+<!--                    <div class="input-group">-->
+<!--                        <input type="text" class="form-control border-white p-4" placeholder="Email Goes Here">-->
+<!--                        <div class="input-group-append">-->
+<!--                            <button class="btn btn-primary px-4">Subscribe</button>-->
+<!--                        </div>-->
+<!--                    </div>-->
+<!--                </form>-->
+<!--            </div>-->
+<!--        </div>-->
+<!--    </div>-->
     <!-- Subscribe End -->
 
     <!-- Vendor Start -->
