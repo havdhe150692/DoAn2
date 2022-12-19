@@ -499,7 +499,7 @@ public class ToadKingMarketplace extends Contract {
 
         public String toString()
         {
-            return this.itemId + " " + this.price + " " + this.tokenId + " " + this.buyer + " " + this.seller + " " + this.isSelling;
+            return itemId + " " + tokenId + " " + price + " " + seller + " " + buyer + " " + isSelling;
         }
     }
 
@@ -527,6 +527,11 @@ public class ToadKingMarketplace extends Contract {
         public String buyer;
 
         public BigInteger price;
+
+        public String toString()
+        {
+            return itemId + " " + tokenId + " " + seller + " " + buyer + " "  + price;
+        }
     }
 
     public static class ToadNFTSaleCanceledEventResponse extends BaseEventResponse {

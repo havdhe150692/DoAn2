@@ -9,7 +9,6 @@ import java.sql.Timestamp;
 public class Market {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
 
     @ManyToOne
@@ -55,6 +54,8 @@ public class Market {
     public int getId() {
         return id;
     }
+
+    public void setId(int id) { this.id = id;}
 
     public void setSeller(User seller) {
         this.seller = seller;

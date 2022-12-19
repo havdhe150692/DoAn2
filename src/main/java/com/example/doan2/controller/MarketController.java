@@ -1,9 +1,11 @@
 package com.example.doan2.controller;
 
+import com.example.doan2.chain.UserContractConnector;
 import com.example.doan2.entity.Market;
 import com.example.doan2.entity.ToadClass;
 import com.example.doan2.entity.ToadIngame;
 import com.example.doan2.entity.User;
+import com.example.doan2.repository.MarketRepositoty;
 import com.example.doan2.service.Impl.UserServiceImp;
 import com.example.doan2.service.MarketService;
 import com.example.doan2.service.ToadIngameService;
@@ -42,6 +44,10 @@ public class MarketController {
 
     @Autowired
     UserService userService;
+
+
+    @Autowired
+    MarketRepositoty marketRepositoty;
 
     @GetMapping("/market")
     public String viewMarket(Model model) {
@@ -336,9 +342,28 @@ public class MarketController {
 //        marketService.removeToadAtMarket(id);
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         User user = ((UserServiceImp) auth.getPrincipal()).getUser();
-        marketService.removeToadAtMarket(id);
-        toadIngameService.changeToadOwner(user.getId(), id);
-        return "redirect:/shop";
+        //   marketService.removeToadAtMarket(id);
+        try
+        {
+            Market m = marketRepositoty.findById(id);
+            UserContractConnector userContractConnector = new UserContractConnector(user);
+            userContractConnector.BuyNFT(id,m.getPrice());
+
+            marketRepositoty.delete(m);
+
+            toadIngameService.changeToadOwner(user.getId(), m.getToadIngame().getId());
+
+
+            return "redirect:/shop";
+        }
+
+        catch (Exception e)
+        {
+            System.out.println(e.toString());
+            return "redirect:/shop";
+        }
+
+
     }
 
     @GetMapping("/paging")
@@ -351,7 +376,7 @@ public class MarketController {
 //        int pageSize = size.orElse(1);
         System.out.println("currentPage: " + currentPage);
 //        System.out.println("pageSize: " + pageSize);
-        Page<Market> toadPagingMarket = marketService.pagingMarket(PageRequest.of(currentPage - 1, 5));
+        Page<Market> toadPagingMarket = marketService.pagingMarket(PageRequest.of(currentPage - 1, 6));
         model.addAttribute("condition", Boolean.TRUE);
         model.addAttribute("toadList", toadPagingMarket);
         System.out.println("this is toadPaging market: " + toadPagingMarket.getTotalElements());

@@ -1,6 +1,7 @@
 package com.example.doan2.repository;
 
 import com.example.doan2.entity.Market;
+import com.example.doan2.entity.ToadIngame;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
@@ -11,6 +12,9 @@ import java.util.List;
 
 @Repository
 public interface MarketRepositoty extends JpaRepository<Market, Integer> {
+
+
+    Market findByToadIngame(ToadIngame t);
 
     List<Market> findAll();
 

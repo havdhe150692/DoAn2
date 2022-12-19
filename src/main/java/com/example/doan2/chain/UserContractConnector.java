@@ -7,6 +7,9 @@ import com.example.doan2.entity.User;
 import com.example.doan2.service.AdminContractExecutionService;
 import org.web3j.crypto.Credentials;
 import org.web3j.protocol.Web3j;
+import org.web3j.protocol.core.DefaultBlockParameterName;
+import org.web3j.protocol.core.methods.request.EthFilter;
+import org.web3j.protocol.core.methods.response.EthLog;
 
 import java.math.BigInteger;
 import java.util.List;
@@ -50,6 +53,19 @@ public class UserContractConnector {
 
     }
 
+    private List<EthLog.LogResult> createFilterForEvent(String encodedEventSignature)
+            throws Exception {
+        EthFilter ethFilter =
+                new EthFilter(
+                        DefaultBlockParameterName.EARLIEST,
+                        DefaultBlockParameterName.LATEST,
+                        ServerContractInitiator.ToadKingMarketplace_contractAddress);
+
+        ethFilter.addSingleTopic(encodedEventSignature);
+        EthLog ethLog = web3j.ethGetLogs(ethFilter).send();
+        return ethLog.getLogs();
+    }
+
 
     public BigInteger GetBalance() throws Exception {
         return playerToadKingToken.balanceOf(user.getUserWallet().getAddress()).send();
@@ -69,13 +85,13 @@ public class UserContractConnector {
     }
 
 
-    public void ListNFT(int tokenId, int price) throws Exception {
+    public ToadKingMarketplace.ToadNFTListedEventResponse ListNFT(int tokenId, int price) throws Exception {
         //var transaction1 = playerToadKingNFT.approve(Credentials.create(ServerContractInitiator.hostAccountCredential).getAddress(), BigInteger.valueOf(tokenId)).send();
         var transaction2 = playerToadKingMarket.listNft(BigInteger.valueOf(tokenId), BigInteger.valueOf(price)).send();
-        System.out.println("Transaction 1 " + transaction2);
+        var event = ToadKingMarketplace.getToadNFTListedEvents(transaction2);
 
+         return event.get(0);
 
-     //   System.out.println(transaction2);
     }
 
     public void GetMarketItem(int listingId) throws Exception {
