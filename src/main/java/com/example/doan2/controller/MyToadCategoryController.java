@@ -1,9 +1,9 @@
 package com.example.doan2.controller;
 
-import com.example.doan2.entity.ToadClass;
-import com.example.doan2.entity.ToadIngame;
-import com.example.doan2.entity.User;
+import com.example.doan2.entity.*;
+import com.example.doan2.service.FeedbackService;
 import com.example.doan2.service.Impl.UserServiceImp;
+import com.example.doan2.service.MarketService;
 import com.example.doan2.service.ToadIngameService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AnonymousAuthenticationToken;
@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Controller
@@ -24,6 +25,12 @@ public class MyToadCategoryController {
     @Autowired
     ToadIngameService toadIngameService;
 
+    @Autowired
+    FeedbackService feedbackService;
+
+
+    @Autowired
+    MarketService marketService;
 
     @GetMapping("/myToad")
     public String showToadDetail(Model model) {
@@ -32,6 +39,13 @@ public class MyToadCategoryController {
             return "loginMarket";
         }
         User user = ((UserServiceImp) auth.getPrincipal()).getUser();
+        Feedback userFeedback = feedbackService.userFeedback(user.getId());
+        if (userFeedback != null) {
+            model.addAttribute("updateFeedback", Boolean.TRUE);
+            model.addAttribute("userUpdateFeedback", userFeedback);
+        } else {
+            model.addAttribute("updateFeedback", Boolean.FALSE);
+        }
         List<ToadIngame> myToadLists = toadIngameService.findAllToadByOwner(user);
         model.addAttribute("countUserToadSize", toadIngameService.countAllUserToad(user.getId()));
         model.addAttribute("countUserCommonSize", toadIngameService.countUserToadByRarity(user.getId(), 0));
@@ -43,9 +57,28 @@ public class MyToadCategoryController {
             model.addAttribute("condition", Boolean.FALSE);
             return "myToadCategory";
         } else {
+            model.addAttribute("condition", Boolean.TRUE);
+            List<Market> listToadUserSellAtMarket = marketService.findListToadBySellerAtMarket(user.getId());
+            System.out.println("this is listToadUser sell at market:" + listToadUserSellAtMarket.size());
+            //Check my toad List
+            int count = 0;
+            List<Boolean> listBool = new ArrayList<>();
+            //list bool
+            for (int i = 0; i < myToadLists.size(); i++) {
+                for (int y = 0; y < listToadUserSellAtMarket.size(); y++) {
+                    if (myToadLists.get(i).getId() == listToadUserSellAtMarket.get(y).getToadIngame().getId()) {
+                        System.out.println("toad selling in market");
+                        //list add true or false
+                        listBool.add(true);
+                        model.addAttribute("myToadExistInMarket", Boolean.TRUE);
+                    } else {
+                        listBool.add(false);
+                    }
+                }
+            }
+            model.addAttribute("listBool", listBool);
             List<ToadClass> listToadClass = toadIngameService.findAllToadClass();
             model.addAttribute("listToadClass", listToadClass);
-            model.addAttribute("condition", Boolean.TRUE);
             model.addAttribute("myToadList", myToadLists);
         }
         return "myToadCategory";
@@ -55,6 +88,13 @@ public class MyToadCategoryController {
     public String viewUserToadCommonRarity(@PathVariable("rarity") int rarity, Model model) {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         User user = ((UserServiceImp) auth.getPrincipal()).getUser();
+        Feedback userFeedback = feedbackService.userFeedback(user.getId());
+        if (userFeedback != null) {
+            model.addAttribute("updateFeedback", Boolean.TRUE);
+            model.addAttribute("userUpdateFeedback", userFeedback);
+        } else {
+            model.addAttribute("updateFeedback", Boolean.FALSE);
+        }
         List<ToadIngame> listUserToadCommonRarity = toadIngameService.findUserToadByRarity(rarity, user.getId());
         List<ToadClass> listToadClass = toadIngameService.findAllToadClass();
         model.addAttribute("listToadClass", listToadClass);
@@ -81,6 +121,13 @@ public class MyToadCategoryController {
         model.addAttribute("listToadClass", listToadClass);
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         User user = ((UserServiceImp) auth.getPrincipal()).getUser();
+        Feedback userFeedback = feedbackService.userFeedback(user.getId());
+        if (userFeedback != null) {
+            model.addAttribute("updateFeedback", Boolean.TRUE);
+            model.addAttribute("userUpdateFeedback", userFeedback);
+        } else {
+            model.addAttribute("updateFeedback", Boolean.FALSE);
+        }
         model.addAttribute("countUserToadSize", toadIngameService.countAllUserToad(user.getId()));
         model.addAttribute("countUserCommonSize", toadIngameService.countUserToadByRarity(user.getId(), 0));
         model.addAttribute("countUserRareSize", toadIngameService.countUserToadByRarity(user.getId(), 1));
