@@ -97,6 +97,9 @@
                             <a th:href="@{/Homepage}" class="nav-item nav-link">Landing Page</a>
                         </div>
                         <div class="navbar-nav ml-auto py-0">
+                            <a th:href="@{/game}" class="nav-item nav-link">
+                                <i class="fas fa-gamepad text-primary"></i>
+                                Let's Play</a>
                             <a class="nav-item nav-link nonClickable"> Welcome <b>[[${#request.userPrincipal.principal.name}]]</b> </a>
                            <form th:action="@{/logout}" method="post">
                                <button type="submit" class="nav-item nav-link customBtn"> Logout</button>
@@ -216,7 +219,7 @@
                     <div class="position-relative" style="z-index: 1;">
                         <h5 class="text-uppercase text-primary mb-3">20% off the all purchase</h5>
                         <h1 class="mb-4 font-weight-semi-bold">Toad Event</h1>
-                        <a href="" class="btn btn-outline-primary py-md-2 px-md-3">Shop Now</a>
+                        <a th:href="@{/shop}" class="btn btn-outline-primary py-md-2 px-md-3">Shop Now</a>
                     </div>
                 </div>
             </div>
@@ -226,7 +229,7 @@
                     <div class="position-relative" style="z-index: 1;">
                         <h5 class="text-uppercase text-primary mb-3">20% off the all purchase</h5>
                         <h1 class="mb-4 font-weight-semi-bold">Toad Festival</h1>
-                        <a href="" class="btn btn-outline-primary py-md-2 px-md-3">Shop Now</a>
+                        <a th:href="@{/shop}" class="btn btn-outline-primary py-md-2 px-md-3">Shop Now</a>
                     </div>
                 </div>
             </div>
@@ -236,24 +239,24 @@
 
 
     <!-- Subscribe Start -->
-    <div class="container-fluid bg-secondary my-5">
-        <div class="row justify-content-md-center py-5 px-xl-5">
-            <div class="col-md-6 col-12 py-5">
-                <div class="text-center mb-2 pb-2">
-                    <h2 class="section-title px-5 mb-3"><span class="bg-secondary px-2">Stay Updated</span></h2>
-                    <p>To get the newest information about our Toad Kingdom</p>
-                </div>
-                <form action="">
-                    <div class="input-group">
-                        <input type="text" class="form-control border-white p-4" placeholder="Email Goes Here">
-                        <div class="input-group-append">
-                            <button class="btn btn-primary px-4">Subscribe</button>
-                        </div>
-                    </div>
-                </form>
-            </div>
-        </div>
-    </div>
+<!--    <div class="container-fluid bg-secondary my-5">-->
+<!--        <div class="row justify-content-md-center py-5 px-xl-5">-->
+<!--            <div class="col-md-6 col-12 py-5">-->
+<!--                <div class="text-center mb-2 pb-2">-->
+<!--                    <h2 class="section-title px-5 mb-3"><span class="bg-secondary px-2">Stay Updated</span></h2>-->
+<!--                    <p>To get the newest information about our Toad Kingdom</p>-->
+<!--                </div>-->
+<!--                <form action="">-->
+<!--                    <div class="input-group">-->
+<!--                        <input type="text" class="form-control border-white p-4" placeholder="Email Goes Here">-->
+<!--                        <div class="input-group-append">-->
+<!--                            <button class="btn btn-primary px-4">Subscribe</button>-->
+<!--                        </div>-->
+<!--                    </div>-->
+<!--                </form>-->
+<!--            </div>-->
+<!--        </div>-->
+<!--    </div>-->
     <!-- Subscribe End -->
 
     <!-- Vendor Start -->
