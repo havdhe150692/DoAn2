@@ -47,15 +47,15 @@ public class ServerContractInitiator {
     public static ToadKingNFT adminToadKingNFT;
 
     public ServerContractInitiator() throws Exception {
-      try {
+     // try {
            System.out.println("Host Account Address is " + Credentials.create(hostAccountCredential).getAddress());
            DeployContract();
-      }
+     // }
 
-      catch (Exception e)
-      {
-          System.out.println("Blockchain not connected. Catched exception!");
-      }
+     // catch (Exception e)
+     // {
+    //      System.out.println("Blockchain not connected. Catched exception!");
+     // }
 
 
     }

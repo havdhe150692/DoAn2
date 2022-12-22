@@ -86,9 +86,13 @@
                         <a th:href="@{/market}" class="nav-item nav-link active">Home</a>
                         <a th:href="@{/shop}" class="nav-item nav-link">Market</a>
                         <a th:href="@{/myToad}" class="nav-item nav-link">My Toad</a>
+                        <a th:href="@{/feedbackGame}" class="nav-item nav-link">Rate Our Game!</a>
                         <a th:href="@{/Homepage}" class="nav-item nav-link">Landing Page</a>
                     </div>
                     <div class="navbar-nav ml-auto py-0">
+                        <a th:href="@{/game}" class="nav-item nav-link">
+                            <i class="fas fa-gamepad text-primary"></i>
+                            Let's Play</a>
                         <a class="nav-item nav-link nonClickable"> Welcome <b>[[${#request.userPrincipal.principal.name}]]</b>
                         </a>
                         <form th:action="@{/logout}" method="post">
@@ -100,7 +104,7 @@
         </div>
     </div>
 </div>
-
+<!-- Navbar End -->
 <form th:action="@{/accessUserProfile}" method="post">
     <div class="container rounded bg-white mt-5 mb-5">
         <div class="row">
@@ -126,16 +130,12 @@
         </div>
     </div>
 </form>
-<!-- Navbar End -->
+
 <!-- JavaScript Libraries -->
 <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.bundle.min.js"></script>
 <script th:src="@{../js/easing.min.js}"></script>
 <script th:src="@{../js/owl.carousel.min.js}"></script>
-<!-- Contact Javascript File -->
-<!--    <script src="mail/jqBootstrapValidation.min.js"></script>-->
-<!--    <script src="mail/contact.js"></script>-->
-
 <!-- Template Javascript -->
 <script th:src="@{../js/main1.js}"></script>
 <script th:src="@{../js/formValidation.js}"></script>

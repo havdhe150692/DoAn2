@@ -75,6 +75,9 @@ contract ToadKingMarketplace is ReentrancyGuard, Ownable {
         _;
     }
 
+
+
+
     modifier onlyTokenOwner(uint256 _tokenId) {
         require(
             toadKingNFT.ownerOf(_tokenId) == msg.sender,
@@ -96,7 +99,8 @@ contract ToadKingMarketplace is ReentrancyGuard, Ownable {
         emit Logging(msg.sender, owner(), address(this));
     }
 
-    function listNft(uint256 _tokenId, uint256 _price) onlyTokenOwner(_tokenId) validPrice(_price) public {
+    function listNft(uint256 _tokenId, uint256 _price) onlyTokenOwner(_tokenId) validPrice(_price) public
+        returns (ToadNFTMarket memory) {
 
         _marketItemIds.increment();
 
@@ -114,7 +118,6 @@ contract ToadKingMarketplace is ReentrancyGuard, Ownable {
         //Approve NFT first before this
         toadKingNFT.transferFrom(msg.sender, address(this), _tokenId);
 
-
         emit ToadNFTListed(
             marketItemId,
             _tokenId,
@@ -122,6 +125,8 @@ contract ToadKingMarketplace is ReentrancyGuard, Ownable {
             address(this),
             _price
         );
+
+        return toadMarketItems[marketItemId];
     }
 
     function cancelSellNft(uint256 _marketItemId)
@@ -213,14 +218,37 @@ contract ToadKingMarketplace is ReentrancyGuard, Ownable {
         return toadMarketItems[_marketItemId];
     }
 
-    function getListingNfts() public view returns (ToadNFTMarket[] memory) {
-        uint256 nftCount = _marketItemIds.current();
-        uint256 unsoldNftsCount = nftCount - _nftSold.current();
+    function getAllNfts() public view returns (ToadNFTMarket[] memory) {
+         uint256 nftCount = _marketItemIds.current();
 
-        ToadNFTMarket[] memory nfts = new ToadNFTMarket[](unsoldNftsCount);
+        ToadNFTMarket[] memory nfts = new ToadNFTMarket[](nftCount);
         uint256 nftsIndex = 0;
         for (uint256 i = 0; i < nftCount; i++) {
-            if (toadMarketItems[i + 1].isSelling) {
+
+            nfts[nftsIndex] = toadMarketItems[i + 1];
+            nftsIndex++;
+
+        }
+        return nfts;
+    }
+
+    function getListingNfts() public view returns (ToadNFTMarket[] memory) {
+        uint256 nftCount = _marketItemIds.current();
+        uint256 myListingNftCount = 0;
+        for (uint256 i = 0; i < nftCount; i++) {
+            if (
+                toadMarketItems[i + 1].isSelling
+            ) {
+                myListingNftCount++;
+            }
+        }
+
+        ToadNFTMarket[] memory nfts = new ToadNFTMarket[](myListingNftCount);
+        uint256 nftsIndex = 0;
+        for (uint256 i = 0; i < nftCount; i++) {
+            if (
+                toadMarketItems[i + 1].isSelling
+            ) {
                 nfts[nftsIndex] = toadMarketItems[i + 1];
                 nftsIndex++;
             }

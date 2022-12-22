@@ -4,7 +4,9 @@ package com.example.doan2.service;
 import com.example.doan2.entity.ToadData;
 import com.example.doan2.entity.ToadIngame;
 import com.example.doan2.entity.ToadStatus;
+import com.example.doan2.repository.ToadStatusRepository;
 import jnr.posix.Times;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.configurationprocessor.json.JSONException;
 import org.springframework.boot.configurationprocessor.json.JSONObject;
 import org.springframework.stereotype.Service;
@@ -15,6 +17,9 @@ import java.time.temporal.ChronoUnit;
 
 @Service
 public class ToadStatusLogicService {
+
+    @Autowired
+    ToadStatusRepository toadStatusRepository;
 
     public int MATURE_TIME_HOUR_COMMON = 0;
     public int MATURE_TIME_MINUTE_COMMON = 5;
@@ -76,6 +81,12 @@ public class ToadStatusLogicService {
         JSONObject jsonObject = new JSONObject();
         Instant now = Instant.now();
 
+        Instant old = Instant.parse("1999-12-31T10:33:50.63Z");
+        if(t.getExpectedMature() == null)
+        {
+            t.setExpectedMature(Timestamp.from(old));
+        }
+
         jsonObject.put("id", t.getId());
         jsonObject.put("isMature", (now.compareTo(t.getExpectedMature().toInstant()) >= 0));
         jsonObject.put("isToBreed", (now.compareTo(t.getExpectedBreed().toInstant()) >= 0));
@@ -85,9 +96,10 @@ public class ToadStatusLogicService {
 
         if((t.getExpectedMature() != null) && (now.compareTo(t.getExpectedMature().toInstant()) >= 0))
         {
-            t.setExpectedMature(null);
+            t.setExpectedMature(Timestamp.from(old));
             t.setExpectedBreed(Timestamp.from(now));
         }
+        toadStatusRepository.save(t);
 
 
         return jsonObject;
@@ -201,6 +213,7 @@ public class ToadStatusLogicService {
         }
         toadStatus.setExpectedBreed(Timestamp.from(breedTime));
         toadIngame.setToadStatus(toadStatus);
+        toadStatusRepository.save(toadStatus);
 
         return toadIngame;
     }
@@ -233,6 +246,7 @@ public class ToadStatusLogicService {
         }
         toadStatus.setExpectedHungry(Timestamp.from(feedTime));
         toadIngame.setToadStatus(toadStatus);
+        toadStatusRepository.save(toadStatus);
 
         return toadIngame;
     }
@@ -265,6 +279,7 @@ public class ToadStatusLogicService {
         }
         toadStatus.setExpectedCollect(Timestamp.from(collectTime));
         toadIngame.setToadStatus(toadStatus);
+        toadStatusRepository.save(toadStatus);
 
         return toadIngame;
     }

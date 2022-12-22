@@ -141,6 +141,27 @@ public class RandomRarityGenerator {
 
     }
 
+    public List<String> CheckRarity(Enum.Rarity rarityA, Enum.Rarity rarityB)
+    {
+        List<String> rarityLookUpList = new ArrayList<>();
+        for(int i = 0; i < rarityLookupList.size(); i++) {
+            RarityLookup lookup = rarityLookupList.get(i);
+            if (((rarityLookupList.get(i).combineA == rarityA) && (rarityLookupList.get(i).combineB == rarityB)) ||
+                    ((rarityLookupList.get(i).combineB == rarityA) && rarityLookupList.get(i).combineA == rarityB))
+            {
+                for(int j = 0; j < lookup.entries.size(); j++)
+                {
+                    String obj  = lookup.entries.get(j).rarityType.toString() + ": " + lookup.entries.get(j).value/10 + "%";
+                    rarityLookUpList.add(obj);
+                }
+
+                return rarityLookUpList;
+            }
+        }
+
+        return null;
+    }
+
 
     public Enum.Rarity LookUpRarity(Enum.Rarity rarityA, Enum.Rarity rarityB)
     {

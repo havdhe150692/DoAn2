@@ -32,4 +32,58 @@ public class MarketplaceNFTController {
 
         return "";
     }
+
+    @RequestMapping(value ="/cancelSellNFT", method = RequestMethod.POST, consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
+    public String cancelSellNFT(int userId, int listingId) throws Exception {
+        User u = userService.findUserById(userId);
+        if(u != null)
+        {
+            UserContractConnector userContractConnector = new UserContractConnector(u);
+            userContractConnector.CancelSellNFT(listingId);
+        }
+
+        return "";
+    }
+
+    @RequestMapping(value ="/buyNFT", method = RequestMethod.POST, consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
+    public String buyNFT(int userId, int listingId, int price) throws Exception {
+        User u = userService.findUserById(userId);
+        if(u != null)
+        {
+            UserContractConnector userContractConnector = new UserContractConnector(u);
+            userContractConnector.BuyNFT(listingId, price);
+            return "true";
+        }
+
+        return "";
+    }
+
+    @RequestMapping(value ="/getListingNFT", method =RequestMethod.POST, consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
+    public String getSellHistory(int userId) throws Exception {
+        User u = userService.findUserById(userId);
+        if(u != null)
+        {
+            UserContractConnector userContractConnector = new UserContractConnector(u);
+            return userContractConnector.GetListingNFT();
+
+        }
+
+        return "";
+    }
+
+    @RequestMapping(value ="/getMyListingNFT", method =RequestMethod.POST, consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
+    public String getMyListingNFT(int userId) throws Exception {
+        User u = userService.findUserById(userId);
+        if(u != null)
+        {
+            UserContractConnector userContractConnector = new UserContractConnector(u);
+            return userContractConnector.GetMyListingNFT();
+        }
+
+        return "";
+    }
+
+
+
+
 }

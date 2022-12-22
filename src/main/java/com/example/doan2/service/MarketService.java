@@ -3,6 +3,7 @@ package com.example.doan2.service;
 import com.example.doan2.entity.Market;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -11,6 +12,8 @@ import java.util.List;
 public interface MarketService {
 
     List<Market> findAll();
+
+    List<Market> findAllToad();
 
     Market findById(int id);
 
@@ -40,6 +43,7 @@ public interface MarketService {
 
     Market findToadBySellerAtMarket(int toadId);
 
+
     void cancelSellToadAtMarket(int toadIngameId);
 
     void removeToadAtMarket(int toadIngameId);
@@ -47,4 +51,6 @@ public interface MarketService {
     Page<Market> pagingMarket(Pageable pageable);
 
     Page<Market> customPaging(Pageable pageable, List<Market> customList);
+
+    List<Market> findListToadBySellerAtMarket(int sellerId);
 }

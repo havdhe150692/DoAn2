@@ -72,12 +72,16 @@ public class ToadController {
 
     @CrossOrigin(origins ="http://localhost:8000")
     @RequestMapping(value ="/{userId}", method= RequestMethod.GET)
-    public List<ToadIngame> readAllToadIngameOfUser(@PathVariable(value = "userId") int userId)  {
+    public List<ToadIngame> readAllToadIngameOfUser(@PathVariable(value = "userId") int userId) throws JSONException {
         User u = userService.findUserById(userId);
         if (u != null)
         {
             List<ToadIngame> toadList = toadIngameRepository.findAllByOwner(u);
+            for (int i = 0; i < toadList.size(); i++) {
+                ToadIngame toadIngame =  toadList.get(i);
+                toadStatusLogicService.StatusCheck(toadIngame.getToadStatus());
 
+            }
 
             return toadList;
         }
