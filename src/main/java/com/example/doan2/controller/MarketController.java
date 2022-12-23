@@ -1,6 +1,7 @@
 package com.example.doan2.controller;
 
 import com.example.doan2.chain.UserContractConnector;
+import com.example.doan2.chain.smartcontract.ToadKingMarketplace;
 import com.example.doan2.entity.Market;
 import com.example.doan2.entity.ToadClass;
 import com.example.doan2.entity.ToadIngame;
@@ -27,6 +28,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import java.math.BigInteger;
 import java.sql.Timestamp;
 import java.text.DateFormat;
 import java.text.ParseException;
@@ -58,16 +60,21 @@ public class MarketController {
 
 
     @GetMapping("/market")
-    public String viewMarket(Model model) {
+    public String viewMarket(Model model) throws Exception {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         if (authentication == null || authentication instanceof AnonymousAuthenticationToken) {
             return "loginMarket";
         }
         User user = ((UserServiceImp) authentication.getPrincipal()).getUser();
         Feedback userFeedback = feedbackService.userFeedback(user.getId());
-        if (userFeedback != null) {
+         if (userFeedback != null) {
             model.addAttribute("updateFeedback", Boolean.TRUE);
             model.addAttribute("userUpdateFeedback", userFeedback);
+            UserContractConnector u = new UserContractConnector(user);
+            List<ToadKingMarketplace.ToadNFTMarket> myNFT = u.GetMyListingNFT();
+            BigInteger balance = u.GetBalance();
+            model.addAttribute("myNFT", myNFT);
+            model.addAttribute("balance", balance);
         } else {
 
             model.addAttribute("updateFeedback", Boolean.FALSE);
@@ -88,16 +95,21 @@ public class MarketController {
     public String viewShop(Model model,
                            @RequestParam(value = "page", required = false) Optional<Integer> page,
                            @RequestParam(value = "size", required = false) Optional<Integer> size,
-                           Market market) {
+                           Market market) throws Exception {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         if (auth == null || auth instanceof AnonymousAuthenticationToken) {
             return "loginMarket";
         }
         User user = ((UserServiceImp) auth.getPrincipal()).getUser();
         Feedback userFeedback = feedbackService.userFeedback(user.getId());
-        if (userFeedback != null) {
+         if (userFeedback != null) {
             model.addAttribute("updateFeedback", Boolean.TRUE);
             model.addAttribute("userUpdateFeedback", userFeedback);
+            UserContractConnector u = new UserContractConnector(user);
+            List<ToadKingMarketplace.ToadNFTMarket> myNFT = u.GetMyListingNFT();
+            BigInteger balance = u.GetBalance();
+            model.addAttribute("myNFT", myNFT);
+            model.addAttribute("balance", balance);
         } else {
 
             model.addAttribute("updateFeedback", Boolean.FALSE);
@@ -135,16 +147,21 @@ public class MarketController {
 
 
     @GetMapping("/productDetail/{id}")
-    public String viewProductDetail(Model model, @PathVariable("id") int id) {
+    public String viewProductDetail(Model model, @PathVariable("id") int id) throws Exception {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         if (auth == null || auth instanceof AnonymousAuthenticationToken) {
             return "loginMarket";
         }
         User user = ((UserServiceImp) auth.getPrincipal()).getUser();
         Feedback userFeedback = feedbackService.userFeedback(user.getId());
-        if (userFeedback != null) {
+         if (userFeedback != null) {
             model.addAttribute("updateFeedback", Boolean.TRUE);
             model.addAttribute("userUpdateFeedback", userFeedback);
+            UserContractConnector u = new UserContractConnector(user);
+            List<ToadKingMarketplace.ToadNFTMarket> myNFT = u.GetMyListingNFT();
+            BigInteger balance = u.GetBalance();
+            model.addAttribute("myNFT", myNFT);
+            model.addAttribute("balance", balance);
         } else {
             model.addAttribute("updateFeedback", Boolean.FALSE);
         }
@@ -167,7 +184,7 @@ public class MarketController {
     public String searchToadByName(Model model,
                                    @RequestParam(value = "searchByName", required = false) String name,
                                    @RequestParam(value = "page", required = false) Optional<Integer> page,
-                                   @RequestParam(value = "size", required = false) Optional<Integer> size) {
+                                   @RequestParam(value = "size", required = false) Optional<Integer> size) throws Exception {
         List<ToadClass> listToadClass = toadIngameService.findAllToadClass();
         model.addAttribute("listToadClass", listToadClass);
         model.addAttribute("countToadSize", marketService.countAllMarket());
@@ -179,9 +196,14 @@ public class MarketController {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         User user = ((UserServiceImp) auth.getPrincipal()).getUser();
         Feedback userFeedback = feedbackService.userFeedback(user.getId());
-        if (userFeedback != null) {
+         if (userFeedback != null) {
             model.addAttribute("updateFeedback", Boolean.TRUE);
             model.addAttribute("userUpdateFeedback", userFeedback);
+            UserContractConnector u = new UserContractConnector(user);
+            List<ToadKingMarketplace.ToadNFTMarket> myNFT = u.GetMyListingNFT();
+            BigInteger balance = u.GetBalance();
+            model.addAttribute("myNFT", myNFT);
+            model.addAttribute("balance", balance);
         } else {
             model.addAttribute("updateFeedback", Boolean.FALSE);
         }
@@ -220,13 +242,18 @@ public class MarketController {
     public String searchToadContainsString(Model model,
                                            @RequestParam(value = "searchByNameContains", required = false) String name,
                                            @RequestParam(value = "page", required = false) Optional<Integer> page,
-                                           @RequestParam(value = "size", required = false) Optional<Integer> size) {
+                                           @RequestParam(value = "size", required = false) Optional<Integer> size) throws Exception {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         User user = ((UserServiceImp) auth.getPrincipal()).getUser();
         Feedback userFeedback = feedbackService.userFeedback(user.getId());
-        if (userFeedback != null) {
+         if (userFeedback != null) {
             model.addAttribute("updateFeedback", Boolean.TRUE);
             model.addAttribute("userUpdateFeedback", userFeedback);
+            UserContractConnector u = new UserContractConnector(user);
+            List<ToadKingMarketplace.ToadNFTMarket> myNFT = u.GetMyListingNFT();
+            BigInteger balance = u.GetBalance();
+            model.addAttribute("myNFT", myNFT);
+            model.addAttribute("balance", balance);
         } else {
             model.addAttribute("updateFeedback", Boolean.FALSE);
         }
@@ -268,7 +295,7 @@ public class MarketController {
     @PostMapping("/searchByPriceBetween")
     public String searchToadByPrice(Model model,
                                     @RequestParam(value = "priceFrom", required = false) String priceFrom,
-                                    @RequestParam(value = "priceTo", required = false) String priceTo) {
+                                    @RequestParam(value = "priceTo", required = false) String priceTo) throws Exception {
         List<ToadClass> listToadClass = toadIngameService.findAllToadClass();
         model.addAttribute("listToadClass", listToadClass);
         model.addAttribute("countToadSize", marketService.countAllMarket());
@@ -280,9 +307,14 @@ public class MarketController {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         User user = ((UserServiceImp) auth.getPrincipal()).getUser();
         Feedback userFeedback = feedbackService.userFeedback(user.getId());
-        if (userFeedback != null) {
+         if (userFeedback != null) {
             model.addAttribute("updateFeedback", Boolean.TRUE);
             model.addAttribute("userUpdateFeedback", userFeedback);
+            UserContractConnector u = new UserContractConnector(user);
+            List<ToadKingMarketplace.ToadNFTMarket> myNFT = u.GetMyListingNFT();
+            BigInteger balance = u.GetBalance();
+            model.addAttribute("myNFT", myNFT);
+            model.addAttribute("balance", balance);
         } else {
             model.addAttribute("updateFeedback", Boolean.FALSE);
         }
@@ -312,13 +344,18 @@ public class MarketController {
     }
 
     @GetMapping("categories/{id}")
-    public String viewToadByCategories(@PathVariable("id") int id, Model model) {
+    public String viewToadByCategories(@PathVariable("id") int id, Model model) throws Exception {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         User user = ((UserServiceImp) auth.getPrincipal()).getUser();
         Feedback userFeedback = feedbackService.userFeedback(user.getId());
-        if (userFeedback != null) {
+         if (userFeedback != null) {
             model.addAttribute("updateFeedback", Boolean.TRUE);
             model.addAttribute("userUpdateFeedback", userFeedback);
+            UserContractConnector u = new UserContractConnector(user);
+            List<ToadKingMarketplace.ToadNFTMarket> myNFT = u.GetMyListingNFT();
+            BigInteger balance = u.GetBalance();
+            model.addAttribute("myNFT", myNFT);
+            model.addAttribute("balance", balance);
         } else {
             model.addAttribute("updateFeedback", Boolean.FALSE);
         }
@@ -343,13 +380,18 @@ public class MarketController {
     }
 
     @GetMapping("/findByRarity/{rarity}")
-    public String viewCommonRarity(@PathVariable("rarity") int rarity, Model model) {
+    public String viewCommonRarity(@PathVariable("rarity") int rarity, Model model) throws Exception {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         User user = ((UserServiceImp) auth.getPrincipal()).getUser();
         Feedback userFeedback = feedbackService.userFeedback(user.getId());
-        if (userFeedback != null) {
+         if (userFeedback != null) {
             model.addAttribute("updateFeedback", Boolean.TRUE);
             model.addAttribute("userUpdateFeedback", userFeedback);
+            UserContractConnector u = new UserContractConnector(user);
+            List<ToadKingMarketplace.ToadNFTMarket> myNFT = u.GetMyListingNFT();
+            BigInteger balance = u.GetBalance();
+            model.addAttribute("myNFT", myNFT);
+            model.addAttribute("balance", balance);
         } else {
             model.addAttribute("updateFeedback", Boolean.FALSE);
         }
@@ -375,13 +417,18 @@ public class MarketController {
 
 
     @GetMapping("/sortFromHighestPrice")
-    public String sortFromHighestPrice(Model model) {
+    public String sortFromHighestPrice(Model model) throws Exception {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         User user = ((UserServiceImp) auth.getPrincipal()).getUser();
         Feedback userFeedback = feedbackService.userFeedback(user.getId());
-        if (userFeedback != null) {
+         if (userFeedback != null) {
             model.addAttribute("updateFeedback", Boolean.TRUE);
             model.addAttribute("userUpdateFeedback", userFeedback);
+            UserContractConnector u = new UserContractConnector(user);
+            List<ToadKingMarketplace.ToadNFTMarket> myNFT = u.GetMyListingNFT();
+            BigInteger balance = u.GetBalance();
+            model.addAttribute("myNFT", myNFT);
+            model.addAttribute("balance", balance);
         } else {
             model.addAttribute("updateFeedback", Boolean.FALSE);
         }
@@ -405,13 +452,18 @@ public class MarketController {
     }
 
     @GetMapping("/sortFromLowestPrice")
-    public String sortFromLowestPrice(Model model) {
+    public String sortFromLowestPrice(Model model) throws Exception {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         User user = ((UserServiceImp) auth.getPrincipal()).getUser();
         Feedback userFeedback = feedbackService.userFeedback(user.getId());
-        if (userFeedback != null) {
+         if (userFeedback != null) {
             model.addAttribute("updateFeedback", Boolean.TRUE);
             model.addAttribute("userUpdateFeedback", userFeedback);
+            UserContractConnector u = new UserContractConnector(user);
+            List<ToadKingMarketplace.ToadNFTMarket> myNFT = u.GetMyListingNFT();
+            BigInteger balance = u.GetBalance();
+            model.addAttribute("myNFT", myNFT);
+            model.addAttribute("balance", balance);
         } else {
             model.addAttribute("updateFeedback", Boolean.FALSE);
         }
@@ -467,13 +519,18 @@ public class MarketController {
     public String pagingMarket(Model model,
                                @RequestParam(value = "page", required = false) Optional<Integer> page
 //                               @RequestParam(value = "size", required = false) Optional<Integer> size) {
-    ) {
+    ) throws Exception {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         User user = ((UserServiceImp) auth.getPrincipal()).getUser();
         Feedback userFeedback = feedbackService.userFeedback(user.getId());
         if (userFeedback != null) {
             model.addAttribute("updateFeedback", Boolean.TRUE);
             model.addAttribute("userUpdateFeedback", userFeedback);
+            UserContractConnector u = new UserContractConnector(user);
+            List<ToadKingMarketplace.ToadNFTMarket> myNFT = u.GetMyListingNFT();
+            BigInteger balance = u.GetBalance();
+            model.addAttribute("myNFT", myNFT);
+            model.addAttribute("balance", balance);
         } else {
             model.addAttribute("updateFeedback", Boolean.FALSE);
         }

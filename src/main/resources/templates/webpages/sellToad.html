@@ -99,6 +99,7 @@
                         <a th:href="@{/Homepage}" class="nav-item nav-link">Landing Page</a>
                     </div>
                     <div class="navbar-nav ml-auto py-0">
+                        <p th:text="${balance} + ' TKC'" class="nav-item nav-link">TKC</p>
                         <a th:href="@{/game}" class="nav-item nav-link">
                             <i class="fas fa-gamepad text-primary"></i>
                             Let's Play</a>
@@ -253,8 +254,8 @@
             <div th:if="${sellCondition == true and cancelSellAtMarket == true}" class="d-flex align-items-center mb-4 pt-2">
                 <div class="input-group quantity mr-3" style="width: 281px;">
                     <p style="margin: auto; font-size: 20px" class="text-dark font-weight-medium">You receive : </p>
-                    <input disabled type="text" class="form-control bg-secondary text-center customInput1"
-                           value="1">
+                    <p id="youReceive" disabled type="text" class="form-control bg-secondary text-center customInput1"
+                       value="1"></p>
                     <div class="input-group-append">
                         <label class="input-group-text bg-primary">$</label>
                     </div>
@@ -267,7 +268,7 @@
                 <div class="d-flex align-items-center mb-4 pt-2">
                     <div th:if="${sellCondition == true and cancelSellAtMarket == true}" class="input-group quantity mr-3" style="width: 282px;">
                         <p style="margin: auto; font-size: 20px" class="text-dark font-weight-medium">Buyer pay : </p>
-                        <input id="intLimitTextBox" name="price" type="text"
+                        <input onkeyup="createFaction()" id="intLimitTextBox" name="price" type="text"
                                class="form-control bg-secondary text-center customInput"
                                required minlength="1" maxlength="1000000"
                         >
@@ -492,6 +493,14 @@
 
 <!-- Template Javascript -->
 <script th:src="@{../js/main1.js}"></script>
+<script>
+    function createFaction(){
+        var value = document.getElementById('intLimitTextBox');
+        var number = parseInt(value.value);
+        var result = number - number*1/100;
+        document.getElementById('youReceive').innerHTML = result;
+    }
+</script>
 
 </body>
 

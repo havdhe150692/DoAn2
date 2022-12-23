@@ -1,5 +1,7 @@
 package com.example.doan2.controller;
 
+import com.example.doan2.chain.UserContractConnector;
+import com.example.doan2.chain.smartcontract.ToadKingMarketplace;
 import com.example.doan2.entity.*;
 import com.example.doan2.service.FeedbackService;
 import com.example.doan2.service.Impl.UserServiceImp;
@@ -33,7 +35,7 @@ public class MyToadCategoryController {
     MarketService marketService;
 
     @GetMapping("/myToad")
-    public String showToadDetail(Model model) {
+    public String showToadDetail(Model model) throws Exception {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         if (auth == null || auth instanceof AnonymousAuthenticationToken) {
             return "loginMarket";
@@ -43,6 +45,9 @@ public class MyToadCategoryController {
         if (userFeedback != null) {
             model.addAttribute("updateFeedback", Boolean.TRUE);
             model.addAttribute("userUpdateFeedback", userFeedback);
+            UserContractConnector u = new UserContractConnector(user);
+            List<ToadKingMarketplace.ToadNFTMarket> myNFT = u.GetMyListingNFT();
+            model.addAttribute("myNFT", myNFT);
         } else {
             model.addAttribute("updateFeedback", Boolean.FALSE);
         }
