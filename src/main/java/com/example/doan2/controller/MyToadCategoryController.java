@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -47,7 +48,9 @@ public class MyToadCategoryController {
             model.addAttribute("userUpdateFeedback", userFeedback);
             UserContractConnector u = new UserContractConnector(user);
             List<ToadKingMarketplace.ToadNFTMarket> myNFT = u.GetMyListingNFT();
+            BigInteger balance = u.GetBalance();
             model.addAttribute("myNFT", myNFT);
+            model.addAttribute("balance", balance);
         } else {
             model.addAttribute("updateFeedback", Boolean.FALSE);
         }
