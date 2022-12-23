@@ -67,6 +67,8 @@ public class MyToadCategoryController {
         } else {
             model.addAttribute("condition", Boolean.TRUE);
             List<Market> listToadUserSellAtMarket = marketService.findListToadBySellerAtMarket(user.getId());
+
+
             System.out.println("this is listToadUser sell at market:" + listToadUserSellAtMarket.size());
             //Check my toad List
             int count = 0;

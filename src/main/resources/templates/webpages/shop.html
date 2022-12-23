@@ -262,6 +262,9 @@
                                     <h6 th:text="'Type: ' + ${toad.toadIngame?.toadData?.toadClass?.name}"></h6>
                                 </div>
                                 <div class="d-flex justify-content-center">
+                                    <h6 th:text="'Type-Counter: ' + ${toad.getTypeCounter()}"></h6>
+                                </div>
+                                <div class="d-flex justify-content-center">
                                     <h6 th:text="'Rarity: '+ ${toad.toadIngame?.toadData?.rarity}"></h6>
                                 </div>
                                 <div class="d-flex justify-content-center">
