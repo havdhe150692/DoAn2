@@ -2,6 +2,7 @@ package com.example.doan2.controller;
 
 
 import com.example.doan2.chain.UserContractConnector;
+import com.example.doan2.chain.smartcontract.ToadKingMarketplace;
 import com.example.doan2.entity.User;
 import com.example.doan2.service.AdminContractExecutionService;
 import com.example.doan2.service.UserService;
@@ -10,6 +11,8 @@ import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/marketplaceApi/")
@@ -77,7 +80,7 @@ public class MarketplaceNFTController {
         if(u != null)
         {
             UserContractConnector userContractConnector = new UserContractConnector(u);
-            return userContractConnector.GetMyListingNFT();
+            return userContractConnector.GetMyListingNFT().toString();
         }
 
         return "";

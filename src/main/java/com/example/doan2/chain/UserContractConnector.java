@@ -90,7 +90,7 @@ public class UserContractConnector {
         var transaction2 = playerToadKingMarket.listNft(BigInteger.valueOf(tokenId), BigInteger.valueOf(price)).send();
         var event = ToadKingMarketplace.getToadNFTListedEvents(transaction2);
 
-         return event.get(0);
+        return event.get(0);
 
     }
 
@@ -127,10 +127,10 @@ public class UserContractConnector {
         return t1.toString();
     }
 
-    public String GetMyListingNFT() throws Exception {
+    public List<ToadKingMarketplace.ToadNFTMarket> GetMyListingNFT() throws Exception {
         var t1  = playerToadKingMarket.getMyListingNfts().send();
         System.out.println(t1.toString());
-        return t1.toString();
+        return t1;
     }
 
 }

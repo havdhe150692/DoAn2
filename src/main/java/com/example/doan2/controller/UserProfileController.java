@@ -1,5 +1,7 @@
 package com.example.doan2.controller;
 
+import com.example.doan2.chain.UserContractConnector;
+import com.example.doan2.chain.smartcontract.ToadKingMarketplace;
 import com.example.doan2.entity.ToadClass;
 import com.example.doan2.entity.User;
 import com.example.doan2.service.Impl.UserServiceImp;
@@ -16,6 +18,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import java.math.BigInteger;
 import java.util.List;
 
 @Controller
@@ -28,13 +31,20 @@ public class UserProfileController {
     ToadIngameService toadIngameService;
 
     @GetMapping("/checkUserProfile")
-    public String checkUserProfile(Model model) {
+    public String checkUserProfile(Model model) throws Exception {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         if(authentication == null || authentication instanceof AnonymousAuthenticationToken) {
             return "loginMarket";
         } else {
             List<ToadClass> listToadClass = toadIngameService.findAllToadClass();
             model.addAttribute("listToadClass", listToadClass);
+
+            User user = ((UserServiceImp) authentication.getPrincipal()).getUser();
+            UserContractConnector u = new UserContractConnector(user);
+            List<ToadKingMarketplace.ToadNFTMarket> myNFT = u.GetMyListingNFT();
+            BigInteger balance = u.GetBalance();
+            model.addAttribute("myNFT", myNFT);
+            model.addAttribute("balance", balance);
         }
         return "checkUserProfile";
     }
