@@ -87,10 +87,10 @@ public class UserContractConnector {
 
     public ToadKingMarketplace.ToadNFTListedEventResponse ListNFT(int tokenId, int price) throws Exception {
         //var transaction1 = playerToadKingNFT.approve(Credentials.create(ServerContractInitiator.hostAccountCredential).getAddress(), BigInteger.valueOf(tokenId)).send();
-        var transaction2 = playerToadKingMarket.listNft(BigInteger.valueOf(tokenId), BigInteger.valueOf(price), BigInteger.valueOf(50)).send();
+        var transaction2 = playerToadKingMarket.listNft(BigInteger.valueOf(tokenId), BigInteger.valueOf(price)).send();
         var event = ToadKingMarketplace.getToadNFTListedEvents(transaction2);
 
-         return event.get(0);
+        return event.get(0);
 
     }
 
