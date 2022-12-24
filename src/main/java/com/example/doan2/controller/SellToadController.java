@@ -1,6 +1,7 @@
 package com.example.doan2.controller;
 
 import com.example.doan2.chain.UserContractConnector;
+import com.example.doan2.chain.smartcontract.ToadKingMarketplace;
 import com.example.doan2.entity.Market;
 import com.example.doan2.entity.ToadClass;
 import com.example.doan2.entity.ToadIngame;
@@ -23,6 +24,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import java.math.BigInteger;
 import java.sql.Timestamp;
 import java.util.Date;
 import java.util.List;
@@ -73,10 +75,16 @@ public class SellToadController {
 
     @GetMapping("/sellToad/{id}")
 
-    public String sellToad(Model model, @PathVariable("id") int id) {
+    public String sellToad(Model model, @PathVariable("id") int id) throws Exception {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         User user = ((UserServiceImp) auth.getPrincipal()).getUser();
         Feedback userFeedback = feedbackService.userFeedback(user.getId());
+
+        UserContractConnector u = new UserContractConnector(user);
+        List<ToadKingMarketplace.ToadNFTMarket> myNFT = u.GetMyListingNFT();
+        BigInteger balance = u.GetBalance();
+        model.addAttribute("myNFT", myNFT);
+        model.addAttribute("balance", balance);
         if (userFeedback != null) {
             model.addAttribute("updateFeedback", Boolean.TRUE);
             model.addAttribute("userUpdateFeedback", userFeedback);

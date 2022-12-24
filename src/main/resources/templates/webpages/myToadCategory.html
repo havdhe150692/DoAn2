@@ -99,7 +99,8 @@
                         <a th:href="@{/Homepage}" class="nav-item nav-link">Landing Page</a>
                     </div>
                     <div class="navbar-nav ml-auto py-0">
-                        <a th:href="@{/game}" class="nav-item nav-link">
+                        <p th:text="${balance} + ' TKC'" class="nav-item nav-link">TKC</p>
+                        <a th:href="@{/game}" class="nav-item nav-link" th:text="${myNFT.size}">
                             <i class="fas fa-gamepad text-primary"></i>
                             Let's Play</a>
                         <a class="nav-item nav-link nonClickable"> Welcome <b>[[${#request.userPrincipal.principal.name}]]</b>
@@ -213,6 +214,9 @@
                                     class="text-truncate mb-3"></h6>
                                 <div class="d-flex justify-content-center">
                                     <h6 th:text="'Type: ' + ${toad.toadData?.toadClass?.name}"></h6>
+                                </div>
+                                <div class="d-flex justify-content-center">
+                                    <h6 th:text="'Type-Counter: ' + ${toad.getTypeCounter()}"></h6>
                                 </div>
                                 <div class="d-flex justify-content-center">
                                     <h6 th:text="'Rarity: '+ ${toad.toadData?.rarity}"></h6>

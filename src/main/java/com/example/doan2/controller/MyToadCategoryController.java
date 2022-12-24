@@ -1,5 +1,7 @@
 package com.example.doan2.controller;
 
+import com.example.doan2.chain.UserContractConnector;
+import com.example.doan2.chain.smartcontract.ToadKingMarketplace;
 import com.example.doan2.entity.*;
 import com.example.doan2.service.FeedbackService;
 import com.example.doan2.service.Impl.UserServiceImp;
@@ -15,6 +17,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -33,7 +36,7 @@ public class MyToadCategoryController {
     MarketService marketService;
 
     @GetMapping("/myToad")
-    public String showToadDetail(Model model) {
+    public String showToadDetail(Model model) throws Exception {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         if (auth == null || auth instanceof AnonymousAuthenticationToken) {
             return "loginMarket";
@@ -43,6 +46,11 @@ public class MyToadCategoryController {
         if (userFeedback != null) {
             model.addAttribute("updateFeedback", Boolean.TRUE);
             model.addAttribute("userUpdateFeedback", userFeedback);
+            UserContractConnector u = new UserContractConnector(user);
+            List<ToadKingMarketplace.ToadNFTMarket> myNFT = u.GetMyListingNFT();
+            BigInteger balance = u.GetBalance();
+            model.addAttribute("myNFT", myNFT);
+            model.addAttribute("balance", balance);
         } else {
             model.addAttribute("updateFeedback", Boolean.FALSE);
         }
@@ -59,6 +67,8 @@ public class MyToadCategoryController {
         } else {
             model.addAttribute("condition", Boolean.TRUE);
             List<Market> listToadUserSellAtMarket = marketService.findListToadBySellerAtMarket(user.getId());
+
+
             System.out.println("this is listToadUser sell at market:" + listToadUserSellAtMarket.size());
             //Check my toad List
             int count = 0;
