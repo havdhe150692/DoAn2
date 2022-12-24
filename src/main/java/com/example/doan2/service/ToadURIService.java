@@ -1,6 +1,5 @@
 package com.example.doan2.service;
 
-import com.example.doan2.entity.Toad;
 import com.example.doan2.entity.ToadData;
 import com.example.doan2.entity.ToadIngame;
 import com.example.doan2.repository.ToadDataRepository;

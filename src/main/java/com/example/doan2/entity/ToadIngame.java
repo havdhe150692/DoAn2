@@ -35,6 +35,16 @@ public class ToadIngame {
     @PrimaryKeyJoinColumn
     private ToadStatus toadStatus;
 
+    private boolean isSelling;
+
+    public boolean isSelling() {
+        return isSelling;
+    }
+
+    public void setSelling(boolean selling) {
+        isSelling = selling;
+    }
+
     public int getTypeCounter() {
         return typeCounter;
     }

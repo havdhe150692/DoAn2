@@ -1,6 +1,5 @@
 package com.example.doan2.utils.jsonObject;
 
-import com.example.doan2.entity.Toad;
 import com.example.doan2.utils.Enum;
 
 import java.text.SimpleDateFormat;
@@ -15,17 +14,17 @@ public class ToadDetailJson {
     private String toadClass;
 
 
-    public void CopyFromDataFromToad(Toad toad)
-    {
-        this.globalId = toad.getId();
-        this.name = toad.getName();
-        this.rarity = toad.getRarity();
-
-        SimpleDateFormat format = new SimpleDateFormat("MM/dd/yyyy");// FOrmat in This Format or you change Change as well
-        this.dateOfBirth = format.format(toad.getDateOfBirth());
-        this.info = toad.getInfo();
-        this.toadClass = toad.getToadClass().getName();
-    }
+//    public void CopyFromDataFromToad(Toad toad)
+//    {
+//        this.globalId = toad.getId();
+//        this.name = toad.getName();
+//        this.rarity = toad.getRarity();
+//
+//        SimpleDateFormat format = new SimpleDateFormat("MM/dd/yyyy");// FOrmat in This Format or you change Change as well
+//        this.dateOfBirth = format.format(toad.getDateOfBirth());
+//        this.info = toad.getInfo();
+//        this.toadClass = toad.getToadClass().getName();
+//    }
 
     public int getGlobalId() {
         return globalId;

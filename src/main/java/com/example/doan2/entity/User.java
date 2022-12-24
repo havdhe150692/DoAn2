@@ -26,18 +26,6 @@ public class User {
     @PrimaryKeyJoinColumn
     private UserWallet userWallet;
 
-    @JsonIgnore
-    @OneToOne(cascade = CascadeType.ALL, mappedBy = "user")
-    @PrimaryKeyJoinColumn
-    private Inventory inventory;
-
-    public Inventory getInventory() {
-        return inventory;
-    }
-
-    public void setInventory(Inventory inventory) {
-        this.inventory = inventory;
-    }
 
     public String getPassword() {
         return password;

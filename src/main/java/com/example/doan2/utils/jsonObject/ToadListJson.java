@@ -1,6 +1,5 @@
 package com.example.doan2.utils.jsonObject;
 
-import com.example.doan2.entity.Toad;
 import com.example.doan2.utils.Enum;
 
 public class ToadListJson {
@@ -12,13 +11,13 @@ public class ToadListJson {
     private int ownerId;
 
 
-    public void CopyFromDataFromToad(Toad toad)
-    {
-        this.globalId = toad.getId();
-        this.name = toad.getName();
-        this.rarity = toad.getRarity();
-        this.ownerId = toad.getOwner().getId();
-    }
+//    public void CopyFromDataFromToad(Toad toad)
+//    {
+//        this.globalId = toad.getId();
+//        this.name = toad.getName();
+//        this.rarity = toad.getRarity();
+//        this.ownerId = toad.getOwner().getId();
+//    }
 
     public int getListId() {
         return ListId;
