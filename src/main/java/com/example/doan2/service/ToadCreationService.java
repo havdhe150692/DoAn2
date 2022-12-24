@@ -43,7 +43,7 @@ public class ToadCreationService {
 
         Random random = new Random();
         int returnNumber =  random.nextInt(listToad.size());
-        System.out.println("----------Entry ");
+        System.out.println("----------Entry " + returnNumber + " .." + listToad.size());
         System.out.println(listToad.size());
         System.out.println(returnNumber);
         System.out.println("Toad Data " + listToad.get(returnNumber).getName());
@@ -116,6 +116,7 @@ public class ToadCreationService {
         ToadStatus toadStatus = toadStatusLogicService.StatusGeneration(toadData);
         toadIngame.setToadStatus(toadStatus);
         toadStatus.setToadIngame(toadIngame);
+        toadIngame.setSelling(false);
 
         if(!(toadData.getRarity() == Enum.Rarity.Common))
         {
