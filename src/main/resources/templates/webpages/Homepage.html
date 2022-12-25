@@ -5,33 +5,33 @@
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
 
 <head>
-  <meta charset="utf-8">
-  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
 
-  <title>ToadKing</title>
-  <meta content="" name="description">
-  <meta content="" name="keywords">
+    <title>ToadKing</title>
+    <meta content="" name="description">
+    <meta content="" name="keywords">
 
-  <!-- Favicons -->
-<!--  <link th:href="@{../img/favicon.png}" rel="icon">-->
-<!--  <link th:href="@{../img/apple-touch-icon.png}" rel="apple-touch-icon">-->
+    <!-- Favicons -->
+    <!--  <link th:href="@{../img/favicon.png}" rel="icon">-->
+    <!--  <link th:href="@{../img/apple-touch-icon.png}" rel="apple-touch-icon">-->
 
-  <!-- Google Fonts -->
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link
-          href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,600;1,700&family=Amatic+SC:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&family=Inter:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&display=swap"
-          rel="stylesheet">
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+            href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,600;1,700&family=Amatic+SC:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&family=Inter:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&display=swap"
+            rel="stylesheet">
 
-  <!-- Vendor CSS Files -->
-  <link rel="stylesheet" type="text/css" th:href="@{../styles/bootstrap.min.css}">
-  <link rel="stylesheet" type="text/css" th:href="@{../styles/bootstrap-icons.css}">
-  <link rel="stylesheet" type="text/css" th:href="@{../styles/aos.css}">
-  <link rel="stylesheet" type="text/css" th:href="@{../styles/glightbox.min.css}">
-  <link rel="stylesheet" type="text/css" th:href="@{../styles/swiper-bundle.min.css}">
+    <!-- Vendor CSS Files -->
+    <link rel="stylesheet" type="text/css" th:href="@{../styles/bootstrap.min.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{../styles/bootstrap-icons.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{../styles/aos.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{../styles/glightbox.min.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{../styles/swiper-bundle.min.css}">
 
-  <!-- Template Main CSS File -->
-  <link rel="stylesheet" type="text/css" th:href="@{../styles/main.css}">
+    <!-- Template Main CSS File -->
+    <link rel="stylesheet" type="text/css" th:href="@{../styles/main.css}">
 
 </head>
 
@@ -39,355 +39,360 @@
 
 <!-- ======= Header ======= -->
 <header id="header" class="header fixed-top d-flex align-items-center">
-  <div class="container d-flex align-items-center justify-content-between">
+    <div class="container d-flex align-items-center justify-content-between">
 
-    <a th:href="@{/Homepage}" class="logo d-flex align-items-center me-auto me-lg-0">
-      <h1>Toad <span>King.</span></h1>
-    </a>
+        <a th:href="@{/Homepage}" class="logo d-flex align-items-center me-auto me-lg-0">
+            <h1>Toad <span>King.</span></h1>
+        </a>
 
-    <nav id="navbar" class="navbar">
-      <ul>
-        <li><a href="#title">Home</a></li>
-        <li><a href="#about">About</a></li>
-        <li><a href="#ourteam">Our Team members</a></li>
-        <li><a th:href="@{/market}">Market</a></li>
-      </ul>
+        <nav id="navbar" class="navbar">
+            <ul>
+                <li><a href="#title">Home</a></li>
+                <li><a href="#about">About</a></li>
+                <li><a href="#ourteam">Our Team members</a></li>
+                <li><a th:href="@{/market}">Market</a></li>
+            </ul>
 
-    </nav>
-    <!-- .navbar -->
+        </nav>
+        <!-- .navbar -->
 
-    <a class="btn-get-a-toad" th:href="@{/loginMarket}">Start</a>
-    <i class="mobile-nav-toggle mobile-nav-show bi bi-list"></i>
-    <i class="mobile-nav-toggle mobile-nav-hide d-none bi bi-x"></i>
+        <a class="btn-get-a-toad" th:href="@{/loginMarket}">Start</a>
+        <i class="mobile-nav-toggle mobile-nav-show bi bi-list"></i>
+        <i class="mobile-nav-toggle mobile-nav-hide d-none bi bi-x"></i>
 
-  </div>
+    </div>
 </header><!-- End Header -->
 
 <!-- ======= title Section ======= -->
 <section id="title" class="title d-flex align-items-center section-bg">
-  <div class="container">
-    <div class="row justify-content-between gy-5">
-      <div
-              class="col-lg-5 order-2 order-lg-1 d-flex flex-column justify-content-center align-items-center align-items-lg-start text-center text-lg-start">
-        <h2 data-aos="fade-up">What is ToadKing?</h2>
-        <p data-aos="fade-up" data-aos-delay="100">ToadKing a game centered around breedable, collectible, and
-          oh-so-adorable creatures we call CryptoKitties! Each cat is one-of-a-kind and 100% owned by you; it
-          cannot
-          be replicated, taken away, or destroyed.</p>
-        <div class="d-flex" data-aos="fade-up" data-aos-delay="200">
-          <a href="#get-your-own-toad" class="btn-get-a-toad">Get your own Toad</a>
-          <a href="https://www.youtube.com/watch?v=LXb3EKWsInQ"
-             class="glightbox btn-watch-video d-flex align-items-center"><i class="bi bi-play-circle"></i><span>Watch
+    <div class="container">
+        <div class="row justify-content-between gy-5">
+            <div
+                    class="col-lg-5 order-2 order-lg-1 d-flex flex-column justify-content-center align-items-center align-items-lg-start text-center text-lg-start">
+                <h2 data-aos="fade-up">What is ToadKing?</h2>
+                <p data-aos="fade-up" data-aos-delay="100">ToadKing a game centered around breedable, collectible, and
+                    oh-so-adorable creatures we call CryptoKitties! Each cat is one-of-a-kind and 100% owned by you; it
+                    cannot
+                    be replicated, taken away, or destroyed.</p>
+                <div class="d-flex" data-aos="fade-up" data-aos-delay="200">
+                    <a href="#get-your-own-toad" class="btn-get-a-toad">Get your own Toad</a>
+                    <a href="https://www.youtube.com/watch?v=LXb3EKWsInQ"
+                       class="glightbox btn-watch-video d-flex align-items-center"><i
+                            class="bi bi-play-circle"></i><span>Watch
                 Video</span></a>
+                </div>
+            </div>
+            <div class="col-lg-5 order-1 order-lg-2 text-center text-lg-start">
+                <img th:src="@{../img/menu/Toad1.png}" class="img-fluid" alt="" data-aos="zoom-out"
+                     data-aos-delay="300">
+            </div>
         </div>
-      </div>
-      <div class="col-lg-5 order-1 order-lg-2 text-center text-lg-start">
-        <img th:src="@{../img/menu/Toad1.png}" class="img-fluid" alt="" data-aos="zoom-out"
-             data-aos-delay="300">
-      </div>
     </div>
-  </div>
 </section><!-- End Hero Section -->
 
 <main id="main">
 
-  <!-- ======= About Section ======= -->
-  <section id="about" class="about">
-    <div class="container" data-aos="fade-up">
+    <!-- ======= About Section ======= -->
+    <section id="about" class="about">
+        <div class="container" data-aos="fade-up">
 
-      <div class="section-header">
-        <h2>About Us</h2>
-        <p>Learn More <span>About Us</span></p>
-      </div>
+            <div class="section-header">
+                <h2>About Us</h2>
+                <p>Learn More <span>About Us</span></p>
+            </div>
 
-      <div class="row gy-4">
-        <div class="col-lg-7 position-relative about-img" style="background-image: url(../img/Demo.jpg) ;"
-             data-aos="fade-up" data-aos-delay="150">
+            <div class="row gy-4">
+                <div class="col-lg-7 position-relative about-img" style="background-image: url(../img/Demo.jpg) ;"
+                     data-aos="fade-up" data-aos-delay="150">
+
+                </div>
+                <div class="col-lg-5 d-flex align-items-end" data-aos="fade-up" data-aos-delay="300">
+                    <div class="content ps-0 ps-lg-5">
+                        <p class="fst-italic">
+                            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut
+                            labore et
+                            dolore
+                            magna aliqua.
+                        </p>
+                        <ul>
+                            <li><i class="bi bi-check2-all"></i> Ullamco laboris nisi ut aliquip ex ea commodo
+                                consequat.
+                            </li>
+                            <li><i class="bi bi-check2-all"></i> Duis aute irure dolor in reprehenderit in voluptate
+                                velit.
+                            </li>
+                            <li><i class="bi bi-check2-all"></i> Ullamco laboris nisi ut aliquip ex ea commodo
+                                consequat. Duis aute
+                                irure dolor in reprehenderit in voluptate trideta storacalaperda mastiro dolore eu
+                                fugiat nulla
+                                pariatur.
+                            </li>
+                        </ul>
+                        <p>
+                            Ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in
+                            reprehenderit in
+                            voluptate
+                            velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
+                            proident
+                        </p>
+
+
+                        <div class="position-relative mt-4">
+                            <img th:src="@{../img/menu/Toad4.png}" class="img-fluid" alt="">
+                            <a href="https://www.youtube.com/watch?v=LXb3EKWsInQ" class="glightbox play-btn"></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
 
         </div>
-        <div class="col-lg-5 d-flex align-items-end" data-aos="fade-up" data-aos-delay="300">
-          <div class="content ps-0 ps-lg-5">
-            <p class="fst-italic">
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut
-              labore et
-              dolore
-              magna aliqua.
-            </p>
-            <ul>
-              <li><i class="bi bi-check2-all"></i> Ullamco laboris nisi ut aliquip ex ea commodo
-                consequat.
-              </li>
-              <li><i class="bi bi-check2-all"></i> Duis aute irure dolor in reprehenderit in voluptate
-                velit.
-              </li>
-              <li><i class="bi bi-check2-all"></i> Ullamco laboris nisi ut aliquip ex ea commodo
-                consequat. Duis aute
-                irure dolor in reprehenderit in voluptate trideta storacalaperda mastiro dolore eu
-                fugiat nulla
-                pariatur.
-              </li>
-            </ul>
-            <p>
-              Ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in
-              reprehenderit in
-              voluptate
-              velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
-              proident
-            </p>
+    </section><!-- End About Section -->
 
+    <!-- ======= Why Us Section ======= -->
+    <section id="why-us" class="why-us section-bg">
+        <div class="container" data-aos="fade-up">
 
-            <div class="position-relative mt-4">
-              <img th:src="@{../img/menu/Toad4.png}" class="img-fluid" alt="">
-              <a href="https://www.youtube.com/watch?v=LXb3EKWsInQ" class="glightbox play-btn"></a>
+            <div class="row gy-4">
+
+                <div class="col-lg-4" data-aos="fade-up" data-aos-delay="100">
+                    <div class="why-box">
+                        <h3>Why Choose ToadKing?</h3>
+                        <p>
+                            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut
+                            labore et
+                            dolore magna aliqua. Duis aute irure dolor in reprehenderit
+                            Asperiores dolores sed et. Tenetur quia eos. Autem tempore quibusdam vel necessitatibus
+                            optio ad
+                            corporis.
+                        </p>
+                        <div class="text-center">
+                            <a href="#" class="more-btn">Learn More <i class="bx bx-chevron-right"></i></a>
+                        </div>
+                    </div>
+                </div><!-- End Why Box -->
+
+                <div class="col-lg-8 d-flex align-items-center">
+                    <div class="row gy-4">
+
+                        <div class="col-xl-4" data-aos="fade-up" data-aos-delay="200">
+                            <div class="icon-box d-flex flex-column justify-content-center align-items-center">
+                                <i class="bi bi-clipboard-data"></i>
+                                <h4>Wallets</h4>
+                                <p>Consequuntur sunt aut quasi enim aliquam quae harum pariatur laboris nisi ut
+                                    aliquip</p>
+                            </div>
+                        </div><!-- End Icon Box -->
+
+                        <div class="col-xl-4" data-aos="fade-up" data-aos-delay="300">
+                            <div class="icon-box d-flex flex-column justify-content-center align-items-center">
+                                <i class="bi bi-gem"></i>
+                                <h4>Toad</h4>
+                                <p>Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia
+                                    deserunt</p>
+                            </div>
+                        </div><!-- End Icon Box -->
+
+                        <div class="col-xl-4" data-aos="fade-up" data-aos-delay="400">
+                            <div class="icon-box d-flex flex-column justify-content-center align-items-center">
+                                <i class="bi bi-inboxes"></i>
+                                <h4>Volume</h4>
+                                <p>Aut suscipit aut cum nemo deleniti aut omnis. Doloribus ut maiores omnis facere</p>
+                            </div>
+                        </div><!-- End Icon Box -->
+
+                    </div>
+                </div>
+
             </div>
-          </div>
-        </div>
-      </div>
-
-    </div>
-  </section><!-- End About Section -->
-
-  <!-- ======= Why Us Section ======= -->
-  <section id="why-us" class="why-us section-bg">
-    <div class="container" data-aos="fade-up">
-
-      <div class="row gy-4">
-
-        <div class="col-lg-4" data-aos="fade-up" data-aos-delay="100">
-          <div class="why-box">
-            <h3>Why Choose ToadKing?</h3>
-            <p>
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut
-              labore et
-              dolore magna aliqua. Duis aute irure dolor in reprehenderit
-              Asperiores dolores sed et. Tenetur quia eos. Autem tempore quibusdam vel necessitatibus
-              optio ad
-              corporis.
-            </p>
-            <div class="text-center">
-              <a href="#" class="more-btn">Learn More <i class="bx bx-chevron-right"></i></a>
-            </div>
-          </div>
-        </div><!-- End Why Box -->
-
-        <div class="col-lg-8 d-flex align-items-center">
-          <div class="row gy-4">
-
-            <div class="col-xl-4" data-aos="fade-up" data-aos-delay="200">
-              <div class="icon-box d-flex flex-column justify-content-center align-items-center">
-                <i class="bi bi-clipboard-data"></i>
-                <h4>Wallets</h4>
-                <p>Consequuntur sunt aut quasi enim aliquam quae harum pariatur laboris nisi ut
-                  aliquip</p>
-              </div>
-            </div><!-- End Icon Box -->
-
-            <div class="col-xl-4" data-aos="fade-up" data-aos-delay="300">
-              <div class="icon-box d-flex flex-column justify-content-center align-items-center">
-                <i class="bi bi-gem"></i>
-                <h4>Toad</h4>
-                <p>Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia
-                  deserunt</p>
-              </div>
-            </div><!-- End Icon Box -->
-
-            <div class="col-xl-4" data-aos="fade-up" data-aos-delay="400">
-              <div class="icon-box d-flex flex-column justify-content-center align-items-center">
-                <i class="bi bi-inboxes"></i>
-                <h4>Volume</h4>
-                <p>Aut suscipit aut cum nemo deleniti aut omnis. Doloribus ut maiores omnis facere</p>
-              </div>
-            </div><!-- End Icon Box -->
-
-          </div>
-        </div>
-
-      </div>
-
-    </div>
-  </section>
-
-
-  <!-- ======= members Section ======= -->
-  <section id="ourteam" class="members section-bg">
-    <div class="container" data-aos="fade-up">
-      <div class="section-header">
-        <h2>Our Crew</h2>
-        <p>Our <span>Proffesional</span> Teammates</p>
-      </div>
-
-      <div class="row gy-4">
-
-        <div class="col-lg-4 col-md-6 d-flex align-items-stretch" data-aos="fade-up" data-aos-delay="100">
-          <div class="team-member">
-            <div class="member-img">
-              <img th:src="@{../img/chefs/chefs-3.jpg}" class="img-fluid" alt="">
-              <div class="social">
-                <a href=""><i class="bi bi-twitter"></i></a>
-                <a href=""><i class="bi bi-facebook"></i></a>
-                <a href=""><i class="bi bi-instagram"></i></a>
-                <a href=""><i class="bi bi-linkedin"></i></a>
-              </div>
-            </div>
-            <div class="member-info">
-              <h4>Walter White</h4>
-              <span>Master Chef</span>
-              <p>Velit aut quia fugit et et. Dolorum ea voluptate vel tempore tenetur ipsa quae aut. Ipsum
-                exercitationem iure minima enim corporis et voluptate.</p>
-            </div>
-          </div>
-        </div>
-        <!-- End Team Member -->
-
-        <div class="col-lg-4 col-md-6 d-flex align-items-stretch" data-aos="fade-up" data-aos-delay="200">
-          <div class="team-member">
-            <div class="member-img">
-              <img th:src="@{../img/chefs/chefs-3.jpg}" class="img-fluid" alt="">
-              <div class="social">
-                <a href=""><i class="bi bi-twitter"></i></a>
-                <a href=""><i class="bi bi-facebook"></i></a>
-                <a href=""><i class="bi bi-instagram"></i></a>
-                <a href=""><i class="bi bi-linkedin"></i></a>
-              </div>
-            </div>
-            <div class="member-info">
-              <h4>Sarah Jhonson</h4>
-              <span>Patissier</span>
-              <p>Quo esse repellendus quia id. Est eum et accusantium pariatur fugit nihil minima suscipit corporis.
-                Voluptate sed quas reiciendis animi neque sapiente.</p>
-            </div>
-          </div>
-        </div>
-        <!-- End Team Member -->
-        <div class="col-lg-4 col-md-6 d-flex align-items-stretch" data-aos="fade-up" data-aos-delay="200">
-          <div class="team-member">
-            <div class="member-img">
-              <img th:src="@{../img/chefs/chefs-3.jpg}" class="img-fluid" alt="">
-              <div class="social">
-                <a href=""><i class="bi bi-twitter"></i></a>
-                <a href=""><i class="bi bi-facebook"></i></a>
-                <a href=""><i class="bi bi-instagram"></i></a>
-                <a href=""><i class="bi bi-linkedin"></i></a>
-              </div>
-            </div>
-            <div class="member-info">
-              <h4>Sarah Jhonson</h4>
-              <span>Patissier</span>
-              <p>Quo esse repellendus quia id. Est eum et accusantium pariatur fugit nihil minima suscipit corporis.
-                Voluptate sed quas reiciendis animi neque sapiente.</p>
-            </div>
-          </div>
-        </div>
-        <div class="col-lg-4 col-md-6 d-flex align-items-stretch" data-aos="fade-up" data-aos-delay="200">
-          <div class="team-member">
-            <div class="member-img">
-              <img th:src="@{../img/chefs/chefs-3.jpg}" class="img-fluid" alt="">
-              <div class="social">
-                <a href=""><i class="bi bi-twitter"></i></a>
-                <a href=""><i class="bi bi-facebook"></i></a>
-                <a href=""><i class="bi bi-instagram"></i></a>
-                <a href=""><i class="bi bi-linkedin"></i></a>
-              </div>
-            </div>
-            <div class="member-info">
-              <h4>Sarah Jhonson</h4>
-              <span>Patissier</span>
-              <p>Quo esse repellendus quia id. Est eum et accusantium pariatur fugit nihil minima suscipit corporis.
-                Voluptate sed quas reiciendis animi neque sapiente.</p>
-            </div>
-          </div>
-        </div>
-        <div class="col-lg-4 col-md-6 d-flex align-items-stretch" data-aos="fade-up" data-aos-delay="200">
-          <div class="team-member">
-            <div class="member-img">
-              <img th:src="@{../img/chefs/chefs-3.jpg}" class="img-fluid" alt="">
-              <div class="social">
-                <a href=""><i class="bi bi-twitter"></i></a>
-                <a href=""><i class="bi bi-facebook"></i></a>
-                <a href=""><i class="bi bi-instagram"></i></a>
-                <a href=""><i class="bi bi-linkedin"></i></a>
-              </div>
-            </div>
-            <div class="member-info">
-              <h4>Sarah Jhonson</h4>
-              <span>Patissier</span>
-              <p>Quo esse repellendus quia id. Est eum et accusantium pariatur fugit nihil minima suscipit corporis.
-                Voluptate sed quas reiciendis animi neque sapiente.</p>
-            </div>
-          </div>
-        </div>
-      </div>
-      <!-- End Team Member -->
-
-    </div>
-    <!-- End Team Section -->
-    <!-- ======= Footer ======= -->
-    <footer id="footer" class="footer">
-
-      <div class="container">
-        <div class="row gy-3">
-          <div class="col-lg-3 col-md-6 d-flex">
-            <!-- <i class="bi bi-geo-alt icon"></i> -->
-            <div>
-              <!-- <h4>Address</h4> -->
-              <p>
-                TBox <br>
-                Dashboard<br>
-                Marketplace
-              </p>
-            </div>
-          </div>
-          <div class="col-lg-3 col-md-6 footer-links d-flex">
-            <!-- <i class="bi bi-telephone icon"></i> -->
-            <div>
-              <!-- <h4>Reservations</h4> -->
-              <p>
-                Game Tutorial<br>
-                Collections<br>
-              </p>
-            </div>
-          </div>
-
-          <div class="col-lg-3 col-md-6 footer-links d-flex">
-            <!-- <i class="bi bi-clock icon"></i> -->
-            <div>
-              <!-- <h4>Opening Hours</h4> -->
-              <p>
-                About us<br>
-                Contact us<br>
-                FAQ
-              </p>
-            </div>
-          </div>
-
-          <div class="col-lg-3 col-md-6 footer-links">
-            <h4>Follow Us</h4>
-            <div class="social-links d-flex">
-              <a href="#" class="twitter"><i class="bi bi-twitter"></i></a>
-              <a href="#" class="facebook"><i class="bi bi-facebook"></i></a>
-              <a href="#" class="instagram"><i class="bi bi-instagram"></i></a>
-              <a href="#" class="linkedin"><i class="bi bi-linkedin"></i></a>
-            </div>
-          </div>
 
         </div>
-      </div>
+    </section>
 
-      <div class="container">
-        <div class="copyright">
-          2022 &copy;<strong><span>ToadKing Game. All Rights Reserved</span></strong>.
+
+    <!-- ======= members Section ======= -->
+    <section id="ourteam" class="members section-bg">
+        <div class="container" data-aos="fade-up">
+            <div class="section-header">
+                <h2>Our Crew</h2>
+                <p>Our <span>Proffesional</span> Teammates</p>
+            </div>
+
+            <div class="row gy-4">
+
+                <div class="col-lg-4 col-md-6 d-flex align-items-stretch" data-aos="fade-up" data-aos-delay="100">
+                    <div class="team-member">
+                        <div class="member-img">
+                            <img th:src="@{../img/chefs/chefs-3.jpg}" class="img-fluid" alt="">
+                            <div class="social">
+                                <a href=""><i class="bi bi-twitter"></i></a>
+                                <a href=""><i class="bi bi-facebook"></i></a>
+                                <a href=""><i class="bi bi-instagram"></i></a>
+                                <a href=""><i class="bi bi-linkedin"></i></a>
+                            </div>
+                        </div>
+                        <div class="member-info">
+                            <h4>Walter White</h4>
+                            <span>Master Chef</span>
+                            <p>Velit aut quia fugit et et. Dolorum ea voluptate vel tempore tenetur ipsa quae aut. Ipsum
+                                exercitationem iure minima enim corporis et voluptate.</p>
+                        </div>
+                    </div>
+                </div>
+                <!-- End Team Member -->
+
+                <div class="col-lg-4 col-md-6 d-flex align-items-stretch" data-aos="fade-up" data-aos-delay="200">
+                    <div class="team-member">
+                        <div class="member-img">
+                            <img th:src="@{../img/chefs/chefs-3.jpg}" class="img-fluid" alt="">
+                            <div class="social">
+                                <a href=""><i class="bi bi-twitter"></i></a>
+                                <a href=""><i class="bi bi-facebook"></i></a>
+                                <a href=""><i class="bi bi-instagram"></i></a>
+                                <a href=""><i class="bi bi-linkedin"></i></a>
+                            </div>
+                        </div>
+                        <div class="member-info">
+                            <h4>Sarah Jhonson</h4>
+                            <span>Patissier</span>
+                            <p>Quo esse repellendus quia id. Est eum et accusantium pariatur fugit nihil minima suscipit
+                                corporis.
+                                Voluptate sed quas reiciendis animi neque sapiente.</p>
+                        </div>
+                    </div>
+                </div>
+                <!-- End Team Member -->
+                <div class="col-lg-4 col-md-6 d-flex align-items-stretch" data-aos="fade-up" data-aos-delay="200">
+                    <div class="team-member">
+                        <div class="member-img">
+                            <img th:src="@{../img/chefs/chefs-3.jpg}" class="img-fluid" alt="">
+                            <div class="social">
+                                <a href=""><i class="bi bi-twitter"></i></a>
+                                <a href=""><i class="bi bi-facebook"></i></a>
+                                <a href=""><i class="bi bi-instagram"></i></a>
+                                <a href=""><i class="bi bi-linkedin"></i></a>
+                            </div>
+                        </div>
+                        <div class="member-info">
+                            <h4>Sarah Jhonson</h4>
+                            <span>Patissier</span>
+                            <p>Quo esse repellendus quia id. Est eum et accusantium pariatur fugit nihil minima suscipit
+                                corporis.
+                                Voluptate sed quas reiciendis animi neque sapiente.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6 d-flex align-items-stretch" data-aos="fade-up" data-aos-delay="200">
+                    <div class="team-member">
+                        <div class="member-img">
+                            <img th:src="@{../img/chefs/chefs-3.jpg}" class="img-fluid" alt="">
+                            <div class="social">
+                                <a href=""><i class="bi bi-twitter"></i></a>
+                                <a href=""><i class="bi bi-facebook"></i></a>
+                                <a href=""><i class="bi bi-instagram"></i></a>
+                                <a href=""><i class="bi bi-linkedin"></i></a>
+                            </div>
+                        </div>
+                        <div class="member-info">
+                            <h4>Sarah Jhonson</h4>
+                            <span>Patissier</span>
+                            <p>Quo esse repellendus quia id. Est eum et accusantium pariatur fugit nihil minima suscipit
+                                corporis.
+                                Voluptate sed quas reiciendis animi neque sapiente.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6 d-flex align-items-stretch" data-aos="fade-up" data-aos-delay="200">
+                    <div class="team-member">
+                        <div class="member-img">
+                            <img th:src="@{../img/chefs/chefs-3.jpg}" class="img-fluid" alt="">
+                            <div class="social">
+                                <a href=""><i class="bi bi-twitter"></i></a>
+                                <a href=""><i class="bi bi-facebook"></i></a>
+                                <a href=""><i class="bi bi-instagram"></i></a>
+                                <a href=""><i class="bi bi-linkedin"></i></a>
+                            </div>
+                        </div>
+                        <div class="member-info">
+                            <h4>Sarah Jhonson</h4>
+                            <span>Patissier</span>
+                            <p>Quo esse repellendus quia id. Est eum et accusantium pariatur fugit nihil minima suscipit
+                                corporis.
+                                Voluptate sed quas reiciendis animi neque sapiente.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- End Team Member -->
+
         </div>
+        <!-- End Team Section -->
+        <!-- ======= Footer ======= -->
+        <footer id="footer" class="footer">
 
-      </div>
+            <div class="container">
+                <div class="row gy-3">
+                    <div class="col-lg-3 col-md-6 d-flex">
+                        <!-- <i class="bi bi-geo-alt icon"></i> -->
+                        <div>
+                            <!-- <h4>Address</h4> -->
+                            <p>
+                                TBox <br>
+                                Dashboard<br>
+                                Marketplace
+                            </p>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-6 footer-links d-flex">
+                        <!-- <i class="bi bi-telephone icon"></i> -->
+                        <div>
+                            <!-- <h4>Reservations</h4> -->
+                            <p>
+                                Game Tutorial<br>
+                                Collections<br>
+                            </p>
+                        </div>
+                    </div>
 
-    </footer><!-- End Footer -->
-    <!-- End Footer -->
+                    <div class="col-lg-3 col-md-6 footer-links d-flex">
+                        <!-- <i class="bi bi-clock icon"></i> -->
+                        <div>
+                            <!-- <h4>Opening Hours</h4> -->
+                            <p>
+                                About us<br>
+                                Contact us<br>
+                                FAQ
+                            </p>
+                        </div>
+                    </div>
 
-    <a href="#" class="scroll-top d-flex align-items-center justify-content-center"><i
-            class="bi bi-arrow-up-short"></i></a>
+                    <div class="col-lg-3 col-md-6 footer-links">
+                        <h4>Follow Us</h4>
+                        <div class="social-links d-flex">
+                            <a href="#" class="twitter"><i class="bi bi-twitter" aria-hidden="true"></i></a>
+                            <a href="#" class="facebook"> <i class="bi bi-facebook"></i></a>
+                            <a href="#" class="instagram"><i class="bi bi-instagram"></i></a>
+                            <a href="#" class="linkedin"><i class="bi bi-linkedin"></i></a>
+                        </div>
+                    </div>
 
-    <div id="preloader"></div>
-  </section>
+                </div>
+            </div>
+
+            <div class="container">
+                <div class="copyright">
+                    2022 &copy;<strong><span>ToadKing Game. All Rights Reserved</span></strong>.
+                </div>
+
+            </div>
+
+        </footer><!-- End Footer -->
+        <!-- End Footer -->
+
+        <a href="#" class="scroll-top d-flex align-items-center justify-content-center"><i
+                class="bi bi-arrow-up-short"></i></a>
+
+        <div id="preloader"></div>
+    </section>
 </main>
 <!-- Vendor JS Files -->
 <script th:src="@{../js/bootstrap.bundle.min.js}"></script>

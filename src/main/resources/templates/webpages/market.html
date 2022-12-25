@@ -13,13 +13,13 @@
 
 
     <!-- Favicon -->
-<!--    <link href="img/favicon.ico" rel="icon">-->
+    <!--    <link href="img/favicon.ico" rel="icon">-->
 
     <!-- Google Web Fonts -->
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap"
-        rel="stylesheet">
-
+          rel="stylesheet">
+    <link rel="stylesheet" type="text/css" th:href="@{../styles/bootstrap-icons.css}">
     <!-- Font Awesome -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
 
@@ -31,322 +31,327 @@
 </head>
 
 <body>
-    <!-- Container -->
-    <div class="container-fluid">
-        <div class="row align-items-center py-3 px-xl-5">
-            <div class="col-lg-3 d-none d-lg-block">
-                <a th:href="@{/market}" class="text-decoration-none">
+<!-- Container -->
+<div class="container-fluid">
+    <div class="row align-items-center py-3 px-xl-5">
+        <div class="col-lg-3 d-none d-lg-block">
+            <a th:href="@{/market}" class="text-decoration-none">
+                <h1 class="m-0 display-5 font-weight-semi-bold"><span
+                        class="text-primary font-weight-bold border px-3 mr-1">Toad</span>Market</h1>
+            </a>
+        </div>
+        <div class="col-lg-6 col-6 text-left">
+            <form method="post" th:action="@{/searchToadContainsName}">
+                <div class="input-group">
+                    <input th:value="${searchNameContains}" name="searchByNameContains" type="text" class="form-control"
+                           placeholder="Search toad contain name">
+                    <div class="input-group-append">
+                        <button class="input-group-text bg-transparent text-primary" type="submit"><i
+                                class="fa fa-search"> </i></button>
+                    </div>
+                </div>
+            </form>
+        </div>
+        <div class="col-lg-3 col-6 text-right">
+
+            <a th:href="@{/checkUserProfile}" class="btn border">
+                <i class="fas fa-user text-primary"></i>
+                My profile
+            </a>
+        </div>
+    </div>
+</div>
+<!-- End Container  -->
+<!-- Navbar Start -->
+<div class="container-fluid mb-5">
+    <div class="row border-top px-xl-5">
+        <div class="col-lg-3 d-none d-lg-block">
+            <a class="btn shadow-none d-flex align-items-center justify-content-between bg-primary text-white w-100"
+               data-toggle="collapse" href="#navbar-vertical"
+               style="height: 65px; margin-top: -1px; padding: 0 30px;">
+                <h6 class="m-0">Categories</h6>
+                <i class="fa fa-angle-down text-dark"></i>
+            </a>
+            <nav class="collapse show navbar navbar-vertical navbar-light align-items-start p-0 border border-top-0 border-bottom-0"
+                 id="navbar-vertical">
+                <div class="navbar-nav w-100 overflow-hidden toadClassL">
+                    <tr th:each="toadClass : ${listToadClass}">
+                        <a th:href="@{/categories/{id}(id=${toadClass.id})}" class="nav-item nav-link"
+                           th:text="${toadClass.name}"></a>
+                    </tr>
+                </div>
+            </nav>
+        </div>
+        <div class="col-lg-9">
+            <nav class="navbar navbar-expand-lg bg-light navbar-light py-3 py-lg-0 px-0">
+                <a th:href="@{/market}" class="text-decoration-none d-block d-lg-none">
                     <h1 class="m-0 display-5 font-weight-semi-bold"><span
                             class="text-primary font-weight-bold border px-3 mr-1">Toad</span>Market</h1>
                 </a>
-            </div>
-            <div class="col-lg-6 col-6 text-left">
-                <form method="post" th:action="@{/searchToadContainsName}">
-                    <div class="input-group">
-                        <input th:value="${searchNameContains}" name="searchByNameContains" type="text" class="form-control" placeholder="Search toad contain name">
-                        <div class="input-group-append">
-                            <button class="input-group-text bg-transparent text-primary" type="submit"><i
-                                    class="fa fa-search"> </i></button>
-                        </div>
+                <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbarCollapse">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse justify-content-between" id="navbarCollapse">
+                    <div class="navbar-nav mr-auto py-0">
+                        <a th:href="@{/market}" class="nav-item nav-link active">Home</a>
+                        <a th:href="@{/shop}" class="nav-item nav-link">Market</a>
+                        <a th:href="@{/myToad}" class="nav-item nav-link">My Toad</a>
+                        <a th:href="@{/feedbackGame}" class="nav-item nav-link">Rate Our Game!</a>
+                        <a th:href="@{/Homepage}" class="nav-item nav-link">Landing Page</a>
                     </div>
-                </form>
-            </div>
-            <div class="col-lg-3 col-6 text-right">
-
-                <a th:href="@{/checkUserProfile}" class="btn border">
-                    <i class="fas fa-user text-primary"></i>
-                    My profile
-                </a>
-            </div>
-        </div>
-    </div>
-    <!-- End Container  -->
-    <!-- Navbar Start -->
-    <div class="container-fluid mb-5">
-        <div class="row border-top px-xl-5">
-            <div class="col-lg-3 d-none d-lg-block">
-                <a class="btn shadow-none d-flex align-items-center justify-content-between bg-primary text-white w-100"
-                    data-toggle="collapse" href="#navbar-vertical"
-                    style="height: 65px; margin-top: -1px; padding: 0 30px;">
-                    <h6 class="m-0">Categories</h6>
-                    <i class="fa fa-angle-down text-dark"></i>
-                </a>
-                <nav class="collapse show navbar navbar-vertical navbar-light align-items-start p-0 border border-top-0 border-bottom-0"
-                    id="navbar-vertical">
-                    <div class="navbar-nav w-100 overflow-hidden toadClassL">
-                        <tr th:each="toadClass : ${listToadClass}">
-                            <a th:href="@{/categories/{id}(id=${toadClass.id})}" class="nav-item nav-link" th:text="${toadClass.name}"></a>
-                        </tr>
-                    </div>
-                </nav>
-            </div>
-            <div class="col-lg-9">
-                <nav class="navbar navbar-expand-lg bg-light navbar-light py-3 py-lg-0 px-0">
-                    <a th:href="@{/market}" class="text-decoration-none d-block d-lg-none">
-                        <h1 class="m-0 display-5 font-weight-semi-bold"><span
-                                class="text-primary font-weight-bold border px-3 mr-1">Toad</span>Market</h1>
-                    </a>
-                    <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbarCollapse">
-                        <span class="navbar-toggler-icon"></span>
-                    </button>
-                    <div class="collapse navbar-collapse justify-content-between" id="navbarCollapse">
-                        <div class="navbar-nav mr-auto py-0">
-                            <a th:href="@{/market}" class="nav-item nav-link active">Home</a>
-                            <a th:href="@{/shop}" class="nav-item nav-link">Market</a>
-                            <a th:href="@{/myToad}" class="nav-item nav-link">My Toad</a>
-                            <a th:href="@{/feedbackGame}" class="nav-item nav-link">Rate Our Game!</a>
-                            <a th:href="@{/Homepage}" class="nav-item nav-link">Landing Page</a>
-                        </div>
-                        <div class="navbar-nav ml-auto py-0">
-                            <a th:href="@{/game}" class="nav-item nav-link">
-                                <i class="fas fa-gamepad text-primary"></i>
-                                Let's Play</a>
-                            <a class="nav-item nav-link nonClickable"> Welcome <b>[[${#request.userPrincipal.principal.name}]]</b> </a>
-                           <form th:action="@{/logout}" method="post">
-                               <button type="submit" class="nav-item nav-link customBtn"> Logout</button>
-                           </form>
-                        </div>
-                    </div>
-                </nav>
-                <div id="header-carousel" class="carousel slide" data-ride="carousel">
-                    <div class="carousel-inner">
-                        <div class="carousel-item active" style="height: 410px;">
-                            <img style="width: 100%; height 100%; object-fit: contain;" class="img-fluid" th:src="@{../img/Toad1.jpg}" alt="Image"/>
-                            <div class="carousel-caption d-flex flex-column align-items-center justify-content-center">
-                                <div class="p-3" style="max-width: 700px;">
-                                    <h4 class="text-light text-uppercase font-weight-medium mb-3">10% Off Your First
-                                        Purchase</h4>
-                                    <h3 class="display-4 text-white font-weight-semi-bold mb-4">Affordable Price</h3>
-                                    <a th:href="@{/shop}" class="btn btn-light py-2 px-3">Shop Now</a>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="carousel-item" style="height: 410px;">
-                            <img style="width: 100%; height 100%; object-fit: contain;"  class="img-fluid" th:src="@{../img/toad.jpg}" alt="Image"/>
-                            <div class="carousel-caption d-flex flex-column align-items-center justify-content-center">
-                                <div class="p-3" style="max-width: 700px;">
-                                    <h4 class="text-light text-uppercase font-weight-medium mb-3">10% Off Your First
-                                        Order</h4>
-                                    <h3 class="display-4 text-white font-weight-semi-bold mb-4">Have your own Toad</h3>
-                                    <a th:href="@{/shop}" class="btn btn-light py-2 px-3">Shop Now</a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <a class="carousel-control-prev" href="#header-carousel" data-slide="prev">
-                        <div class="btn btn-dark" style="width: 45px; height: 45px;">
-                            <span class="carousel-control-prev-icon mb-n2"></span>
-                        </div>
-                    </a>
-                    <a class="carousel-control-next" href="#header-carousel" data-slide="next">
-                        <div class="btn btn-dark" style="width: 45px; height: 45px;">
-                            <span class="carousel-control-next-icon mb-n2"></span>
-                        </div>
-                    </a>
-                </div>
-            </div>
-        </div>
-    </div>
-    <!-- Navbar End -->
-    <!-- feedback-->
-    <div id="feedback-form-wrapper">
-        <div id="floating-icon">
-            <button style="background-color: #C7D3FF;" type="button" class="btn btn-secondary btn-sm rounded-0"
-                    data-toggle="modal"
-                    data-target="#exampleModal">
-                Feedback
-            </button>
-
-        </div>
-        <div id="feedback-form-modal">
-            <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
-                 aria-hidden="true">
-                <div class="modal-dialog">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h5 class="modal-title" id="exampleModalLabel">Feedback Form</h5>
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
-                            </button>
-                        </div>
-                        <form method="post" th:action="@{/feedbackProcessing}" onsubmit="return validateRadioButton()"
-                        >
-                            <div class="modal-body">
-                                <div class="form-group">
-                                    <label>How likely you would like to rate our game?</label>
-                                    <label id="radioMess"></label>
-                                    <div class="rating-input-wrapper d-flex justify-content-between mt-2">
-                                        <label>
-                                            <input th:checked="${userUpdateFeedback?.ratePoint == 1}" type="radio"
-                                                   name="rating" value="1"/>
-                                            <span class="border rounded px-3 py-2">1</span>
-                                        </label>
-                                        <label>
-                                            <input th:checked="${userUpdateFeedback?.ratePoint == 2}" type="radio"
-                                                   name="rating" value="2"/>
-                                            <span class="border rounded px-3 py-2">2</span>
-                                        </label>
-                                        <label>
-                                            <input th:checked="${userUpdateFeedback?.ratePoint == 3}" type="radio"
-                                                   name="rating" value="3"/>
-                                            <span class="border rounded px-3 py-2">3</span>
-                                        </label>
-                                        <label>
-                                            <input th:checked="${userUpdateFeedback?.ratePoint == 4}" type="radio"
-                                                   name="rating" value="4"/>
-                                            <span class="border rounded px-3 py-2">4</span>
-                                        </label>
-                                        <label>
-                                            <input th:checked="${userUpdateFeedback?.ratePoint == 5}" type="radio"
-                                                   name="rating" value="5"/>
-                                            <span class="border rounded px-3 py-2">5</span>
-                                        </label>
-                                        <label>
-                                            <input th:checked="${userUpdateFeedback?.ratePoint == 6}" type="radio"
-                                                   name="rating" value="6"/>
-                                            <span class="border rounded px-3 py-2">6</span>
-                                        </label>
-                                        <label>
-                                            <input th:checked="${userUpdateFeedback?.ratePoint == 7}" type="radio"
-                                                   name="rating" value="7"/>
-                                            <span class="border rounded px-3 py-2">7</span>
-                                        </label>
-                                        <label>
-                                            <input th:checked="${userUpdateFeedback?.ratePoint == 8}" type="radio"
-                                                   name="rating" value="8"/>
-                                            <span class="border rounded px-3 py-2">8</span>
-                                        </label>
-                                        <label>
-                                            <input th:checked="${userUpdateFeedback?.ratePoint == 9}" type="radio"
-                                                   name="rating" value="9"/>
-                                            <span class="border rounded px-3 py-2">9</span>
-                                        </label>
-                                        <label>
-                                            <input th:checked="${userUpdateFeedback?.ratePoint == 10}" type="radio"
-                                                   name="rating" value="10"/>
-                                            <span class="border rounded px-3 py-2">10</span>
-                                        </label>
-                                    </div>
-                                    <div class="rating-labels d-flex justify-content-between mt-1">
-                                        <label>Very unlikely</label>
-                                        <label>Very likely</label>
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <label>Your feedback helps us to improve our game in the future</label>
-                                    <label th:text="${feedbackMess}" style="color: red;"></label>
-                                    <textarea th:text="${userUpdateFeedback?.info}" name="feedback" required wrap="hard"
-                                              maxlength="500"
-                                              class="form-control" rows="4"></textarea>
-                                </div>
-                            </div>
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                <button th:if="${updateFeedback == false}"  type="submit"
-                                        class="btn btn-primary">Enter
-                                </button>
-                                <button th:if="${updateFeedback == true}" type="submit"
-                                        class="btn btn-primary">Update
-                                </button>
-                            </div>
+                    <div class="navbar-nav ml-auto py-0">
+                        <a th:href="@{/game}" class="nav-item nav-link">
+                            <i class="fas fa-gamepad text-primary"></i>
+                            Let's Play</a>
+                        <a class="nav-item nav-link nonClickable"> Welcome <b>[[${#request.userPrincipal.principal.name}]]</b>
+                        </a>
+                        <form th:action="@{/logout}" method="post">
+                            <button type="submit" class="nav-item nav-link customBtn"> Logout</button>
                         </form>
                     </div>
                 </div>
-            </div>
-        </div>
-    </div>
-    <!--end feedback-->
-    <!-- Categories Start -->
-    <div class="container-fluid pt-5">
-        <div class="row px-xl-5 pb-3">
-            <div class="col-lg-4 col-md-6 pb-1">
-                <div class="cat-item d-flex flex-column border mb-4" style="padding: 30px;">
-                    <p class="text-right" th:text="${countEconomicToad} + ' Products'"></p>
-                    <a th:href="@{categories/{id}(id=${2})}" class="cat-img position-relative overflow-hidden mb-3">
-                        <img class="img-fluid" th:src="@{../img/menu/Toad7.png}" alt="Image"/>
-                    </a>
-                    <h5 class="font-weight-semi-bold m-0">Economic Toad</h5>
-                </div>
-            </div>
-            <div class="col-lg-4 col-md-6 pb-1">
-                <div class="cat-item d-flex flex-column border mb-4" style="padding: 30px;">
-                    <p class="text-right" th:text="${countGraphicToad} + ' Products'"></p>
-                    <a th:href="@{categories/{id}(id=${4})}" class="cat-img position-relative overflow-hidden mb-3">
-                        <img class="img-fluid" th:src="@{../img/menu/Toad2.png}" alt="Image"/>
-                    </a>
-                    <h5 class="font-weight-semi-bold m-0">Graphic Toad</h5>
-                </div>
-            </div>
-            <div class="col-lg-4 col-md-6 pb-1">
-                <div class="cat-item d-flex flex-column border mb-4" style="padding: 30px;">
-                    <p class="text-right" th:text="${countArtistToad} + ' Products'"></p>
-                    <a th:href="@{categories/{id}(id=${6})}" class="cat-img position-relative overflow-hidden mb-3">
-                        <img class="img-fluid" th:src="@{../img/menu/Toad8.png}" alt="Image"/>
-                    </a>
-                    <h5 class="font-weight-semi-bold m-0">Artist Toad</h5>
-                </div>
-            </div>
-            <div class="col-lg-4 col-md-6 pb-1">
-                <div class="cat-item d-flex flex-column border mb-4" style="padding: 30px;">
-                    <p class="text-right" th:text="${countLectureToad} + ' Products'"></p>
-                    <a th:href="@{categories/{id}(id=${8})}" class="cat-img position-relative overflow-hidden mb-3">
-                        <img class="img-fluid" th:src="@{../img/menu/Toad9.png}" alt="Image"/>
-                    </a>
-                    <h5 class="font-weight-semi-bold m-0">Lecture Toad</h5>
-                </div>
-            </div>
-            <div class="col-lg-4 col-md-6 pb-1">
-                <div class="cat-item d-flex flex-column border mb-4" style="padding: 30px;">
-                    <p class="text-right" th:text="${countAIToad} + ' Products'"></p>
-                    <a th:href="@{categories/{id}(id=${5})}" class="cat-img position-relative overflow-hidden mb-3">
-                        <img class="img-fluid" th:src="@{../img/menu/Toad10.png}" alt="Image"/>
-                    </a>
-                    <h5 class="font-weight-semi-bold m-0">AI Toad</h5>
-                </div>
-            </div>
-            <div class="col-lg-4 col-md-6 pb-1">
-                <div class="cat-item d-flex flex-column border mb-4" style="padding: 30px;">
-                    <p class="text-right" th:text="${countSoftwareToad} + ' Products'"></p>
-                    <a th:href="@{categories/{id}(id=${3})}" class="cat-img position-relative overflow-hidden mb-3">
-                        <img class="img-fluid" th:src="@{../img/menu/Toad13.png}" alt="Image"/>
-                    </a>
-                    <h5 class="font-weight-semi-bold m-0">Software Toad</h5>
-                </div>
-            </div>
-        </div>
-    </div>
-    <!-- Categories End -->
-
-
-    <!-- Offer Start -->
-    <div class="container-fluid offer pt-5">
-        <div class="row px-xl-5">
-            <div class="col-md-6 pb-4">
-                <div class="position-relative bg-secondary text-center text-md-right text-white mb-2 py-5 px-5">
-                    <img th:src="@{../img/menu/Toad11.png}" alt="">
-                    <div class="position-relative" style="z-index: 1;">
-                        <h5 class="text-uppercase text-primary mb-3">20% off the all purchase</h5>
-                        <h1 class="mb-4 font-weight-semi-bold">Toad Event</h1>
-                        <a th:href="@{/shop}" class="btn btn-outline-primary py-md-2 px-md-3">Shop Now</a>
+            </nav>
+            <div id="header-carousel" class="carousel slide" data-ride="carousel">
+                <div class="carousel-inner">
+                    <div class="carousel-item active" style="height: 410px;">
+                        <img style="width: 100%; height 100%; object-fit: contain;" class="img-fluid"
+                             th:src="@{../img/41185.jpg}" alt="Image"/>
+                        <div class="carousel-caption d-flex flex-column align-items-center justify-content-center">
+                            <div class="p-3" style="max-width: 700px;">
+                                <!--                                    <h4 class="text-light text-uppercase font-weight-medium mb-3">10% Off Your First-->
+                                <!--                                        Purchase</h4>-->
+                                <h3 class="display-4 text-white font-weight-semi-bold mb-4">Affordable Price</h3>
+                                <a th:href="@{/shop}" class="btn btn-light py-2 px-3">Shop Now</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="carousel-item" style="height: 410px;">
+                        <img style="width: 100%; height 100%; object-fit: contain;" class="img-fluid"
+                             th:src="@{../img/123.jpg}" alt="Image"/>
+                        <div class="carousel-caption d-flex flex-column align-items-center justify-content-center">
+                            <div class="p-3" style="max-width: 700px;">
+                                <!--                                    <h4 class="text-light text-uppercase font-weight-medium mb-3">10% Off Your First-->
+                                <!--                                        Order</h4>-->
+                                <h3 class="display-4 text-white font-weight-semi-bold mb-4">Have your own Toad</h3>
+                                <a th:href="@{/shop}" class="btn btn-light py-2 px-3">Shop Now</a>
+                            </div>
+                        </div>
                     </div>
                 </div>
-            </div>
-            <div class="col-md-6 pb-4">
-                <div class="position-relative bg-secondary text-center text-md-left text-white mb-2 py-5 px-5">
-                    <img th:src="@{../img/menu/Toad12.png}" alt="">
-                    <div class="position-relative" style="z-index: 1;">
-                        <h5 class="text-uppercase text-primary mb-3">20% off the all purchase</h5>
-                        <h1 class="mb-4 font-weight-semi-bold">Toad Festival</h1>
-                        <a th:href="@{/shop}" class="btn btn-outline-primary py-md-2 px-md-3">Shop Now</a>
+                <a class="carousel-control-prev" href="#header-carousel" data-slide="prev">
+                    <div class="btn btn-dark" style="width: 45px; height: 45px;">
+                        <span class="carousel-control-prev-icon mb-n2"></span>
                     </div>
+                </a>
+                <a class="carousel-control-next" href="#header-carousel" data-slide="next">
+                    <div class="btn btn-dark" style="width: 45px; height: 45px;">
+                        <span class="carousel-control-next-icon mb-n2"></span>
+                    </div>
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Navbar End -->
+<!-- feedback-->
+<div id="feedback-form-wrapper">
+    <div id="floating-icon">
+        <button style="background-color: #C7D3FF;" type="button" class="btn btn-secondary btn-sm rounded-0"
+                data-toggle="modal"
+                data-target="#exampleModal">
+            Feedback
+        </button>
+
+    </div>
+    <div id="feedback-form-modal">
+        <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
+             aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Feedback Form</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <form method="post" th:action="@{/feedbackProcessing}" onsubmit="return validateRadioButton()"
+                    >
+                        <div class="modal-body">
+                            <div class="form-group">
+                                <label>How likely you would like to rate our game?</label>
+                                <label id="radioMess"></label>
+                                <div class="rating-input-wrapper d-flex justify-content-between mt-2">
+                                    <label>
+                                        <input th:checked="${userUpdateFeedback?.ratePoint == 1}" type="radio"
+                                               name="rating" value="1"/>
+                                        <span class="border rounded px-3 py-2">1</span>
+                                    </label>
+                                    <label>
+                                        <input th:checked="${userUpdateFeedback?.ratePoint == 2}" type="radio"
+                                               name="rating" value="2"/>
+                                        <span class="border rounded px-3 py-2">2</span>
+                                    </label>
+                                    <label>
+                                        <input th:checked="${userUpdateFeedback?.ratePoint == 3}" type="radio"
+                                               name="rating" value="3"/>
+                                        <span class="border rounded px-3 py-2">3</span>
+                                    </label>
+                                    <label>
+                                        <input th:checked="${userUpdateFeedback?.ratePoint == 4}" type="radio"
+                                               name="rating" value="4"/>
+                                        <span class="border rounded px-3 py-2">4</span>
+                                    </label>
+                                    <label>
+                                        <input th:checked="${userUpdateFeedback?.ratePoint == 5}" type="radio"
+                                               name="rating" value="5"/>
+                                        <span class="border rounded px-3 py-2">5</span>
+                                    </label>
+                                    <label>
+                                        <input th:checked="${userUpdateFeedback?.ratePoint == 6}" type="radio"
+                                               name="rating" value="6"/>
+                                        <span class="border rounded px-3 py-2">6</span>
+                                    </label>
+                                    <label>
+                                        <input th:checked="${userUpdateFeedback?.ratePoint == 7}" type="radio"
+                                               name="rating" value="7"/>
+                                        <span class="border rounded px-3 py-2">7</span>
+                                    </label>
+                                    <label>
+                                        <input th:checked="${userUpdateFeedback?.ratePoint == 8}" type="radio"
+                                               name="rating" value="8"/>
+                                        <span class="border rounded px-3 py-2">8</span>
+                                    </label>
+                                    <label>
+                                        <input th:checked="${userUpdateFeedback?.ratePoint == 9}" type="radio"
+                                               name="rating" value="9"/>
+                                        <span class="border rounded px-3 py-2">9</span>
+                                    </label>
+                                    <label>
+                                        <input th:checked="${userUpdateFeedback?.ratePoint == 10}" type="radio"
+                                               name="rating" value="10"/>
+                                        <span class="border rounded px-3 py-2">10</span>
+                                    </label>
+                                </div>
+                                <div class="rating-labels d-flex justify-content-between mt-1">
+                                    <label>Very unlikely</label>
+                                    <label>Very likely</label>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label>Your feedback helps us to improve our game in the future</label>
+                                <label th:text="${feedbackMess}" style="color: red;"></label>
+                                <textarea th:text="${userUpdateFeedback?.info}" name="feedback" required wrap="hard"
+                                          maxlength="500"
+                                          class="form-control" rows="4"></textarea>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                            <button th:if="${updateFeedback == false}" type="submit"
+                                    class="btn btn-primary">Enter
+                            </button>
+                            <button th:if="${updateFeedback == true}" type="submit"
+                                    class="btn btn-primary">Update
+                            </button>
+                        </div>
+                    </form>
                 </div>
             </div>
         </div>
     </div>
-    <!-- Offer End -->
+</div>
+<!--end feedback-->
+<!-- Categories Start -->
+<div class="container-fluid pt-5">
+    <div class="row px-xl-5 pb-3">
+        <div class="col-lg-4 col-md-6 pb-1">
+            <div class="cat-item d-flex flex-column border mb-4" style="padding: 30px;">
+                <p class="text-right" th:text="${countEconomicToad} + ' Products'"></p>
+                <a th:href="@{categories/{id}(id=${2})}" class="cat-img position-relative overflow-hidden mb-3">
+                    <img class="img-fluid" th:src="@{../img/toad/Toad7.png}" alt="Image"/>
+                </a>
+                <h5 class="font-weight-semi-bold m-0">Economic Toad</h5>
+            </div>
+        </div>
+        <div class="col-lg-4 col-md-6 pb-1">
+            <div class="cat-item d-flex flex-column border mb-4" style="padding: 30px;">
+                <p class="text-right" th:text="${countGraphicToad} + ' Products'"></p>
+                <a th:href="@{categories/{id}(id=${4})}" class="cat-img position-relative overflow-hidden mb-3">
+                    <img class="img-fluid" th:src="@{../img/toad/Toad2.png}" alt="Image"/>
+                </a>
+                <h5 class="font-weight-semi-bold m-0">Graphic Toad</h5>
+            </div>
+        </div>
+        <div class="col-lg-4 col-md-6 pb-1">
+            <div class="cat-item d-flex flex-column border mb-4" style="padding: 30px;">
+                <p class="text-right" th:text="${countArtistToad} + ' Products'"></p>
+                <a th:href="@{categories/{id}(id=${6})}" class="cat-img position-relative overflow-hidden mb-3">
+                    <img class="img-fluid" th:src="@{../img/toad/Toad8.png}" alt="Image"/>
+                </a>
+                <h5 class="font-weight-semi-bold m-0">Artist Toad</h5>
+            </div>
+        </div>
+        <div class="col-lg-4 col-md-6 pb-1">
+            <div class="cat-item d-flex flex-column border mb-4" style="padding: 30px;">
+                <p class="text-right" th:text="${countLectureToad} + ' Products'"></p>
+                <a th:href="@{categories/{id}(id=${8})}" class="cat-img position-relative overflow-hidden mb-3">
+                    <img class="img-fluid" th:src="@{../img/toad/Toad9.png}" alt="Image"/>
+                </a>
+                <h5 class="font-weight-semi-bold m-0">Lecture Toad</h5>
+            </div>
+        </div>
+        <div class="col-lg-4 col-md-6 pb-1">
+            <div class="cat-item d-flex flex-column border mb-4" style="padding: 30px;">
+                <p class="text-right" th:text="${countAIToad} + ' Products'"></p>
+                <a th:href="@{categories/{id}(id=${5})}" class="cat-img position-relative overflow-hidden mb-3">
+                    <img class="img-fluid" th:src="@{../img/toad/Toad10.png}" alt="Image"/>
+                </a>
+                <h5 class="font-weight-semi-bold m-0">AI Toad</h5>
+            </div>
+        </div>
+        <div class="col-lg-4 col-md-6 pb-1">
+            <div class="cat-item d-flex flex-column border mb-4" style="padding: 30px;">
+                <p class="text-right" th:text="${countSoftwareToad} + ' Products'"></p>
+                <a th:href="@{categories/{id}(id=${3})}" class="cat-img position-relative overflow-hidden mb-3">
+                    <img class="img-fluid" th:src="@{../img/toad/Toad4.png}" alt="Image"/>
+                </a>
+                <h5 class="font-weight-semi-bold m-0">Software Toad</h5>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Categories End -->
 
 
-    <!-- Subscribe Start -->
+<!-- Offer Start -->
+<div class="container-fluid offer pt-5">
+    <div class="row px-xl-5">
+        <div class="col-md-6 pb-4">
+            <div class="position-relative bg-secondary text-center text-md-right text-white mb-2 py-5 px-5">
+                <img th:src="@{../img/toad/Toad3.png}" alt="">
+                <div class="position-relative" style="z-index: 1;">
+                    <!--                        <h5 class="text-uppercase text-primary mb-3">20% off the all purchase</h5>-->
+                    <h1 class="mb-4 font-weight-semi-bold">Toad Event</h1>
+                    <a th:href="@{/shop}" class="btn btn-outline-primary py-md-2 px-md-3">Shop Now</a>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6 pb-4">
+            <div class="position-relative bg-secondary text-center text-md-left text-white mb-2 py-5 px-5">
+                <img th:src="@{../img/toad/Toad4.png}" alt="">
+                <div class="position-relative" style="z-index: 1;">
+                    <!--                        <h5 class="text-uppercase text-primary mb-3">20% off the all purchase</h5>-->
+                    <h1 class="mb-4 font-weight-semi-bold">Toad Festival</h1>
+                    <a th:href="@{/shop}" class="btn btn-outline-primary py-md-2 px-md-3">Shop Now</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Offer End -->
+
+
+<!-- Subscribe Start -->
 <!--    <div class="container-fluid bg-secondary my-5">-->
 <!--        <div class="row justify-content-md-center py-5 px-xl-5">-->
 <!--            <div class="col-md-6 col-12 py-5">-->
@@ -365,53 +370,111 @@
 <!--            </div>-->
 <!--        </div>-->
 <!--    </div>-->
-    <!-- Subscribe End -->
+<!-- Subscribe End -->
 
-    <!-- Vendor Start -->
-    <div class="container-fluid py-5">
-        <div class="row px-xl-5">
-            <div class="col">
-                <div class="owl-carousel vendor-carousel">
-                    <div class="vendor-item border p-4 col">
-                        <img th:src="@{../img/fpt.png}" alt=""/>
-                    </div>
-                    <div class="vendor-item border p-4">
-                        <img th:src="@{../img/fptuni.png}" alt="">
-                    </div>
-                    <div class="vendor-item border p-4">
-                        <img th:src="@{../img/tiki.jpg}" alt="">
-                    </div>
-                    <div class="vendor-item border p-4">
-                        <img th:src="@{../img/shoppe.jpg}" alt="">
-                    </div>
+<!-- Vendor Start -->
+<div class="container-fluid py-5">
+    <div class="row px-xl-5">
+        <div class="col">
+            <div class="owl-carousel vendor-carousel">
+                <div class="vendor-item border p-4 col">
+                    <img th:src="@{../img/fpt.png}" alt=""/>
+                </div>
+                <div class="vendor-item border p-4">
+                    <img th:src="@{../img/fptuni.png}" alt="">
+                </div>
+                <div class="vendor-item border p-4">
+                    <img th:src="@{../img/tiki.jpg}" alt="">
+                </div>
+                <div class="vendor-item border p-4">
+                    <img th:src="@{../img/shoppe.jpg}" alt="">
                 </div>
             </div>
         </div>
     </div>
-        <!-- Vendor End -->
+</div>
+<!-- Vendor End -->
 
 
-        <!-- Footer Start -->
+<!-- Footer Start -->
+<footer id="footer" class="footer">
 
-        <!-- Footer End -->
+    <div class="container">
+        <div class="row gy-3">
+            <div class="col-lg-3 col-md-6 d-flex">
+                <!-- <i class="bi bi-geo-alt icon"></i> -->
+                <div>
+                    <!-- <h4>Address</h4> -->
+                    <p>
+                        TBox <br>
+                        Dashboard<br>
+                        Marketplace
+                    </p>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-6 footer-links d-flex">
+                <!-- <i class="bi bi-telephone icon"></i> -->
+                <div>
+                    <!-- <h4>Reservations</h4> -->
+                    <p>
+                        Game Tutorial<br>
+                        Collections<br>
+                    </p>
+                </div>
+            </div>
+
+            <div class="col-lg-3 col-md-6 footer-links d-flex">
+                <!-- <i class="bi bi-clock icon"></i> -->
+                <div>
+                    <!-- <h4>Opening Hours</h4> -->
+                    <p>
+                        About us<br>
+                        Contact us<br>
+                        FAQ
+                    </p>
+                </div>
+            </div>
+
+            <div class="col-lg-3 col-md-6 footer-links">
+                <h4>Follow Us</h4>
+                <div class="social-links d-flex">
+                    <a href="#" class="twitter"><i class="bi bi-twitter"></i></a>
+                    <a href="#" class="facebook"><i class="bi bi-facebook"></i></a>
+                    <a href="#" class="instagram"><i class="bi bi-instagram"></i></a>
+                    <a href="#" class="linkedin"><i class="bi bi-linkedin"></i></a>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="copyright">
+            2022 &copy;<strong><span>ToadKing Game. All Rights Reserved</span></strong>.
+        </div>
+
+    </div>
+
+</footer>
+<!-- Footer End -->
 
 
-        <!-- Back to Top -->
-        <a href="#" class="btn btn-primary back-to-top"><i class="fa fa-angle-double-up"></i></a>
+<!-- Back to Top -->
+<a href="#" class="btn btn-primary back-to-top"><i class="fa fa-angle-double-up"></i></a>
 
 
-        <!-- JavaScript Libraries -->
-        <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
-        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.bundle.min.js"></script>
-        <script th:src="@{../js/easing.min.js}"></script>
-        <script th:src="@{../js/owl.carousel.min.js}"></script>
+<!-- JavaScript Libraries -->
+<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.bundle.min.js"></script>
+<script th:src="@{../js/easing.min.js}"></script>
+<script th:src="@{../js/owl.carousel.min.js}"></script>
 
-        <!-- Contact Javascript File -->
+<!-- Contact Javascript File -->
 <!--        <script src="mail/jqBootstrapValidation.min.js"></script>-->
 <!--        <script src="mail/contact.js"></script>-->
 
-        <!-- Template Javascript -->
-        <script th:src="@{../js/main1.js}"></script>
+<!-- Template Javascript -->
+<script th:src="@{../js/main1.js}"></script>
 
 </body>
 
