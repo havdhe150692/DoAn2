@@ -111,5 +111,9 @@ public class LoginUserController {
         redirectView.setUrl("http://localhost:8000");
         return  redirectView;
     }
+    @GetMapping("/game1")
+    public String viewGamePage() {
+        return "game";
+    }
 
 }
