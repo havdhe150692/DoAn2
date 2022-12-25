@@ -1,5 +1,6 @@
 package com.example.doan2.controller;
 
+import com.example.doan2.chain.UserContractConnector;
 import com.example.doan2.entity.Feedback;
 import com.example.doan2.entity.ToadClass;
 import com.example.doan2.entity.User;
@@ -18,6 +19,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import java.math.BigInteger;
 import java.sql.Timestamp;
 import java.util.Date;
 import java.util.List;
@@ -42,7 +44,13 @@ public class FeedbackController {
         model.addAttribute("listToadClass", listToadClass);
         User user = ((UserServiceImp) authentication.getPrincipal()).getUser();
         Feedback userFeedback = feedbackService.userFeedback(user.getId());
-
+        try {
+            UserContractConnector u = new UserContractConnector(user);
+            BigInteger balance = u.GetBalance();
+            model.addAttribute("balance", balance);
+        } catch (Exception e) {
+            throw new RuntimeException(e.getMessage());
+        }
 
         if (feedbackService.userFeedback(user.getId()) != null) {
             model.addAttribute("updateFeedback", Boolean.TRUE);
@@ -74,7 +82,13 @@ public class FeedbackController {
         System.out.println("this is rating num: " + ratingNum);
         System.out.println("this is rating feedback: " + feedback);
         Feedback userFeedback = feedbackService.userFeedback(user.getId());
-
+        try {
+            UserContractConnector u = new UserContractConnector(user);
+            BigInteger balance = u.GetBalance();
+            model.addAttribute("balance", balance);
+        } catch (Exception e) {
+            throw new RuntimeException(e.getMessage());
+        }
         if (userFeedback != null) {
             if (feedback == null || feedback.trim().equals("")) {
                 model.addAttribute("feedbackMess", "not allow null value");

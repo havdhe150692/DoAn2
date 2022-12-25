@@ -1,5 +1,6 @@
 package com.example.doan2.controller;
 
+import com.example.doan2.chain.UserContractConnector;
 import com.example.doan2.entity.*;
 import com.example.doan2.service.FeedbackService;
 import com.example.doan2.service.Impl.UserServiceImp;
@@ -15,6 +16,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -40,6 +42,13 @@ public class MyToadCategoryController {
         }
         User user = ((UserServiceImp) auth.getPrincipal()).getUser();
         Feedback userFeedback = feedbackService.userFeedback(user.getId());
+        try {
+            UserContractConnector u = new UserContractConnector(user);
+            BigInteger balance = u.GetBalance();
+            model.addAttribute("balance", balance);
+        } catch (Exception e) {
+            throw new RuntimeException(e.getMessage());
+        }
         if (userFeedback != null) {
             model.addAttribute("updateFeedback", Boolean.TRUE);
             model.addAttribute("userUpdateFeedback", userFeedback);
@@ -95,6 +104,13 @@ public class MyToadCategoryController {
         } else {
             model.addAttribute("updateFeedback", Boolean.FALSE);
         }
+        try {
+            UserContractConnector u = new UserContractConnector(user);
+            BigInteger balance = u.GetBalance();
+            model.addAttribute("balance", balance);
+        } catch (Exception e) {
+            throw new RuntimeException(e.getMessage());
+        }
         List<ToadIngame> listUserToadCommonRarity = toadIngameService.findUserToadByRarity(rarity, user.getId());
         List<ToadClass> listToadClass = toadIngameService.findAllToadClass();
         model.addAttribute("listToadClass", listToadClass);
@@ -127,6 +143,13 @@ public class MyToadCategoryController {
             model.addAttribute("userUpdateFeedback", userFeedback);
         } else {
             model.addAttribute("updateFeedback", Boolean.FALSE);
+        }
+        try {
+            UserContractConnector u = new UserContractConnector(user);
+            BigInteger balance = u.GetBalance();
+            model.addAttribute("balance", balance);
+        } catch (Exception e) {
+            throw new RuntimeException(e.getMessage());
         }
         model.addAttribute("countUserToadSize", toadIngameService.countAllUserToad(user.getId()));
         model.addAttribute("countUserCommonSize", toadIngameService.countUserToadByRarity(user.getId(), 0));
