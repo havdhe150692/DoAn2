@@ -56,6 +56,7 @@ public class MarketController {
     @Autowired
     ToadIngameRepository toadIngameRepository;
 
+
     @GetMapping("/market")
     public String viewMarket(Model model) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
@@ -444,10 +445,9 @@ public class MarketController {
             Market m = marketRepositoty.findById(id);
             UserContractConnector userContractConnector = new UserContractConnector(user);
             userContractConnector.BuyNFT(id,m.getPrice());
-
             marketRepositoty.delete(m);
-
             toadIngameService.changeToadOwner(user.getId(), m.getToadIngame().getId());
+
             ToadIngame myToad = toadIngameService.findById( m.getToadIngame().getId());
             myToad.setIsSelling(0);
             toadIngameRepository.save(myToad);
