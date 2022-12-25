@@ -7,6 +7,7 @@ import com.example.doan2.entity.ToadIngame;
 import com.example.doan2.entity.User;
 import com.example.doan2.repository.MarketRepositoty;
 import com.example.doan2.entity.*;
+import com.example.doan2.repository.ToadIngameRepository;
 import com.example.doan2.service.FeedbackService;
 import com.example.doan2.service.Impl.UserServiceImp;
 import com.example.doan2.service.MarketService;
@@ -41,6 +42,9 @@ public class SellToadController {
 
     @Autowired
     MarketRepositoty marketRepositoty;
+
+    @Autowired
+    ToadIngameRepository toadIngameRepository;
 
     @PostMapping("/cancelSellProcessing/{id}")
     public String cancelSellingToad(Model model, @PathVariable("id") int id) {
@@ -140,8 +144,12 @@ public class SellToadController {
             market.setSeller(user);
             market.setSelling(1);
             ToadIngame myToad = toadIngameService.findById(id);
+            myToad.setIsSelling(1);
             market.setToadIngame(myToad);
             marketService.saveMarket(market);
+
+            toadIngameRepository.save(myToad);
+
 
             List<ToadClass> listToadClass = toadIngameService.findAllToadClass();
             model.addAttribute("listToadClass", listToadClass);
