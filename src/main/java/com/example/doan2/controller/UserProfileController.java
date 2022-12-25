@@ -1,5 +1,6 @@
 package com.example.doan2.controller;
 
+import com.example.doan2.chain.UserContractConnector;
 import com.example.doan2.entity.ToadClass;
 import com.example.doan2.entity.User;
 import com.example.doan2.service.Impl.UserServiceImp;
@@ -16,6 +17,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import java.math.BigInteger;
 import java.util.List;
 
 @Controller
@@ -30,6 +32,14 @@ public class UserProfileController {
     @GetMapping("/checkUserProfile")
     public String checkUserProfile(Model model) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        User user = ((UserServiceImp) authentication.getPrincipal()).getUser();
+        try {
+            UserContractConnector u = new UserContractConnector(user);
+            BigInteger balance = u.GetBalance();
+            model.addAttribute("balance", balance);
+        } catch (Exception e) {
+            throw new RuntimeException(e.getMessage());
+        }
         if(authentication == null || authentication instanceof AnonymousAuthenticationToken) {
             return "loginMarket";
         } else {
@@ -79,6 +89,13 @@ public class UserProfileController {
         model.addAttribute("user",user);
         List<ToadClass> listToadClass = toadIngameService.findAllToadClass();
         model.addAttribute("listToadClass", listToadClass);
+        try {
+            UserContractConnector u = new UserContractConnector(user);
+            BigInteger balance = u.GetBalance();
+            model.addAttribute("balance", balance);
+        } catch (Exception e) {
+            throw new RuntimeException(e.getMessage());
+        }
         return "userProfile";
     }
 
@@ -89,6 +106,13 @@ public class UserProfileController {
                                      User user) {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         user = ((UserServiceImp) auth.getPrincipal()).getUser();
+        try {
+            UserContractConnector u = new UserContractConnector(user);
+            BigInteger balance = u.GetBalance();
+            model.addAttribute("balance", balance);
+        } catch (Exception e) {
+            throw new RuntimeException(e.getMessage());
+        }
         Object rawPassword = SecurityContextHolder.getContext().getAuthentication().getCredentials();
         String comparePass = (String) rawPassword;
         if(password.equals(comparePass)) {

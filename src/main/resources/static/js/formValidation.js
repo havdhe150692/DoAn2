@@ -1,7 +1,8 @@
     // Email Validation
     function ValidateEmail(event,inputText) {
       var mailFormat = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
-      if (inputText.value.match(mailFormat)) {
+       var mailFormatCheck = /^\w+([\.-]?\w+)*@fpt.edu.vn$/;
+      if (inputText.value.match(mailFormatCheck)) {
         return true;
       } else {
         event.preventDefault();
@@ -12,7 +13,8 @@
 
     const validateEmail = (email) => {
       var mailformat = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
-      return email.match(mailformat);
+       var mailFormatCheck = /^\w+([\.-]?\w+)*@fpt.edu.vn$/;
+      return email.match(mailFormatCheck);
     };
 
     // Email Validation
@@ -25,7 +27,7 @@
         $result.text(email + ' ✓ ');
         $result.css('color', 'green');
       } else {
-        $result.text(' your Email is not valid :(');
+        $result.text(' your FPT Email is not valid :(');
         $result.css('color', 'red');
       }
       return false;
