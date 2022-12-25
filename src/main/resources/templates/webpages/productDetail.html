@@ -135,8 +135,8 @@
         </div>
 
         <div class="col-lg-7 pb-5">
-            <h3 class="font-weight-semi-bold bg-primary" th:text="${toadDetail.toadIngame?.toadData?.name}"></h3>
-            <h3 class="font-weight-semi-bold mb-4 bg-primary" th:text="'Price: '+ ${toadDetail.price} + '$'"></h3>
+            <h1 class="font-weight-semi-bold bg-primary" th:text="${toadDetail.toadIngame?.toadData?.name} + ' #' + ${toadDetail.toadIngame?.typeCounter}"></h1>
+            <h3 class="font-weight-semi-bold mb-4 bg-primary" th:text="'Price: '+ ${toadDetail.price} + ' TKC'"></h3>
             <h5 class="font-weight-semi-bold bg-secondary"
                 th:text="|Date of birth: ${toadDetail.toadIngame?.dateOfBirth}|"></h5>
             <h6 class="font-weight-semi-bold bg-secondary"

@@ -22,7 +22,7 @@
     <link rel="stylesheet" type="text/css" th:href="@{../styles/bootstrap-icons.css}">
     <!-- Font Awesome -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
-
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 
     <!-- Libraries Stylesheet -->
     <link th:href="@{../styles/owl.carousel.min.css}" rel="stylesheet">
@@ -240,7 +240,7 @@
                  alt="Image">
         </div>
         <div class="col-lg-7 pb-5">
-            <h1 class="font-weight-semi-bold bg-primary" th:text="${myToad.toadData?.name}"></h1>
+            <h1 class="font-weight-semi-bold bg-primary" th:text="${myToad.toadData?.name} + ' #' + ${myToad.typeCounter}"></h1>
             <div class="mb-4">
                 <h5 class="font-weight-semi-bold bg-secondary"
                     th:text="|Date of birth: ${myToad.dateOfBirth}|"></h5>
@@ -253,10 +253,10 @@
             <div th:if="${sellCondition == true and cancelSellAtMarket == true}" class="d-flex align-items-center mb-4 pt-2">
                 <div class="input-group quantity mr-3" style="width: 281px;">
                     <p style="margin: auto; font-size: 20px" class="text-dark font-weight-medium">You receive : </p>
-                    <input disabled type="text" class="form-control bg-secondary text-center customInput1"
-                           value="1">
+                    <input id="youReceive" disabled type="text" class="form-control bg-secondary text-center customInput1"
+                           >
                     <div class="input-group-append">
-                        <label class="input-group-text bg-primary">$</label>
+                        <label class="input-group-text bg-primary">TKC</label>
                     </div>
                 </div>
             </div>
@@ -267,12 +267,12 @@
                 <div class="d-flex align-items-center mb-4 pt-2">
                     <div th:if="${sellCondition == true and cancelSellAtMarket == true}" class="input-group quantity mr-3" style="width: 282px;">
                         <p style="margin: auto; font-size: 20px" class="text-dark font-weight-medium">Buyer pay : </p>
-                        <input id="intLimitTextBox" name="price" type="text"
+                        <input  id="intLimitTextBox" name="price" type="text"
                                class="form-control bg-secondary text-center customInput"
                                required minlength="1" maxlength="1000000"
                         >
                         <div class="input-group-append">
-                            <label class="input-group-text bg-primary">$</label>
+                            <label class="input-group-text bg-primary">TKC</label>
                         </div>
                     </div>
                     <div th:if="${sellCondition == true and cancelSellAtMarket == true}">
@@ -550,7 +550,21 @@
 
 <!-- Template Javascript -->
 <script th:src="@{../js/main1.js}"></script>
+<script>
+ const validate = () => {
+      const intLimitTextBox = $('#intLimitTextBox').val();
+      var number = parseInt(intLimitTextBox);
+      var roundResult = number - number * 1/ 100
+      var result = Math.round(roundResult);
+      document.getElementById('youReceive').value = result;
+      console.log(result);
+      if(isNaN(result)) {
+        document.getElementById('youReceive').value = '';
+      }
+  }
 
+    $('#intLimitTextBox').on('input', validate);
+</script>
 </body>
 
 </html>

@@ -209,7 +209,7 @@
                                      th:src="@{${'/img/menu/' + 'Toad' + toad.toadData?.pictureId + '.png'}}"/>
                             </div>
                             <div class="card-body border-left border-right text-center p-0 pt-4 pb-3">
-                                <h6 th:text="'Name: ' + ${toad.toadData?.name}"
+                                <h6 th:text="'Name: ' + ${toad.toadData?.name} + ' #' + ${toad.typeCounter}"
                                     class="text-truncate mb-3"></h6>
                                 <div class="d-flex justify-content-center">
                                     <h6 th:text="'Type: ' + ${toad.toadData?.toadClass?.name}"></h6>
