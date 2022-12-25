@@ -116,7 +116,7 @@ public class ToadCreationService {
         ToadStatus toadStatus = toadStatusLogicService.StatusGeneration(toadData);
         toadIngame.setToadStatus(toadStatus);
         toadStatus.setToadIngame(toadIngame);
-        toadIngame.setSelling(false);
+        toadIngame.setIsSelling(0);
 
         if(!(toadData.getRarity() == Enum.Rarity.Common))
         {

@@ -73,7 +73,7 @@ public class ToadGenerateController {
         ToadStatus toadStatus = toadStatusLogicService.StatusGeneration(toadData);
         toadIngame.setToadStatus(toadStatus);
         toadStatus.setToadIngame(toadIngame);
-        toadIngame.setSelling(false);
+        toadIngame.setIsSelling(0);
 
         toadIngameRepository.save(toadIngame);
 

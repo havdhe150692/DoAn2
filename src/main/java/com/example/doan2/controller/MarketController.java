@@ -8,6 +8,7 @@ import com.example.doan2.entity.User;
 import com.example.doan2.repository.MarketRepositoty;
 
 import com.example.doan2.entity.*;
+import com.example.doan2.repository.ToadIngameRepository;
 import com.example.doan2.service.FeedbackService;
 
 import com.example.doan2.service.Impl.UserServiceImp;
@@ -27,11 +28,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import java.sql.Timestamp;
-import java.text.DateFormat;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -55,6 +51,11 @@ public class MarketController {
 
     @Autowired
     FeedbackService feedbackService;
+
+
+    @Autowired
+    ToadIngameRepository toadIngameRepository;
+
 
     @GetMapping("/market")
     public String viewMarket(Model model) {
@@ -446,6 +447,12 @@ public class MarketController {
             userContractConnector.BuyNFT(id,m.getPrice());
             marketRepositoty.delete(m);
             toadIngameService.changeToadOwner(user.getId(), m.getToadIngame().getId());
+
+            ToadIngame myToad = toadIngameService.findById( m.getToadIngame().getId());
+            myToad.setIsSelling(0);
+            toadIngameRepository.save(myToad);
+
+
             return "redirect:/shop";
         }
 

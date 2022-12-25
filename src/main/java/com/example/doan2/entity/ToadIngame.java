@@ -35,14 +35,14 @@ public class ToadIngame {
     @PrimaryKeyJoinColumn
     private ToadStatus toadStatus;
 
-    private boolean isSelling;
+    private int isSelling;
 
-    public boolean isSelling() {
+    public int getIsSelling() {
         return isSelling;
     }
 
-    public void setSelling(boolean selling) {
-        isSelling = selling;
+    public void setIsSelling(int isSelling) {
+        this.isSelling = isSelling;
     }
 
     public int getTypeCounter() {
