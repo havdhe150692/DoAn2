@@ -250,7 +250,7 @@
                             <div
                                     class="card-header product-img position-relative overflow-hidden bg-transparent border p-0">
                                 <img class="img-fluid w-100"
-                                     th:src="@{${'/img/menu/' + 'Toad' + toad.toadIngame?.toadData?.pictureId + '.png'}}"/>
+                                     th:src="@{${'/toad_img/' + toad.toadIngame?.toadData?.pictureId + '.png'}}"/>
                             </div>
                             <div  class="card-body border-left border-right text-center p-0 pt-4 pb-3">
                                 <h6 th:text="'Name: ' + ${toad.toadIngame?.toadData?.name} + ' #' + ${toad.toadIngame?.typeCounter}"
