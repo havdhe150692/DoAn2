@@ -22,6 +22,13 @@
   <link th:href="@{../styles/owl.carousel.min.css}" rel="stylesheet">
   <!-- Customized Bootstrap Stylesheet -->
   <link th:href="@{../styles/style.css}" rel="stylesheet">
+
+  <style>
+    iframe {
+      display: block;
+      border-style:none;
+    }
+  </style>
 </head>
 <body>
 <!-- Container -->
@@ -90,7 +97,7 @@
             <a th:href="@{/Homepage}" class="nav-item nav-link">Landing Page</a>
           </div>
           <div class="navbar-nav ml-auto py-0">
-            <div class="nav-item nav-link" th:text=" 'Your balance: ' + ${balance} + ' TKC'"></div>
+            <!-- <div class="nav-item nav-link" th:text=" 'Your balance: ' + ${balance} + ' TKC'"></div> -->
             <a th:href="@{/game}" class="nav-item nav-link">
               <i class="fas fa-gamepad text-primary"></i>
               Let's Play</a>
@@ -107,8 +114,10 @@
 </div>
 <!-- Navbar End -->
 
-
 <!--this is iframe-->
+<p align="center">
+  <iframe allow="autoplay; fullscreen" src="http://localhost:8000" style="border:0px #000000 none;" name="ToadKingGame" scrolling="no" msallowfullscreen="true" allowfullscreen="true" webkitallowfullscreen="true" allowtransparency="true" frameborder="0" marginheight="px" marginwidth="320px" height="776px" width="1377px"></iframe>
+</p>
 
 <!-- Footer Start -->
 <footer id="footer" class="footer">

@@ -60,6 +60,8 @@ public class SellToadController {
             UserContractConnector userContractConnector = new UserContractConnector(user);
             userContractConnector.CancelSellNFT(m.getId());
 
+            toad.setIsSelling(0);
+            toadIngameRepository.save(toad);
             marketRepositoty.delete(m);
 //            marketService.cancelSellToadAtMarket(id);
 //            market.setIsSelling(0);

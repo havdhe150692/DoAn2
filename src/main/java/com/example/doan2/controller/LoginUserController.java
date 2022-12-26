@@ -102,6 +102,16 @@ public class LoginUserController {
 
     @GetMapping("/game")
     public RedirectView game(HttpServletResponse response) {
+//        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+//        User user = ((UserServiceImp) authentication.getPrincipal()).getUser();
+//        Cookie cookie = new Cookie("userId", user.getId().toString());
+//        response.addCookie(cookie);
+//
+//        RedirectView redirectView = new RedirectView();
+//        redirectView.setUrl("http://localhost:8000");
+//        return redirectView;
+
+
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         User user = ((UserServiceImp) authentication.getPrincipal()).getUser();
         Cookie cookie = new Cookie("userId", user.getId().toString());
@@ -113,7 +123,13 @@ public class LoginUserController {
     }
 
     @GetMapping("/game1")
-    public String viewGamePage() {
+    public String viewGamePage(HttpServletResponse response) {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        User user = ((UserServiceImp) authentication.getPrincipal()).getUser();
+        Cookie cookie = new Cookie("userId", user.getId().toString());
+        response.addCookie(cookie);
+
+
         return "game";
     }
 
