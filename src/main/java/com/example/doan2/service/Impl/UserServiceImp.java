@@ -1,6 +1,7 @@
 package com.example.doan2.service.Impl;
 
 
+import com.example.doan2.chain.UserContractConnector;
 import com.example.doan2.entity.User;
 import com.example.doan2.repository.UserRepository;
 import com.example.doan2.service.UserService;
@@ -11,12 +12,13 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
+import java.math.BigInteger;
 import java.util.Collection;
 import java.util.List;
 import java.util.Optional;
 
 @Service
-public class UserServiceImp implements UserDetailsService , UserService , UserDetails{
+public class UserServiceImp implements UserDetailsService, UserService, UserDetails {
 
     private User user;
 
@@ -26,6 +28,7 @@ public class UserServiceImp implements UserDetailsService , UserService , UserDe
     public UserServiceImp(User user) {
         this.user = user;
     }
+
     public UserServiceImp() {
     }
 
@@ -82,7 +85,7 @@ public class UserServiceImp implements UserDetailsService , UserService , UserDe
 
     public boolean checkUserName(String username) {
         User result = userRepository.findByName(username);
-        if(result != null) {
+        if (result != null) {
             if (username.equals(result.getName())) {
                 System.out.println("Name have already Existed");
                 return false;
@@ -134,10 +137,19 @@ public class UserServiceImp implements UserDetailsService , UserService , UserDe
     public String getName() {
         return user.getName();
     }
+
     public User getUser() {
         return this.user;
     }
     /*
      *  End Methods for Login User
      * */
+
+
+    public String getBalance() throws Exception {
+        UserContractConnector u = new UserContractConnector(user);
+        BigInteger balance = u.GetBalance();
+        String userBalance = String.valueOf(balance);
+        return userBalance;
+    }
 }

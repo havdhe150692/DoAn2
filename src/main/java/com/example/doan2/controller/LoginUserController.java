@@ -71,7 +71,7 @@ public class LoginUserController {
         if (!userService.checkUserName(username)) {
             model.addAttribute("errorMessageU", "Username already existed, please specify another");
             return "registerMarket";
-        } else if(username.trim().equals("") || username.length() < 5 || username.length() > 20) {
+        } else if (username.trim().equals("") || username.length() < 5 || username.length() > 20) {
             model.addAttribute("errorMessageU", "User name not null! Only Allow (5-20) Characters");
             return "registerMarket";
         } else if (!password.equals(confirm_password)) {
@@ -101,16 +101,17 @@ public class LoginUserController {
     }
 
     @GetMapping("/game")
-    public RedirectView      game(HttpServletResponse response) {
+    public RedirectView game(HttpServletResponse response) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         User user = ((UserServiceImp) authentication.getPrincipal()).getUser();
-        Cookie cookie  = new Cookie("userId", user.getId().toString());
+        Cookie cookie = new Cookie("userId", user.getId().toString());
         response.addCookie(cookie);
 
         RedirectView redirectView = new RedirectView();
         redirectView.setUrl("http://localhost:8000");
-        return  redirectView;
+        return redirectView;
     }
+
     @GetMapping("/game1")
     public String viewGamePage() {
         return "game";

@@ -67,7 +67,7 @@
 <!-- Navbar Start -->
 <div class="container-fluid">
     <div class="row border-top px-xl-5">
-        <div class="col-lg-3 d-none d-lg-block">
+        <div class="col-lg-2 d-none d-lg-block">
             <a class="btn shadow-none d-flex align-items-center justify-content-between bg-primary text-white w-100"
                data-toggle="collapse" href="#navbar-vertical"
                style="height: 65px; margin-top: -1px; padding: 0 30px;">
@@ -84,7 +84,7 @@
                 </div>
             </nav>
         </div>
-        <div class="col-lg-9">
+        <div class="col-lg-10">
             <nav class="navbar navbar-expand-lg bg-light navbar-light py-3 py-lg-0 px-0">
                 <a href="" class="text-decoration-none d-block d-lg-none">
                     <h1 class="m-0 display-5 font-weight-semi-bold"><span
@@ -105,6 +105,7 @@
                             Landing Page</a>
                     </div>
                     <div class="navbar-nav ml-auto py-0">
+                        <div class="nav-item nav-link" th:text=" 'Your balance: ' + ${balance} + ' TKT'"></div>
                         <a th:href="@{/game}" class="nav-item nav-link">
                             <i class="fas fa-gamepad text-primary"></i>
                             Let's Play</a>
@@ -153,7 +154,7 @@
                                required minlength="1" maxlength="1000000"
                         >
                         <div style="height: 38px;" class="input-group-append">
-                            <label class="input-group-text bg-primary">$</label>
+                            <label class="input-group-text bg-primary">TKT</label>
                         </div>
                     </div>
                     <div class="custom-control d-flex mb-3">
@@ -163,7 +164,7 @@
                                required minlength="1" maxlength="1000000"
                         >
                         <div style="height: 38px;" class="input-group-append">
-                            <label class="input-group-text bg-primary">$</label>
+                            <label class="input-group-text bg-primary">TKT</label>
                         </div>
                     </div>
                     <div class="custom-control custom-checkbox d-flex mb-3">
@@ -251,11 +252,11 @@
                                 <img class="img-fluid w-100"
                                      th:src="@{${'/img/menu/' + 'Toad' + toad.toadIngame?.toadData?.pictureId + '.png'}}"/>
                             </div>
-                            <div class="card-body border-left border-right text-center p-0 pt-4 pb-3">
-                                <h6 th:text="'Name: ' + ${toad.toadIngame?.toadData?.name}"
+                            <div  class="card-body border-left border-right text-center p-0 pt-4 pb-3">
+                                <h6 th:text="'Name: ' + ${toad.toadIngame?.toadData?.name} + ' #' + ${toad.toadIngame?.typeCounter}"
                                     class="text-truncate mb-3"></h6>
                                 <div class="d-flex justify-content-center">
-                                    <h6 th:text="'Price: '+ ${toad.price} + '$'"></h6>
+                                    <h6 th:text="'Price: '+ ${toad.price} + ' TKT'"></h6>
                                 </div>
                                 <div class="d-flex justify-content-center">
                                     <h6 th:text="'Type: ' + ${toad.toadIngame?.toadData?.toadClass?.name}"></h6>

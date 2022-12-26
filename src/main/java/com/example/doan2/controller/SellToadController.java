@@ -24,6 +24,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import java.math.BigInteger;
 import java.sql.Timestamp;
 import java.util.Date;
 import java.util.List;
@@ -91,6 +92,13 @@ public class SellToadController {
         model.addAttribute("listToadClass", listToadClass);
         if (auth == null || auth instanceof AnonymousAuthenticationToken) {
             return "loginMarket";
+        }
+        try {
+            UserContractConnector u = new UserContractConnector(user);
+            BigInteger balance = u.GetBalance();
+            model.addAttribute("balance", balance);
+        } catch (Exception e) {
+            throw new RuntimeException(e.getMessage());
         }
         ToadIngame myToad = toadIngameService.findById(id);
         model.addAttribute("myToad", myToad);
@@ -166,7 +174,5 @@ public class SellToadController {
             model.addAttribute("listToadClass", listToadClass);
             return "redirect:/myToad";
         }
-
     }
-
 }
