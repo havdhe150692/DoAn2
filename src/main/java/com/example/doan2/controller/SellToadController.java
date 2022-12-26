@@ -53,9 +53,10 @@ public class SellToadController {
         User user = ((UserServiceImp) auth.getPrincipal()).getUser();
         try
         {
+            // dem so coc cua minh
+            // neu so coc cua minh co is_selling = 1 <10 con thi moi duoc huy ban
             var toad = toadIngameService.findById(id);
             var m =  marketRepositoty.findByToadIngame(toad);
-
 
             UserContractConnector userContractConnector = new UserContractConnector(user);
             userContractConnector.CancelSellNFT(m.getId());
