@@ -76,12 +76,12 @@ public class MarketController {
         }
         List<ToadClass> listToadClass = toadIngameService.findAllToadClass();
         model.addAttribute("listToadClass", listToadClass);
-        model.addAttribute("countEconomicToad", marketService.countByToadClass(2));
-        model.addAttribute("countGraphicToad", marketService.countByToadClass(4));
-        model.addAttribute("countArtistToad", marketService.countByToadClass(6));
-        model.addAttribute("countLectureToad", marketService.countByToadClass(8));
-        model.addAttribute("countAIToad", marketService.countByToadClass(5));
-        model.addAttribute("countSoftwareToad", marketService.countByToadClass(3));
+        model.addAttribute("countEconomicToad", marketService.countByToadClass(1));
+        model.addAttribute("countGraphicToad", marketService.countByToadClass(2));
+        model.addAttribute("countArtistToad", marketService.countByToadClass(3));
+//        model.addAttribute("countLectureToad", marketService.countByToadClass(8));
+//        model.addAttribute("countAIToad", marketService.countByToadClass(5));
+//        model.addAttribute("countSoftwareToad", marketService.countByToadClass(3));
         return "market";
 
     }
@@ -507,6 +507,8 @@ public class MarketController {
         //   marketService.removeToadAtMarket(id);
 
         try {
+            // dem so coc cua minh
+            // neu so coc cua minh co is_selling = 1 <10 con thi moi duoc mua
             Market m = marketRepositoty.findById(id);
             UserContractConnector userContractConnector = new UserContractConnector(user);
             userContractConnector.BuyNFT(id, m.getPrice());
