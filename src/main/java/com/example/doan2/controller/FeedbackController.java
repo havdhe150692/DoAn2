@@ -4,11 +4,8 @@ import com.example.doan2.chain.UserContractConnector;
 import com.example.doan2.entity.Feedback;
 import com.example.doan2.entity.ToadClass;
 import com.example.doan2.entity.User;
-import com.example.doan2.service.FeedbackService;
+import com.example.doan2.service.*;
 import com.example.doan2.service.Impl.UserServiceImp;
-import com.example.doan2.service.MarketService;
-import com.example.doan2.service.ToadIngameService;
-import com.example.doan2.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AnonymousAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -34,6 +31,9 @@ public class FeedbackController {
     @Autowired
     ToadIngameService toadIngameService;
 
+    @Autowired
+    AdminContractExecutionService adminContractExecutionService;
+
     @GetMapping("/feedbackGame")
     public String feedbackGame(Model model) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
@@ -45,13 +45,11 @@ public class FeedbackController {
         User user = ((UserServiceImp) authentication.getPrincipal()).getUser();
         Feedback userFeedback = feedbackService.userFeedback(user.getId());
         try {
-            UserContractConnector u = new UserContractConnector(user);
-            BigInteger balance = u.GetBalance();
+            BigInteger balance = adminContractExecutionService.GetBalance(user);
             model.addAttribute("balance", balance);
         } catch (Exception e) {
             throw new RuntimeException(e.getMessage());
         }
-
         if (feedbackService.userFeedback(user.getId()) != null) {
             model.addAttribute("updateFeedback", Boolean.TRUE);
             model.addAttribute("userUpdateFeedback",feedbackService.userFeedback(user.getId()));
@@ -83,8 +81,7 @@ public class FeedbackController {
         System.out.println("this is rating feedback: " + feedback);
         Feedback userFeedback = feedbackService.userFeedback(user.getId());
         try {
-            UserContractConnector u = new UserContractConnector(user);
-            BigInteger balance = u.GetBalance();
+            BigInteger balance = adminContractExecutionService.GetBalance(user);
             model.addAttribute("balance", balance);
         } catch (Exception e) {
             throw new RuntimeException(e.getMessage());
