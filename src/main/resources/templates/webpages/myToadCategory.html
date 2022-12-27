@@ -219,11 +219,7 @@
                                     <h6 th:text="'Rarity: '+ ${toad.toadData?.rarity}"></h6>
                                 </div>
 <!--                                // listBool[toad.index]-->
-                                <div th:if="${myToadExistInMarket}">
-                                    <div th:if="${listBool[state?.index] == true}" class="d-flex justify-content-center">
-                                        <h6 class="bg-secondary" th:text="'is Selling'"> </h6>
-                                    </div>
-                                </div>
+
                             </div>
                             <div class="card-footer d-flex centerBtn  bg-light border">
                                 <a th:href="@{sellToad/{id}(id=${toad.id})}" class="btn btn-sm text-dark p-0"><i

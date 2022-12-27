@@ -76,4 +76,11 @@ public class ToadStatus {
     public void setToadIngame(ToadIngame toadIngame) {
         this.toadIngame = toadIngame;
     }
+
+
+    @Override
+    public String toString()
+    {
+        return "expectedMature = "  + expectedMature.toString() + " " + "expectedBreed = "  + expectedBreed.toString() + " " + "expectedHungry = "  + expectedHungry.toString() + " " + "expectedCollect = "  + expectedCollect.toString();
+    }
 }

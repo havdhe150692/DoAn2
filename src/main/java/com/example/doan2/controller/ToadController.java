@@ -74,12 +74,14 @@ public class ToadController {
         if (u != null)
         {
             List<ToadIngame> toadList = toadIngameRepository.findAllByOwner(u);
+            //List<ToadIngame> toadList2 = new ArrayList<>();
             for (int i = 0; i < toadList.size(); i++)
             {
                 if(toadList.get(i).getIsSelling() == 0)
                 {
                     ToadIngame toadIngame =  toadList.get(i);
                     toadStatusLogicService.StatusCheck(toadIngame.getToadStatus());
+            //        toadList2.add(toadIngame);
                 }
             }
 
