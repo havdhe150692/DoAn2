@@ -3,6 +3,7 @@ package com.example.doan2.controller;
 import com.example.doan2.chain.UserContractConnector;
 import com.example.doan2.entity.ToadClass;
 import com.example.doan2.entity.User;
+import com.example.doan2.service.AdminContractExecutionService;
 import com.example.doan2.service.Impl.UserServiceImp;
 import com.example.doan2.service.ToadIngameService;
 import com.example.doan2.service.UserService;
@@ -29,20 +30,23 @@ public class UserProfileController {
     @Autowired
     ToadIngameService toadIngameService;
 
+    @Autowired
+    AdminContractExecutionService adminContractExecutionService;
+
     @GetMapping("/checkUserProfile")
     public String checkUserProfile(Model model) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         User user = ((UserServiceImp) authentication.getPrincipal()).getUser();
-        try {
-            UserContractConnector u = new UserContractConnector(user);
-            BigInteger balance = u.GetBalance();
-            model.addAttribute("balance", balance);
-        } catch (Exception e) {
-            throw new RuntimeException(e.getMessage());
-        }
+
         if(authentication == null || authentication instanceof AnonymousAuthenticationToken) {
             return "loginMarket";
         } else {
+            try {
+                BigInteger balance = adminContractExecutionService.GetBalance(user);
+                model.addAttribute("balance", balance);
+            } catch (Exception e) {
+                throw new RuntimeException(e.getMessage());
+            }
             List<ToadClass> listToadClass = toadIngameService.findAllToadClass();
             model.addAttribute("listToadClass", listToadClass);
         }
@@ -68,6 +72,12 @@ public class UserProfileController {
         }
         List<ToadClass> listToadClass = toadIngameService.findAllToadClass();
         model.addAttribute("listToadClass", listToadClass);
+        try {
+            BigInteger balance = adminContractExecutionService.GetBalance(user);
+            model.addAttribute("balance", balance);
+        } catch (Exception e) {
+            throw new RuntimeException(e.getMessage());
+        }
         return "userProfile";
     }
 
@@ -90,8 +100,7 @@ public class UserProfileController {
         List<ToadClass> listToadClass = toadIngameService.findAllToadClass();
         model.addAttribute("listToadClass", listToadClass);
         try {
-            UserContractConnector u = new UserContractConnector(user);
-            BigInteger balance = u.GetBalance();
+            BigInteger balance = adminContractExecutionService.GetBalance(user);
             model.addAttribute("balance", balance);
         } catch (Exception e) {
             throw new RuntimeException(e.getMessage());
@@ -106,13 +115,7 @@ public class UserProfileController {
                                      User user) {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         user = ((UserServiceImp) auth.getPrincipal()).getUser();
-        try {
-            UserContractConnector u = new UserContractConnector(user);
-            BigInteger balance = u.GetBalance();
-            model.addAttribute("balance", balance);
-        } catch (Exception e) {
-            throw new RuntimeException(e.getMessage());
-        }
+
         Object rawPassword = SecurityContextHolder.getContext().getAuthentication().getCredentials();
         String comparePass = (String) rawPassword;
         if(password.equals(comparePass)) {
@@ -135,6 +138,12 @@ public class UserProfileController {
         }
         List<ToadClass> listToadClass = toadIngameService.findAllToadClass();
         model.addAttribute("listToadClass", listToadClass);
+        try {
+            BigInteger balance = adminContractExecutionService.GetBalance(user);
+            model.addAttribute("balance", balance);
+        } catch (Exception e) {
+            throw new RuntimeException(e.getMessage());
+        }
         return "userProfile";
     }
 

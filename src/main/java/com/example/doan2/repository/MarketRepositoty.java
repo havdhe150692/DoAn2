@@ -89,11 +89,14 @@ public interface MarketRepositoty extends JpaRepository<Market, Integer> {
 
 
     @Modifying
-    @Query(value = "UPDATE market m SET m.is_selling = 0 WHERE m.toad_ingame_id = :toadIngameId", nativeQuery = true)
+    @Query(value = "UPDATE toad_ingame tig SET tig.is_selling = 0 WHERE m.toad_ingame_id = :toadIngameId", nativeQuery = true)
     void cancelSellToadAtMarket(@Param("toadIngameId") int toadIngameId);
 
     @Modifying
     @Query(value = "UPDATE market m SET m.is_selling = 0 WHERE m.toad_ingame_id = :toadIngameId", nativeQuery = true)
     void removeToadAtMarket(@Param("toadIngameId") int toadIngameId);
+
+    @Query(value = "SELECT COUNT(tig.id) FROM toad_ingame tig WHERE tig.is_selling = 1", nativeQuery = true)
+    int countMyToadAtMarket(@Param("countNum") int countNum);
 
 }

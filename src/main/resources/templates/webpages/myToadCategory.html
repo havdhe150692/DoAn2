@@ -99,8 +99,9 @@
                         <a th:href="@{/Homepage}" class="nav-item nav-link">Landing Page</a>
                     </div>
                     <div class="navbar-nav ml-auto py-0">
-                        <div class="nav-item nav-link" th:text=" 'Your balance: ' + ${balance} + ' TKT'"></div>
-                        <a th:href="@{/game}" class="nav-item nav-link">
+                        <div class="nav-item nav-link" th:text=" 'Your balance: ' + ${balance} + ' TKC'"></div>
+<!--                        <div  class="nav-item nav-link">Your balance: [[${#request.userPrincipal.principal.Balance}]] TKT</div>-->
+                        <a th:href="@{/game1}" class="nav-item nav-link">
                             <i class="fas fa-gamepad text-primary"></i>
                             Let's Play</a>
                         <a class="nav-item nav-link nonClickable"> Welcome <b>[[${#request.userPrincipal.principal.name}]]</b>
@@ -218,12 +219,15 @@
                                 <div class="d-flex justify-content-center">
                                     <h6 th:text="'Rarity: '+ ${toad.toadData?.rarity}"></h6>
                                 </div>
-<!--                                // listBool[toad.index]-->
-                                <div th:if="${myToadExistInMarket}">
-                                    <div th:if="${listBool[state?.index] == true}" class="d-flex justify-content-center">
-                                        <h6 class="bg-secondary" th:text="'is Selling'"> </h6>
-                                    </div>
+                                <div th:if="${toad.isSelling == 1}" class="d-flex justify-content-center">
+                                    <h6 class="bg-secondary" th:text="'is Selling'"> </h6>
                                 </div>
+<!--                                // listBool[toad.index]-->
+<!--                                <div th:if="${myToadExistInMarket}">-->
+<!--                                    <div th:if="${listBool[state?.index] == true}" class="d-flex justify-content-center">-->
+<!--                                        <h6 class="bg-secondary" th:text="'is Selling'"> </h6>-->
+<!--                                    </div>-->
+<!--                                </div>-->
                             </div>
                             <div class="card-footer d-flex centerBtn  bg-light border">
                                 <a th:href="@{sellToad/{id}(id=${toad.id})}" class="btn btn-sm text-dark p-0"><i

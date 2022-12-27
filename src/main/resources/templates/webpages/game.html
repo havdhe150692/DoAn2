@@ -91,7 +91,8 @@
           </div>
           <div class="navbar-nav ml-auto py-0">
             <div class="nav-item nav-link" th:text=" 'Your balance: ' + ${balance} + ' TKC'"></div>
-            <a th:href="@{/game}" class="nav-item nav-link">
+<!--            <div  class="nav-item nav-link">Your balance: [[${#request.userPrincipal.principal.Balance}]] TKT</div>-->
+            <a th:href="@{/game1}" class="nav-item nav-link">
               <i class="fas fa-gamepad text-primary"></i>
               Let's Play</a>
             <a class="nav-item nav-link nonClickable"> Welcome <b>[[${#request.userPrincipal.principal.name}]]</b>

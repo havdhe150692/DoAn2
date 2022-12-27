@@ -34,6 +34,9 @@ public class AdminContractExecutionService {
 
 
     }
+    public BigInteger GetBalance(User user) throws Exception {
+        return toadKingToken.balanceOf(user.getUserWallet().getAddress()).send();
+    }
 
     public void TransferFromImplementationExecution(User fromUser, User toUser, int amount) throws  Exception
     {

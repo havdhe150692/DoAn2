@@ -43,6 +43,6 @@ public interface ToadIngameRepository extends JpaRepository<ToadIngame, Integer>
     List<ToadIngame> findUserToadByName(@Param("name") String name,@Param("user") int userId);
 
     @Modifying
-    @Query(value = "UPDATE toad_ingame tig SET tig.owner_id = :ownerId WHERE tig.id = :toadId", nativeQuery = true)
+    @Query(value = "UPDATE toad_ingame tig SET tig.owner_id = :ownerId AND tig.is_selling = 0 WHERE tig.id = :toadId", nativeQuery = true)
     void changeToadOwner(@Param("ownerId") int userId, @Param("toadId") int toadId);
 }
