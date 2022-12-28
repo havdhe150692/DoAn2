@@ -8,6 +8,7 @@ import com.example.doan2.entity.User;
 import com.example.doan2.repository.MarketRepositoty;
 import com.example.doan2.entity.*;
 import com.example.doan2.repository.ToadIngameRepository;
+import com.example.doan2.service.AdminContractExecutionService;
 import com.example.doan2.service.FeedbackService;
 import com.example.doan2.service.Impl.UserServiceImp;
 import com.example.doan2.service.MarketService;
@@ -47,31 +48,36 @@ public class SellToadController {
     @Autowired
     ToadIngameRepository toadIngameRepository;
 
+    @Autowired
+    AdminContractExecutionService adminContractExecutionService;
+
     @PostMapping("/cancelSellProcessing/{id}")
     public String cancelSellingToad(Model model, @PathVariable("id") int id) {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         User user = ((UserServiceImp) auth.getPrincipal()).getUser();
-        try
-        {
+        try {
             // dem so coc cua minh
             // neu so coc cua minh co is_selling = 1 <10 con thi moi duoc huy ban
-            var toad = toadIngameService.findById(id);
-            var m =  marketRepositoty.findByToadIngame(toad);
 
+
+            var toad = toadIngameService.findById(id);
+            var m = marketRepositoty.findByToadIngame(toad);
             UserContractConnector userContractConnector = new UserContractConnector(user);
             userContractConnector.CancelSellNFT(m.getId());
 
+
+            //update is_selling = 0
             toad.setIsSelling(0);
             toadIngameRepository.save(toad);
-            marketRepositoty.delete(m);
+            
 //            marketService.cancelSellToadAtMarket(id);
+
+            marketRepositoty.delete(m);
 //            market.setIsSelling(0);
 //            marketService.saveMarket(market);
 
             return "redirect:/sellToad/{id}";
-        }
-        catch (Exception e)
-        {
+        } catch (Exception e) {
             System.out.println(e.toString());
             return "redirect:/sellToad/{id}";
         }
@@ -97,8 +103,7 @@ public class SellToadController {
             return "loginMarket";
         }
         try {
-            UserContractConnector u = new UserContractConnector(user);
-            BigInteger balance = u.GetBalance();
+            BigInteger balance = adminContractExecutionService.GetBalance(user);
             model.addAttribute("balance", balance);
         } catch (Exception e) {
             throw new RuntimeException(e.getMessage());
@@ -112,9 +117,22 @@ public class SellToadController {
             Market toadSellAtMarket = marketService.findToadBySellerAtMarket(id);
             // if toad is already placed at market
             if (toadSellAtMarket != null) {
-                //cancel sell toad case
-                model.addAttribute("sellCondition", Boolean.TRUE);
-                model.addAttribute("cancelSellAtMarket", Boolean.FALSE);
+                // dem so coc cua minh
+                int count = 0;
+                List<ToadIngame> myToadList = toadIngameRepository.findAllToadByOwner(user);
+                for (int i = 0; i < myToadList.size(); i++) {
+                    if (myToadList.get(i).getIsSelling() == 1) {
+                        count++;
+                    }
+                }
+                // neu so coc cua minh co is_selling = 1 <10 con thi moi duoc huy ban
+                if(count >= 10) {
+                    model.addAttribute("cancelToadLimit",Boolean.TRUE);
+                } else {
+                    //cancel sell toad case
+                    model.addAttribute("sellCondition", Boolean.TRUE);
+                    model.addAttribute("cancelSellAtMarket", Boolean.FALSE);
+                }
             } else {
                 //Display Sell button
                 model.addAttribute("cancelSellAtMarket", Boolean.TRUE);
@@ -142,8 +160,7 @@ public class SellToadController {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         User user = ((UserServiceImp) auth.getPrincipal()).getUser();
 
-        try
-        {
+        try {
             UserContractConnector userContractConnector = new UserContractConnector(user);
             var event = userContractConnector.ListNFT(id, sellPrice);
             System.out.println(event.itemId.intValue());
@@ -169,9 +186,7 @@ public class SellToadController {
 
             return "redirect:/myToad";
 
-        }
-        catch (Exception e)
-        {
+        } catch (Exception e) {
             System.out.println(e.toString());
             List<ToadClass> listToadClass = toadIngameService.findAllToadClass();
             model.addAttribute("listToadClass", listToadClass);

@@ -4,6 +4,7 @@ package com.example.doan2.service.Impl;
 import com.example.doan2.chain.UserContractConnector;
 import com.example.doan2.entity.User;
 import com.example.doan2.repository.UserRepository;
+import com.example.doan2.service.AdminContractExecutionService;
 import com.example.doan2.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
@@ -24,6 +25,9 @@ public class UserServiceImp implements UserDetailsService, UserService, UserDeta
 
     @Autowired
     UserRepository userRepository;
+
+    @Autowired
+    AdminContractExecutionService adminContractExecutionService;
 
     public UserServiceImp(User user) {
         this.user = user;
@@ -148,6 +152,7 @@ public class UserServiceImp implements UserDetailsService, UserService, UserDeta
 
     public String getBalance() throws Exception {
         UserContractConnector u = new UserContractConnector(user);
+//        BigInteger balance = adminContractExecutionService.GetBalance(user);
         BigInteger balance = u.GetBalance();
         String userBalance = String.valueOf(balance);
         return userBalance;

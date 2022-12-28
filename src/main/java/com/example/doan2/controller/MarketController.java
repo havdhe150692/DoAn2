@@ -10,12 +10,9 @@ import com.example.doan2.repository.MarketRepositoty;
 
 import com.example.doan2.entity.*;
 import com.example.doan2.repository.ToadIngameRepository;
-import com.example.doan2.service.FeedbackService;
+import com.example.doan2.service.*;
 
 import com.example.doan2.service.Impl.UserServiceImp;
-import com.example.doan2.service.MarketService;
-import com.example.doan2.service.ToadIngameService;
-import com.example.doan2.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -58,6 +55,9 @@ public class MarketController {
     @Autowired
     ToadIngameRepository toadIngameRepository;
 
+    @Autowired
+    AdminContractExecutionService adminContractExecutionService;
+
 
     @GetMapping("/market")
     public String viewMarket(Model model) {
@@ -67,6 +67,12 @@ public class MarketController {
         }
         User user = ((UserServiceImp) authentication.getPrincipal()).getUser();
         Feedback userFeedback = feedbackService.userFeedback(user.getId());
+        try {
+            BigInteger balance = adminContractExecutionService.GetBalance(user);
+            model.addAttribute("balance", balance);
+        } catch (Exception e) {
+            throw new RuntimeException(e.getMessage());
+        }
         if (userFeedback != null) {
             model.addAttribute("updateFeedback", Boolean.TRUE);
             model.addAttribute("userUpdateFeedback", userFeedback);
@@ -89,7 +95,7 @@ public class MarketController {
     @GetMapping("/shop")
     public String viewShop(Model model,
                            @RequestParam(value = "page", required = false) Optional<Integer> page,
-                           @RequestParam(value = "size", required = false) Optional<Integer> size,
+//                           @RequestParam(value = "size", required = false) Optional<Integer> size,
                            Market market) {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         if (auth == null || auth instanceof AnonymousAuthenticationToken) {
@@ -105,15 +111,22 @@ public class MarketController {
             model.addAttribute("updateFeedback", Boolean.FALSE);
         }
         int currentPage = page.orElse(1);
-        int pageSize = size.orElse(6);
+//        int pageSize = size.orElse(6);
+
         try {
-            UserContractConnector u = new UserContractConnector(user);
-            BigInteger balance = u.GetBalance();
+            BigInteger balance = adminContractExecutionService.GetBalance(user);
             model.addAttribute("balance", balance);
         } catch (Exception e) {
             throw new RuntimeException(e.getMessage());
         }
-        Page<Market> toadPagingMarket = marketService.pagingMarket(PageRequest.of(currentPage - 1, pageSize));
+//        try {
+//            UserContractConnector u = new UserContractConnector(user);
+//            BigInteger balance = u.GetBalance();
+//            model.addAttribute("balance", balance);
+//        } catch (Exception e) {
+//            throw new RuntimeException(e.getMessage());
+//        }
+        Page<Market> toadPagingMarket = marketService.pagingMarket(PageRequest.of(currentPage - 1, 6));
         System.out.println("this is toadPagingMarket: " + toadPagingMarket);
         List<ToadClass> listToadClass = toadIngameService.findAllToadClass();
         model.addAttribute("listToadClass", listToadClass);
@@ -150,13 +163,7 @@ public class MarketController {
             return "loginMarket";
         }
         User user = ((UserServiceImp) auth.getPrincipal()).getUser();
-        try {
-            UserContractConnector u = new UserContractConnector(user);
-            BigInteger balance = u.GetBalance();
-            model.addAttribute("balance", balance);
-        } catch (Exception e) {
-            throw new RuntimeException(e.getMessage());
-        }
+
         Feedback userFeedback = feedbackService.userFeedback(user.getId());
         if (userFeedback != null) {
             model.addAttribute("updateFeedback", Boolean.TRUE);
@@ -174,16 +181,31 @@ public class MarketController {
         if (seller.getSeller().getName().equals(user.getName())) {
             model.addAttribute("viewMarketBySeller", Boolean.FALSE);
         } else {
-            model.addAttribute("viewMarketBySeller", Boolean.TRUE);
+            // dem so coc cua minh
+            int count = 0;
+            List<ToadIngame> myToadList = toadIngameRepository.findAllToadByOwner(user);
+            for (int i = 0; i < myToadList.size(); i++) {
+                if (myToadList.get(i).getIsSelling() == 1) {
+                    count++;
+                }
+            }
+            // neu so coc cua minh co is_selling = 1 <10 con thi moi duoc mua
+            if(count >= 10) {
+                model.addAttribute("toadLimit", Boolean.TRUE);
+            } else {
+                // can buy
+                model.addAttribute("viewMarketBySeller", Boolean.TRUE);
+            }
         }
+
+
+
         return "productDetail";
     }
 
     @PostMapping("/searchToadByName")
     public String searchToadByName(Model model,
-                                   @RequestParam(value = "searchByName", required = false) String name,
-                                   @RequestParam(value = "page", required = false) Optional<Integer> page,
-                                   @RequestParam(value = "size", required = false) Optional<Integer> size) {
+                                   @RequestParam(value = "searchByName", required = false) String name) {
         List<ToadClass> listToadClass = toadIngameService.findAllToadClass();
         model.addAttribute("listToadClass", listToadClass);
         model.addAttribute("countToadSize", marketService.countAllMarket());
@@ -194,13 +216,7 @@ public class MarketController {
         model.addAttribute("countLegendSize", marketService.countToadByRarity(4));
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         User user = ((UserServiceImp) auth.getPrincipal()).getUser();
-        try {
-            UserContractConnector u = new UserContractConnector(user);
-            BigInteger balance = u.GetBalance();
-            model.addAttribute("balance", balance);
-        } catch (Exception e) {
-            throw new RuntimeException(e.getMessage());
-        }
+
         Feedback userFeedback = feedbackService.userFeedback(user.getId());
         if (userFeedback != null) {
             model.addAttribute("updateFeedback", Boolean.TRUE);
@@ -214,13 +230,15 @@ public class MarketController {
             model.addAttribute("mess", "Please enter searchValue");
             return "shop";
         }
+        try {
+            BigInteger balance = adminContractExecutionService.GetBalance(user);
+            model.addAttribute("balance", balance);
+        } catch (Exception e) {
+            throw new RuntimeException(e.getMessage());
+        }
         List<Market> listToadSearchByName = marketService.findByName(name);
         model.addAttribute("searchName", name);
-        int currentPage = page.orElse(1);
-        int pageSize = size.orElse(6);
-        Page<Market> toadPagingMarket = marketService.customPaging(
-                PageRequest.of(currentPage - 1, pageSize), listToadSearchByName);
-        if (toadPagingMarket == null) {
+        if (listToadSearchByName.isEmpty()) {
             model.addAttribute("condition", Boolean.TRUE);
             model.addAttribute("pagingEmpty", Boolean.TRUE);
             model.addAttribute("mess", "It's seem like we don't have Toad name that you're looking for, Please try another!");
@@ -228,22 +246,14 @@ public class MarketController {
         } else {
             model.addAttribute("pagingEmpty", Boolean.FALSE);
             model.addAttribute("condition", Boolean.TRUE);
-            model.addAttribute("toadList", toadPagingMarket);
-            int totalPages = toadPagingMarket.getTotalPages();
-            if (totalPages > 0) {
-                List<Integer> pageNumbers = IntStream.rangeClosed(1, totalPages).boxed().collect(Collectors.toList());
-                model.addAttribute("pageNumbers", pageNumbers);
-            }
-            model.addAttribute("currentPage", currentPage);
+            model.addAttribute("toadList", listToadSearchByName);
         }
         return "shop";
     }
 
     @PostMapping("/searchToadContainsName")
     public String searchToadContainsString(Model model,
-                                           @RequestParam(value = "searchByNameContains", required = false) String name,
-                                           @RequestParam(value = "page", required = false) Optional<Integer> page,
-                                           @RequestParam(value = "size", required = false) Optional<Integer> size) {
+                                           @RequestParam(value = "searchByNameContains", required = false) String name) {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         User user = ((UserServiceImp) auth.getPrincipal()).getUser();
         Feedback userFeedback = feedbackService.userFeedback(user.getId());
@@ -254,8 +264,7 @@ public class MarketController {
             model.addAttribute("updateFeedback", Boolean.FALSE);
         }
         try {
-            UserContractConnector u = new UserContractConnector(user);
-            BigInteger balance = u.GetBalance();
+            BigInteger balance = adminContractExecutionService.GetBalance(user);
             model.addAttribute("balance", balance);
         } catch (Exception e) {
             throw new RuntimeException(e.getMessage());
@@ -270,26 +279,20 @@ public class MarketController {
         model.addAttribute("countLegendSize", marketService.countToadByRarity(4));
         if (name.trim().equals("")) {
             model.addAttribute("mess", "Please enter searchValue");
-            model.addAttribute("pagingEmpty", Boolean.TRUE);
             model.addAttribute("condition", Boolean.TRUE);
             return "shop";
         }
         List<Market> listToadSearchByName = marketService.findByNameContain(name);
         model.addAttribute("searchNameContains", name);
-        int currentPage = page.orElse(1);
-        int pageSize = size.orElse(6);
-        Page<Market> toadPagingMarket = marketService.customPaging(
-                PageRequest.of(currentPage - 1, pageSize), listToadSearchByName);
-        if (toadPagingMarket == null) {
+
+        if (listToadSearchByName.isEmpty()) {
             model.addAttribute("condition", Boolean.TRUE);
-            model.addAttribute("pagingEmpty", Boolean.TRUE);
             model.addAttribute("mess", "It's seem like we don't have Toad contains the name " +
                     "that you're looking for, Please try another!");
             return "shop";
         } else {
-            model.addAttribute("pagingEmpty", Boolean.FALSE);
             model.addAttribute("condition", Boolean.TRUE);
-            model.addAttribute("toadList", toadPagingMarket);
+            model.addAttribute("toadList", listToadSearchByName);
         }
         return "shop";
     }
@@ -310,18 +313,18 @@ public class MarketController {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         User user = ((UserServiceImp) auth.getPrincipal()).getUser();
         Feedback userFeedback = feedbackService.userFeedback(user.getId());
-        try {
-            UserContractConnector u = new UserContractConnector(user);
-            BigInteger balance = u.GetBalance();
-            model.addAttribute("balance", balance);
-        } catch (Exception e) {
-            throw new RuntimeException(e.getMessage());
-        }
+
         if (userFeedback != null) {
             model.addAttribute("updateFeedback", Boolean.TRUE);
             model.addAttribute("userUpdateFeedback", userFeedback);
         } else {
             model.addAttribute("updateFeedback", Boolean.FALSE);
+        }
+        try {
+            BigInteger balance = adminContractExecutionService.GetBalance(user);
+            model.addAttribute("balance", balance);
+        } catch (Exception e) {
+            throw new RuntimeException(e.getMessage());
         }
         if (priceTo == null || priceFrom == null) {
             model.addAttribute("errorPrice", "Not allow Null values!");
@@ -360,8 +363,7 @@ public class MarketController {
             model.addAttribute("updateFeedback", Boolean.FALSE);
         }
         try {
-            UserContractConnector u = new UserContractConnector(user);
-            BigInteger balance = u.GetBalance();
+            BigInteger balance = adminContractExecutionService.GetBalance(user);
             model.addAttribute("balance", balance);
         } catch (Exception e) {
             throw new RuntimeException(e.getMessage());
@@ -398,8 +400,7 @@ public class MarketController {
             model.addAttribute("updateFeedback", Boolean.FALSE);
         }
         try {
-            UserContractConnector u = new UserContractConnector(user);
-            BigInteger balance = u.GetBalance();
+            BigInteger balance = adminContractExecutionService.GetBalance(user);
             model.addAttribute("balance", balance);
         } catch (Exception e) {
             throw new RuntimeException(e.getMessage());
@@ -437,8 +438,7 @@ public class MarketController {
             model.addAttribute("updateFeedback", Boolean.FALSE);
         }
         try {
-            UserContractConnector u = new UserContractConnector(user);
-            BigInteger balance = u.GetBalance();
+            BigInteger balance = adminContractExecutionService.GetBalance(user);
             model.addAttribute("balance", balance);
         } catch (Exception e) {
             throw new RuntimeException(e.getMessage());
@@ -474,8 +474,7 @@ public class MarketController {
             model.addAttribute("updateFeedback", Boolean.FALSE);
         }
         try {
-            UserContractConnector u = new UserContractConnector(user);
-            BigInteger balance = u.GetBalance();
+            BigInteger balance = adminContractExecutionService.GetBalance(user);
             model.addAttribute("balance", balance);
         } catch (Exception e) {
             throw new RuntimeException(e.getMessage());
@@ -507,19 +506,17 @@ public class MarketController {
         //   marketService.removeToadAtMarket(id);
 
         try {
-            // dem so coc cua minh
-            // neu so coc cua minh co is_selling = 1 <10 con thi moi duoc mua
             Market m = marketRepositoty.findById(id);
             UserContractConnector userContractConnector = new UserContractConnector(user);
             userContractConnector.BuyNFT(id, m.getPrice());
-            marketRepositoty.delete(m);
-            toadIngameService.changeToadOwner(user.getId(), m.getToadIngame().getId());
 
+//            toadIngameService.changeToadOwner(user.getId(), m.getToadIngame().getId());
             ToadIngame myToad = toadIngameService.findById(m.getToadIngame().getId());
+            myToad.setOwner(user);
             myToad.setIsSelling(0);
             myToad.setOwner(user);
             toadIngameRepository.save(myToad);
-
+            marketRepositoty.delete(m);
 
             return "redirect:/shop";
         } catch (Exception e) {
@@ -547,15 +544,14 @@ public class MarketController {
         int currentPage = page.orElse(1);
 //        int pageSize = size.orElse(1);
         System.out.println("currentPage: " + currentPage);
+
+//        System.out.println("pageSize: " + pageSize);
         try {
-            UserContractConnector u = new UserContractConnector(user);
-            BigInteger balance = u.GetBalance();
+            BigInteger balance = adminContractExecutionService.GetBalance(user);
             model.addAttribute("balance", balance);
         } catch (Exception e) {
             throw new RuntimeException(e.getMessage());
         }
-//        System.out.println("pageSize: " + pageSize);
-
         List<ToadClass> listToadClass = toadIngameService.findAllToadClass();
         model.addAttribute("listToadClass", listToadClass);
         model.addAttribute("countToadSize", marketService.countAllMarket());

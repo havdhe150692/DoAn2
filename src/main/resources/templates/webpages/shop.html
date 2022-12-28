@@ -105,8 +105,9 @@
                             Landing Page</a>
                     </div>
                     <div class="navbar-nav ml-auto py-0">
-                        <div class="nav-item nav-link" th:text=" 'Your balance: ' + ${balance} + ' TKT'"></div>
-                        <a th:href="@{/game}" class="nav-item nav-link">
+                        <div class="nav-item nav-link" th:text=" 'Your balance: ' + ${balance} + ' TKC'"></div>
+                        <!--                        <div  class="nav-item nav-link">Your balance: [[${#request.userPrincipal.principal.Balance}]] TKT</div>-->
+                        <a th:href="@{/game1}" class="nav-item nav-link">
                             <i class="fas fa-gamepad text-primary"></i>
                             Let's Play</a>
                         <a class="nav-item nav-link nonClickable"> Welcome <b>[[${#request.userPrincipal.principal.name}]]</b>
@@ -252,7 +253,7 @@
                                 <img class="img-fluid w-100"
                                      th:src="@{${'/toad_img/' + toad.toadIngame?.toadData?.pictureId + '.png'}}"/>
                             </div>
-                            <div  class="card-body border-left border-right text-center p-0 pt-4 pb-3">
+                            <div class="card-body border-left border-right text-center p-0 pt-4 pb-3">
                                 <h6 th:text="'Name: ' + ${toad.toadIngame?.toadData?.name} + ' #' + ${toad.toadIngame?.typeCounter}"
                                     class="text-truncate mb-3"></h6>
                                 <div class="d-flex justify-content-center">
@@ -404,7 +405,7 @@
                         <ul class="pagination justify-content-center mb-3">
                             <li th:class="${currentPage == 1} ? 'page-item disabled': 'page-item'">
                                 <a class="page-link" aria-label="Previous"
-                                   th:href="@{/paging(size=${toadList.size}, page=${currentPage} - 1)}"
+                                   th:href="@{/paging(page=${currentPage} - 1)}"
                                 >
                                     <span aria-hidden="true">&laquo;</span>
                                     <span class="sr-only">Previous</span>
@@ -413,205 +414,28 @@
                             <li th:if="${toadList.totalPages > 0}" th:each="pageNumber : ${pageNumbers}"
                                 th:class="${pageNumber == toadList.number + 1} ? 'page-item active': 'page-item'"
                             >
-                                <a class="page-link" th:href="@{/paging(size=${toadList.size}, page=${pageNumber})}"
+                                <a class="page-link" th:href="@{/paging(page=${pageNumber})}"
                                    th:text="${pageNumber}"
                                 ></a>
                             </li>
                             <li th:class="${currentPage == toadList.totalPages} ? 'page-item disabled' : 'page-item'">
                                 <a class="page-link" aria-label="Next"
-                                   th:href="@{/paging(size=${toadList.size}, page=${currentPage} + 1)}"
+                                   th:href="@{/paging(page=${currentPage} + 1)}"
                                 >
                                     <span aria-hidden="true">&raquo;</span>
                                     <span class="sr-only">Next</span>
                                 </a>
                             </li>
                         </ul>
-<!--                        <ul class="pagination justify-content-center flex-wrap">-->
-<!--                            <li th:class="${currentPage > 1 ? 'page-item' : 'page-item disabled'}">-->
-<!--                                <a class="page-link" th:href="@{/paging(size=${toadList.size}, page = 1)}"-->
-<!--                                >First</a>-->
-<!--                            </li>-->
-<!--                            <li th:class="${currentPage > 1 ? 'page-item' : 'page-item disabled'}">-->
-<!--                                <a class="page-link"-->
-<!--                                   th:href="@{/paging(size=${toadList.size}, page = ${currentPage - 1})}"-->
-<!--                                >Previous</a>-->
-<!--                            </li>-->
-<!--                            &lt;!&ndash;                            <li th:if="${toadList.totalPages > 0}" th:each="pageNumber : ${pageNumbers}" class="page-item"&ndash;&gt;-->
-<!--                            &lt;!&ndash;                                th:class="${pageNumber==bookPage.number + 1} ? 'active' + 'page-item'"&ndash;&gt;-->
-<!--                            &lt;!&ndash;                            >&ndash;&gt;-->
-<!--                            &lt;!&ndash;                                <a class="page-link" th:href="@{/paging(size=${toadList.size}, page=${pageNumber})}"&ndash;&gt;-->
-<!--                            &lt;!&ndash;                                   th:text="${pageNumber}"&ndash;&gt;-->
-<!--                            &lt;!&ndash;                                ></a>&ndash;&gt;-->
-<!--                            &lt;!&ndash;                            </li>&ndash;&gt;-->
-<!--                            <th:block th:if="${pageNumbers.size <= 10}">-->
-<!--                                <li th:each="pageNumber : ${#numbers.sequence(1, pageNumbers.size)}"-->
-<!--                                    th:class="${pageNumber == currentPage} ? 'active page-item' : 'page-item'">-->
-<!--                                    <a th:href="@{/paging(page = ${pageNumber})}" th:text="${pageNumber}"></a>-->
-<!--                                </li>-->
-<!--                            </th:block>-->
-<!--                            <th:block th:if="${pageNumbers.size > 10}">-->
-<!--                                <th:block th:if="${currentPage <= 5 || currentPage > pageNumbers.size - 4}">-->
-<!--                                    <li th:each="pageNumber : ${#numbers.sequence(1, 5)}"-->
-<!--                                        th:class="${pageNumber == currentPage} ? 'page-item active' : 'page-item'">-->
-<!--                                        <a class="page-link" th:href="@{/paging(page = ${pageNumber})}"-->
-<!--                                           th:text="${pageNumber}"></a>-->
-<!--                                    </li>-->
-<!--                                    <a class="page-link" th:href="@{/paging (page = 6)}">...</a>-->
-<!--                                    <li th:each="pageNumber : ${#numbers.sequence(pageNumbers.size - 4, pageNumbers.size)}"-->
-<!--                                        th:class="${pageNumber == currentPage} ? 'active page-item' : 'page-item'">-->
-<!--                                        <a class="page-link" th:href="@{/paging(page = ${pageNumber})}"-->
-<!--                                           th:text="${pageNumber}"></a>-->
-<!--                                    </li>-->
-<!--                                </th:block>-->
-<!--                                <th:block th:if="${currentPage > 5 && currentPage <= pageNumbers.size - 4}">-->
-<!--                                    <a th:href="@{/paging (page = ${currentPage - 5})}" class="page-link">...-->
-<!--                                    </a>-->
-
-<!--                                    <li th:each="pageNumber:${#numbers.sequence(currentPage - 4, currentPage + 4)}">-->
-<!--                                        <a th:href="@{/paging (page = ${pageNumber})}" class="page-link"-->
-<!--                                           th:text="${pageNumber}">-->
-<!--                                        </a>-->
-<!--                                    </li>-->
-
-<!--                                    <a th:href="@{/paging (page = ${currentPage + 5})}" class="page-link">...-->
-<!--                                    </a>-->
-<!--                                </th:block>-->
-<!--                            </th:block>-->
-<!--                            <li th:class="${currentPage >= 1 ? 'page-item' : 'page-item disabled'}">-->
-<!--                                <a class="page-link"-->
-<!--                                   th:href="@{/paging(size=${toadList.size}, page = ${currentPage==pageNumbers.size ? currentPage : currentPage + 1})}"-->
-<!--                                >Next</a>-->
-<!--                            </li>-->
-<!--                            <li th:class="${currentPage < pageNumbers.size ? 'page-item' : 'page-item disabled'}">-->
-<!--                                <a class="page-link"-->
-<!--                                   th:href="@{/paging(size=${toadList.size}, page = ${pageNumbers.size})}"-->
-<!--                                >Last</a>-->
-<!--                            </li>-->
-<!--                        </ul>-->
                     </nav>
                 </div>
 
-<!--                <div class="col-12 pb-1">-->
-<!--                    <nav aria-label="Page navigation">-->
-<!--                        <ul class="pagination justify-content-center mb-3">-->
-<!--                            <li th:class="${currentPage == 1} ? 'page-item disabled': 'page-item'">-->
-<!--                                <a class="page-link" aria-label="Previous"-->
-<!--                                   th:href="@{/paging(size=${toadList.size}, page=${currentPage} - 1)}"-->
-<!--                                >-->
-<!--                                    <span aria-hidden="true">&laquo;</span>-->
-<!--                                    <span class="sr-only">Previous</span>-->
-<!--                                </a>-->
-<!--                            </li>-->
-<!--                            <li th:if="${toadList.totalPages > 0}" th:each="pageNumber : ${pageNumbers}"-->
-<!--                                th:class="${pageNumber == toadList.number + 1} ? 'page-item active': 'page-item'"-->
-<!--                            >-->
-<!--                                <a class="page-link" th:href="@{/paging(size=${toadList.size}, page=${pageNumber})}"-->
-<!--                                   th:text="${pageNumber}"-->
-<!--                                ></a>-->
-<!--                            </li>-->
-<!--                            <li th:class="${currentPage == toadList.totalPages} ? 'page-item disabled' : 'page-item'">-->
-<!--                                <a class="page-link" aria-label="Next"-->
-<!--                                   th:href="@{/paging(size=${toadList.size}, page=${currentPage} + 1)}"-->
-<!--                                >-->
-<!--                                    <span aria-hidden="true">&raquo;</span>-->
-<!--                                    <span class="sr-only">Next</span>-->
-<!--                                </a>-->
-<!--                            </li>-->
-<!--                        </ul>-->
-<!--                    </nav>-->
-<!--                </div>-->
-                        <!--                        <ul class="pagination justify-content-center flex-wrap">-->
-                        <!--                            <li th:class="${currentPage > 1 ? 'page-item' : 'page-item disabled'}">-->
-                        <!--                                <a class="page-link" th:href="@{/paging(size=${toadList.size}, page = 1)}"-->
-                        <!--                                >First</a>-->
-                        <!--                            </li>-->
-                        <!--                            <li th:class="${currentPage > 1 ? 'page-item' : 'page-item disabled'}">-->
-                        <!--                                <a class="page-link"-->
-                        <!--                                   th:href="@{/paging(size=${toadList.size}, page = ${currentPage - 1})}"-->
-                        <!--                                >Previous</a>-->
-                        <!--                            </li>-->
-                        <!--                            &lt;!&ndash;                            <li th:if="${toadList.totalPages > 0}" th:each="pageNumber : ${pageNumbers}" class="page-item"&ndash;&gt;-->
-                        <!--                            &lt;!&ndash;                                th:class="${pageNumber==bookPage.number + 1} ? 'active' + 'page-item'"&ndash;&gt;-->
-                        <!--                            &lt;!&ndash;                            >&ndash;&gt;-->
-                        <!--                            &lt;!&ndash;                                <a class="page-link" th:href="@{/paging(size=${toadList.size}, page=${pageNumber})}"&ndash;&gt;-->
-                        <!--                            &lt;!&ndash;                                   th:text="${pageNumber}"&ndash;&gt;-->
-                        <!--                            &lt;!&ndash;                                ></a>&ndash;&gt;-->
-                        <!--                            &lt;!&ndash;                            </li>&ndash;&gt;-->
-                        <!--                            <th:block th:if="${pageNumbers.size <= 10}">-->
-                        <!--                                <li th:each="pageNumber : ${#numbers.sequence(1, pageNumbers.size)}"-->
-                        <!--                                    th:class="${pageNumber == currentPage} ? 'active page-item' : 'page-item'">-->
-                        <!--                                    <a th:href="@{/paging(page = ${pageNumber})}" th:text="${pageNumber}"></a>-->
-                        <!--                                </li>-->
-                        <!--                            </th:block>-->
-                        <!--                            <th:block th:if="${pageNumbers.size > 10}">-->
-                        <!--                                <th:block th:if="${currentPage <= 5 || currentPage > pageNumbers.size - 4}">-->
-                        <!--                                    <li th:each="pageNumber : ${#numbers.sequence(1, 5)}"-->
-                        <!--                                        th:class="${pageNumber == currentPage} ? 'page-item active' : 'page-item'">-->
-                        <!--                                        <a class="page-link" th:href="@{/paging(page = ${pageNumber})}"-->
-                        <!--                                           th:text="${pageNumber}"></a>-->
-                        <!--                                    </li>-->
-                        <!--                                    <a class="page-link" th:href="@{/paging (page = 6)}">...</a>-->
-                        <!--                                    <li th:each="pageNumber : ${#numbers.sequence(pageNumbers.size - 4, pageNumbers.size)}"-->
-                        <!--                                        th:class="${pageNumber == currentPage} ? 'active page-item' : 'page-item'">-->
-                        <!--                                        <a class="page-link" th:href="@{/paging(page = ${pageNumber})}"-->
-                        <!--                                           th:text="${pageNumber}"></a>-->
-                        <!--                                    </li>-->
-                        <!--                                </th:block>-->
-                        <!--                                <th:block th:if="${currentPage > 5 && currentPage <= pageNumbers.size - 4}">-->
-                        <!--                                    <a th:href="@{/paging (page = ${currentPage - 5})}" class="page-link">...-->
-                        <!--                                    </a>-->
-
-                        <!--                                    <li th:each="pageNumber:${#numbers.sequence(currentPage - 4, currentPage + 4)}">-->
-                        <!--                                        <a th:href="@{/paging (page = ${pageNumber})}" class="page-link"-->
-                        <!--                                           th:text="${pageNumber}">-->
-                        <!--                                        </a>-->
-                        <!--                                    </li>-->
-
-                        <!--                                    <a th:href="@{/paging (page = ${currentPage + 5})}" class="page-link">...-->
-                        <!--                                    </a>-->
-                        <!--                                </th:block>-->
-                        <!--                            </th:block>-->
-                        <!--                            <li th:class="${currentPage >= 1 ? 'page-item' : 'page-item disabled'}">-->
-                        <!--                                <a class="page-link"-->
-                        <!--                                   th:href="@{/paging(size=${toadList.size}, page = ${currentPage==pageNumbers.size ? currentPage : currentPage + 1})}"-->
-                        <!--                                >Next</a>-->
-                        <!--                            </li>-->
-                        <!--                            <li th:class="${currentPage < pageNumbers.size ? 'page-item' : 'page-item disabled'}">-->
-                        <!--                                <a class="page-link"-->
-                        <!--                                   th:href="@{/paging(size=${toadList.size}, page = ${pageNumbers.size})}"-->
-                        <!--                                >Last</a>-->
-                        <!--                            </li>-->
-                        <!--                        </ul>-->
-                    </nav>
-                </div>
-
-                <!--0-->
-
-                <!--                <div class="col-12 pb-1">-->
-                <!--                    <nav aria-label="Page navigation">-->
-                <!--                        <ul class="pagination justify-content-center mb-3">-->
-                <!--                            <li class="page-item disabled">-->
-                <!--                                <a class="page-link" href="#" aria-label="Previous">-->
-                <!--                                    <span aria-hidden="true">&laquo;</span>-->
-                <!--                                    <span class="sr-only">Previous</span>-->
-                <!--                                </a>-->
-                <!--                            </li>-->
-                <!--                            <li class="page-item active"><a class="page-link" href="#">1</a></li>-->
-                <!--                            <li class="page-item"><a class="page-link" href="#">2</a></li>-->
-                <!--                            <li class="page-item"><a class="page-link" href="#">3</a></li>-->
-                <!--                            <li class="page-item">-->
-                <!--                                <a class="page-link" href="#" aria-label="Next">-->
-                <!--                                    <span aria-hidden="true">&raquo;</span>-->
-                <!--                                    <span class="sr-only">Next</span>-->
-                <!--                                </a>-->
-                <!--                            </li>-->
-                <!--                        </ul>-->
-                <!--                    </nav>-->
-                <!--                </div>-->
+                </nav>
             </div>
         </div>
-        <!-- Shop Product End -->
     </div>
+    <!-- Shop Product End -->
+</div>
 </div>
 <!-- Shop End -->
 

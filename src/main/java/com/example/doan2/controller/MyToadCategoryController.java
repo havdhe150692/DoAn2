@@ -2,6 +2,7 @@ package com.example.doan2.controller;
 
 import com.example.doan2.chain.UserContractConnector;
 import com.example.doan2.entity.*;
+import com.example.doan2.service.AdminContractExecutionService;
 import com.example.doan2.service.FeedbackService;
 import com.example.doan2.service.Impl.UserServiceImp;
 import com.example.doan2.service.MarketService;
@@ -30,7 +31,8 @@ public class MyToadCategoryController {
     @Autowired
     FeedbackService feedbackService;
 
-
+    @Autowired
+    AdminContractExecutionService adminContractExecutionService;
     @Autowired
     MarketService marketService;
 
@@ -43,8 +45,7 @@ public class MyToadCategoryController {
         User user = ((UserServiceImp) auth.getPrincipal()).getUser();
         Feedback userFeedback = feedbackService.userFeedback(user.getId());
         try {
-            UserContractConnector u = new UserContractConnector(user);
-            BigInteger balance = u.GetBalance();
+            BigInteger balance = adminContractExecutionService.GetBalance(user);
             model.addAttribute("balance", balance);
         } catch (Exception e) {
             throw new RuntimeException(e.getMessage());
@@ -86,6 +87,7 @@ public class MyToadCategoryController {
                 }
             }
             model.addAttribute("listBool", listBool);
+
             List<ToadClass> listToadClass = toadIngameService.findAllToadClass();
             model.addAttribute("listToadClass", listToadClass);
             model.addAttribute("myToadList", myToadLists);
@@ -105,8 +107,7 @@ public class MyToadCategoryController {
             model.addAttribute("updateFeedback", Boolean.FALSE);
         }
         try {
-            UserContractConnector u = new UserContractConnector(user);
-            BigInteger balance = u.GetBalance();
+            BigInteger balance = adminContractExecutionService.GetBalance(user);
             model.addAttribute("balance", balance);
         } catch (Exception e) {
             throw new RuntimeException(e.getMessage());
@@ -145,8 +146,7 @@ public class MyToadCategoryController {
             model.addAttribute("updateFeedback", Boolean.FALSE);
         }
         try {
-            UserContractConnector u = new UserContractConnector(user);
-            BigInteger balance = u.GetBalance();
+            BigInteger balance = adminContractExecutionService.GetBalance(user);
             model.addAttribute("balance", balance);
         } catch (Exception e) {
             throw new RuntimeException(e.getMessage());
