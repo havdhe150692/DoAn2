@@ -51,6 +51,13 @@ public class SellToadController {
     @Autowired
     AdminContractExecutionService adminContractExecutionService;
 
+    @PostMapping("/deleteCommonToad/{id}")
+    public String deleteCommonToad(Model model, @PathVariable("id")int id) {
+        var toad = toadIngameService.findById(id);
+        toadIngameRepository.delete(toad);
+        return "redirect:/myToad";
+    }
+
     @PostMapping("/cancelSellProcessing/{id}")
     public String cancelSellingToad(Model model, @PathVariable("id") int id) {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
