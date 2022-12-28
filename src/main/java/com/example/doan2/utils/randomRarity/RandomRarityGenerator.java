@@ -36,7 +36,7 @@ public class RandomRarityGenerator {
         List<ValueEntry> cm = new ArrayList<>();
         cm.add(new ValueEntry(Enum.Rarity.Common, 650));
         cm.add(new ValueEntry(Enum.Rarity.Rare, 325));
-        cm.add(new ValueEntry(Enum.Rarity.Epic, 204));
+        cm.add(new ValueEntry(Enum.Rarity.Epic, 24));
         cm.add(new ValueEntry(Enum.Rarity.Mythical, 001));
 
         List<ValueEntry> cl = new ArrayList<>();
