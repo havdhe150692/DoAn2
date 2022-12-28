@@ -1,5 +1,6 @@
 package com.example.doan2.controller;
 
+import com.example.doan2.entity.ToadClass;
 import com.example.doan2.entity.User;
 import com.example.doan2.entity.UserWallet;
 import com.example.doan2.repository.UserWalletRepository;
@@ -24,6 +25,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.security.InvalidAlgorithmParameterException;
 import java.security.NoSuchAlgorithmException;
 import java.security.NoSuchProviderException;
+import java.util.List;
 
 @Controller
 public class LoginUserController {
@@ -121,13 +123,13 @@ public class LoginUserController {
     }
 
     @GetMapping("/game1")
-    public String viewGamePage(HttpServletResponse response) {
+    public String viewGamePage(Model model, HttpServletResponse response) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         User user = ((UserServiceImp) authentication.getPrincipal()).getUser();
         Cookie cookie = new Cookie("userId", user.getId().toString());
         response.addCookie(cookie);
-
-
+        List<ToadClass> listToadClass = toadIngameService.findAllToadClass();
+        model.addAttribute("listToadClass", listToadClass);
         return "game";
     }
 

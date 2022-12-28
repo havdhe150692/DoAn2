@@ -10,6 +10,7 @@ import com.example.doan2.repository.MarketRepositoty;
 
 import com.example.doan2.entity.*;
 import com.example.doan2.repository.ToadIngameRepository;
+import com.example.doan2.repository.UserRepository;
 import com.example.doan2.service.*;
 
 import com.example.doan2.service.Impl.UserServiceImp;
@@ -59,12 +60,14 @@ public class MarketController {
     AdminContractExecutionService adminContractExecutionService;
 
 
+
     @GetMapping("/market")
     public String viewMarket(Model model) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         if (authentication == null || authentication instanceof AnonymousAuthenticationToken) {
             return "loginMarket";
         }
+
         User user = ((UserServiceImp) authentication.getPrincipal()).getUser();
         Feedback userFeedback = feedbackService.userFeedback(user.getId());
         try {
