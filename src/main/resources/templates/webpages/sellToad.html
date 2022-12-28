@@ -100,7 +100,7 @@
                     </div>
                     <div class="navbar-nav ml-auto py-0">
                         <div class="nav-item nav-link" th:text=" 'Your balance: ' + ${balance} + ' TKC'"></div>
-<!--                        <div  class="nav-item nav-link">Your balance: [[${#request.userPrincipal.principal.Balance}]] TKT</div>-->
+                        <!--                        <div  class="nav-item nav-link">Your balance: [[${#request.userPrincipal.principal.Balance}]] TKT</div>-->
                         <a th:href="@{/game1}" class="nav-item nav-link">
                             <i class="fas fa-gamepad text-primary"></i>
                             Let's Play</a>
@@ -219,7 +219,7 @@
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                            <button th:if="${updateFeedback == false}"  type="submit"
+                            <button th:if="${updateFeedback == false}" type="submit"
                                     class="btn btn-primary">Enter
                             </button>
                             <button th:if="${updateFeedback == true}" type="submit"
@@ -242,7 +242,8 @@
                  alt="Image">
         </div>
         <div class="col-lg-7 pb-5">
-            <h1 class="font-weight-semi-bold bg-primary" th:text="${myToad.toadData?.name} + ' #' + ${myToad.typeCounter}"></h1>
+            <h1 class="font-weight-semi-bold bg-primary"
+                th:text="${myToad.toadData?.name} + ' #' + ${myToad.typeCounter}"></h1>
             <div class="mb-4">
                 <h5 class="font-weight-semi-bold bg-secondary"
                     th:text="|Date of birth: ${myToad.dateOfBirth}|"></h5>
@@ -252,11 +253,13 @@
                     th:text="'Rarity: ' + ${myToad.toadData?.rarity}"></h6>
             </div>
             <p class="mb-4" th:text="${myToad.toadData?.info}"></p>
-            <div th:if="${sellCondition == true and cancelSellAtMarket == true}" class="d-flex align-items-center mb-4 pt-2">
+            <div th:if="${sellCondition == true and cancelSellAtMarket == true}"
+                 class="d-flex align-items-center mb-4 pt-2">
                 <div class="input-group quantity mr-3" style="width: 281px;">
                     <p style="margin: auto; font-size: 20px" class="text-dark font-weight-medium">You receive : </p>
-                    <input id="youReceive" disabled type="text" class="form-control bg-secondary text-center customInput1"
-                           >
+                    <input id="youReceive" disabled type="text"
+                           class="form-control bg-secondary text-center customInput1"
+                    >
                     <div class="input-group-append">
                         <label class="input-group-text bg-primary">TKT</label>
                     </div>
@@ -267,9 +270,10 @@
                     th:object="${market}"
             >
                 <div class="d-flex align-items-center mb-4 pt-2">
-                    <div th:if="${sellCondition == true and cancelSellAtMarket == true}" class="input-group quantity mr-3" style="width: 282px;">
+                    <div th:if="${sellCondition == true and cancelSellAtMarket == true}"
+                         class="input-group quantity mr-3" style="width: 282px;">
                         <p style="margin: auto; font-size: 20px" class="text-dark font-weight-medium">Buyer pay : </p>
-                        <input  id="intLimitTextBox" name="price" type="text"
+                        <input id="intLimitTextBox" name="price" type="text"
                                class="form-control bg-secondary text-center customInput"
                                required minlength="1" maxlength="1000000"
                         >
@@ -284,7 +288,8 @@
                         </button>
                     </div>
                     <div th:if="${cancelToadLimit}">
-                        <h6 class="font-weight-semi-bold bg-secondary">You can't cancel Sell Because You reach Toad Limit (10 Toad) </h6>
+                        <h6 class="font-weight-semi-bold bg-secondary">You can't cancel Sell Because You reach Toad
+                            Limit (10 Toad) </h6>
                     </div>
                     <div th:if="${sellCondition == true and cancelSellAtMarket == false}">
                         <button
@@ -324,6 +329,35 @@
                 </div>
                 <!--                end model confirm sell-->
             </form>
+
+            <form th:action="@{/deleteCommonToad/{id}(id=${myToad.id})}" method="post">
+                <div th:unless="${sellCondition}">
+                    <button
+                            data-toggle="modal" data-target="#DeleteToad" type="button"
+                            class="btn btn-primary px-3"><i class="fa fa-shopping-cart mr-1"></i> Delete Common Toad
+                    </button>
+                </div>
+                <div class="modal fade" id="DeleteToad" tabindex="-1" role="dialog" aria-labelledby="exampleModal1"
+                     aria-hidden="true">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title">Cancel Delete</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body" th:text="|Do you want to delete ${myToad.toadData?.name} ?|">
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                <button type="submit" class="btn btn-primary">Delete</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+
             <form th:action="@{/cancelSellProcessing/{id}(id=${myToad.id})}" method="post"
             >
                 <div class="modal fade" id="exampleModal1" tabindex="-1" role="dialog" aria-labelledby="exampleModal1"
@@ -336,7 +370,8 @@
                                     <span aria-hidden="true">&times;</span>
                                 </button>
                             </div>
-                            <div class="modal-body" th:text="|Do you want to cancel selling ${myToad.toadData?.name} at market ?|">
+                            <div class="modal-body"
+                                 th:text="|Do you want to cancel selling ${myToad.toadData?.name} at market ?|">
                             </div>
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
@@ -569,6 +604,7 @@
   }
 
     $('#intLimitTextBox').on('input', validate);
+
 </script>
 </body>
 
