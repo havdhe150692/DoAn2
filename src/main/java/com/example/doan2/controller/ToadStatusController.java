@@ -7,6 +7,7 @@ import com.example.doan2.repository.ToadIngameRepository;
 import com.example.doan2.repository.UserRepository;
 import com.example.doan2.service.ToadStatusLogicService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.configurationprocessor.json.JSONObject;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -41,6 +42,8 @@ public class ToadStatusController {
         User u = userRepository.findById(userId);
         ToadIngame t = toadIngameRepository.findById(toadId);
         UserContractConnector i = new UserContractConnector(u);
+        JSONObject jsonObject = new JSONObject();
+
         if(u != null && t != null )
         {
             Instant inst = Instant.now();
@@ -48,11 +51,16 @@ public class ToadStatusController {
                     >= 0)
             {
                 toadStatusLogicService.ToadFeed(t);
-                return t.getToadStatus().getExpectedHungry().toString();
             }
 
         }
-        return t.getToadStatus().getExpectedHungry().toString();
+
+        jsonObject.put("expectedMature", t.getToadStatus().getExpectedMature());
+        jsonObject.put("expectedBreed", t.getToadStatus().getExpectedBreed());
+        jsonObject.put("expectedHungry", t.getToadStatus().getExpectedHungry());
+        jsonObject.put("expectedCollect", t.getToadStatus().getExpectedCollect());
+
+        return jsonObject.toString();
 
     }
 }

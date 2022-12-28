@@ -45,9 +45,9 @@ public class UserContractConnector {
                 Credentials.create(user.getUserWallet().getPrivateKey()),
                 BigInteger.ZERO, BigInteger.valueOf(16234336));
 
-        System.out.println("User " + user.getName() + " has " + playerToadKingToken.balanceOf(user.getUserWallet().getAddress()).send() + " TKT");
-        System.out.println("User " + user.getName() + " has " + playerToadKingNFT.balanceOf(user.getUserWallet().getAddress()).send() + " TKNFT");
-        System.out.println("Contract Marketplace is valid = "  + playerToadKingMarket.isValid() + " " + playerToadKingMarket.getListingNfts().send());
+//        System.out.println("User " + user.getName() + " has " + playerToadKingToken.balanceOf(user.getUserWallet().getAddress()).send() + " TKT");
+//        System.out.println("User " + user.getName() + " has " + playerToadKingNFT.balanceOf(user.getUserWallet().getAddress()).send() + " TKNFT");
+//        System.out.println("Contract Marketplace is valid = "  + playerToadKingMarket.isValid() + " " + playerToadKingMarket.getListingNfts().send());
         System.out.println(playerToadKingNFT.setApprovalForAll(ServerContractInitiator.ToadKingMarketplace_contractAddress,  true).send().getTransactionHash());
 
 

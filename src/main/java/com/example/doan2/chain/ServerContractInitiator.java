@@ -32,7 +32,7 @@ public class ServerContractInitiator {
     //public static Web3j web3j = Web3j.build(new HttpService("http://192.168.171.128:8545"));
 
 
-   public static Web3j web3j = Web3j.build(new HttpService("http://20.212.81.248:8545",
+   public static Web3j web3j = Web3j.build(new HttpService("http://4.194.107.39:8545",
                                             new OkHttpClient.Builder().connectTimeout(60*60*3, TimeUnit.SECONDS)
                                                                      .writeTimeout(60*60*3, TimeUnit.SECONDS)
                                                                      .readTimeout(60*60*3, TimeUnit.SECONDS).build()));

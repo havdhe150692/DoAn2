@@ -11,7 +11,9 @@ import org.springframework.boot.configurationprocessor.json.JSONException;
 import org.springframework.boot.configurationprocessor.json.JSONObject;
 import org.springframework.stereotype.Service;
 
+import java.sql.Time;
 import java.sql.Timestamp;
+import java.time.Duration;
 import java.time.Instant;
 import java.time.temporal.ChronoUnit;
 
@@ -224,11 +226,15 @@ public class ToadStatusLogicService {
 
         var toadStatus = toadIngame.getToadStatus();
         var feedTime = toadStatus.getExpectedHungry().toInstant();
+        var breedTime = toadStatus.getExpectedBreed().toInstant();
+        var collectTime = toadStatus.getExpectedCollect().toInstant();
+
+        System.out.println("status of toad before feed = " + toadStatus.toString());
+
         switch (toadIngame.getToadData().getRarity())
         {
             case Common -> {
                 feedTime = now.plus(FEED_TIME_HOUR_COMMON, ChronoUnit.HOURS).plus(FEED_TIME_MINUTE_COMMON, ChronoUnit.MINUTES);
-
             }
             case Rare -> {
                 feedTime = now.plus(FEED_TIME_HOUR_RARE, ChronoUnit.HOURS).plus(FEED_TIME_MINUTE_RARE, ChronoUnit.MINUTES);
@@ -244,8 +250,21 @@ public class ToadStatusLogicService {
                 feedTime = now.plus(FEED_TIME_HOUR_LEGENDARY, ChronoUnit.HOURS).plus(FEED_TIME_MINUTE_LEGENDARY, ChronoUnit.MINUTES);
             }
         }
+
+        var breedRemain = Duration.between(now, breedTime).dividedBy(2);
+        var collectRemain = Duration.between(now, collectTime).dividedBy(2);
+
+        var newBreed = breedTime.minus(breedRemain);
+        var newCollect = collectTime.minus(collectRemain);
+
+        toadStatus.setExpectedBreed(Timestamp.from(newBreed));
+        toadStatus.setExpectedCollect(Timestamp.from(newCollect));
         toadStatus.setExpectedHungry(Timestamp.from(feedTime));
+
         toadIngame.setToadStatus(toadStatus);
+
+        System.out.println("status of toad after feed = " + toadStatus.toString());
+
         toadStatusRepository.save(toadStatus);
 
         return toadIngame;

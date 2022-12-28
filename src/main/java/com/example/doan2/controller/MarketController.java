@@ -514,6 +514,7 @@ public class MarketController {
             ToadIngame myToad = toadIngameService.findById(m.getToadIngame().getId());
             myToad.setOwner(user);
             myToad.setIsSelling(0);
+            myToad.setOwner(user);
             toadIngameRepository.save(myToad);
             marketRepositoty.delete(m);
 

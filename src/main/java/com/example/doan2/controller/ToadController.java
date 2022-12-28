@@ -74,10 +74,15 @@ public class ToadController {
         if (u != null)
         {
             List<ToadIngame> toadList = toadIngameRepository.findAllByOwner(u);
-            for (int i = 0; i < toadList.size(); i++) {
-                ToadIngame toadIngame =  toadList.get(i);
-                toadStatusLogicService.StatusCheck(toadIngame.getToadStatus());
-
+            //List<ToadIngame> toadList2 = new ArrayList<>();
+            for (int i = 0; i < toadList.size(); i++)
+            {
+                if(toadList.get(i).getIsSelling() == 0)
+                {
+                    ToadIngame toadIngame =  toadList.get(i);
+                    toadStatusLogicService.StatusCheck(toadIngame.getToadStatus());
+            //        toadList2.add(toadIngame);
+                }
             }
 
             return toadList;
@@ -98,9 +103,12 @@ public class ToadController {
             List<ToadIngame> toadList = toadIngameRepository.findAllByOwner(u);
             JSONArray jsonArray = new JSONArray();
             for (int i = 0; i < toadList.size(); i++) {
-                ToadIngame toadIngame =  toadList.get(i);
-                ToadStatus toadStatus = toadIngame.getToadStatus();
-                jsonArray.put(toadStatusLogicService.StatusCheck(toadStatus));
+
+                if(toadList.get(i).getIsSelling() == 0) {
+                    ToadIngame toadIngame = toadList.get(i);
+                    ToadStatus toadStatus = toadIngame.getToadStatus();
+                    jsonArray.put(toadStatusLogicService.StatusCheck(toadStatus));
+                }
             }
 
             return jsonArray.toString();

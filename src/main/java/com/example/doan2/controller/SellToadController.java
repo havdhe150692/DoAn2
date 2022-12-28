@@ -76,6 +76,7 @@ public class SellToadController {
             //update is_selling = 0
             toad.setIsSelling(0);
             toadIngameRepository.save(toad);
+            
 //            marketService.cancelSellToadAtMarket(id);
 
             marketRepositoty.delete(m);
