@@ -20,6 +20,7 @@
     <link rel="stylesheet" type="text/css" th:href="@{../styles/login.css}">
     <link th:href="@{../styles/main.css}" rel="stylesheet">
     <title>Toad King</title>
+    <link th:href="@{../toad_web_img/logo.png}" rel="icon">
 </head>
 
 <body th:style="'background-image:url(' + @{/img/background_img.jpg} + '); background-repeat: no-repeat, repeat; background-size: cover;'">
@@ -29,6 +30,7 @@
 
         <a th:href="@{/Homepage}" class="logo d-flex align-items-center me-auto me-lg-0">
             <h1>Toad <span>King.</span></h1>
+            <img th:src="@{../toad_web_img/logo.png}">
         </a>
         <!-- .navbar -->
     </div>
